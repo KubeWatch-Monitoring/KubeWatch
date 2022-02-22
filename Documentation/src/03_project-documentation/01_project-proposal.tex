@@ -1,0 +1,86 @@
+
+
+\paragraph{Project name:} KubeWatch
+
+\subsubsection*{Team Members}
+
+\begin{compactenum}
+    \item Petra Heeb (\href{mailto:petra.heeb@ost.ch}{petra.heeb@ost.ch})
+    \item Benjamin Platter (\href{mailto:benjamin.plattner@ost.ch}{benjamin.plattner@ost.ch})
+    \item Olivier Lischer (\href{mailto:olivier.lischer@ost.ch}{olivier.lischer@ost.ch})
+    \item Jan Untersander (\href{mailto:jan.untersander@ost.ch}{jan.untersander@ost.ch})
+    \item Pascal Lehmann (\href{mailto:pascal.lehmann@ost.ch}{pascal.lehmann@ost.ch})
+\end{compactenum}
+
+\subsubsection*{Availabilities}
+
+% Table generated using https://www.tablesgenerator.com
+
+\begin{flushleft}
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        Time slot   & Mon & Tue & Wed & Thu & Fri \\ \hline
+        08h00-09h00 & XR  & -  & -  & -  & -  \\ \hline
+        09h00-10h00 & XR  & -  & -  & -  & -  \\ \hline
+        10h00-11h00 & -  & -  & -  & (XO)  & -  \\ \hline
+        11h00-12h00 & -  & -  & -  & (XO)  & -  \\ \hline
+        \rowcolor[HTML]{EFEFEF}
+        12h00-13h00 & XR  & XR  & XR  & XO  & XO  \\ \hline
+        13h00-14h00 & -  & -  & -  & -  & -  \\ \hline
+        14h00-15h00 & -  & -  & -  & -  & -  \\ \hline
+        15h00-16h00 & -  & -  & -  & (XO)  & (XO)  \\ \hline
+        16h00-17h00 & -  & -  & -  & (XO)  & (XO)  \\ \hline
+        \rowcolor[HTML]{EFEFEF}
+        17h00-18h00 & -  & -  & -  & XO  & XO  \\ \hline
+        \rowcolor[HTML]{EFEFEF}
+        18h00-19h00 & -  & -  & -  & XO  & XO  \\ \hline
+    \end{tabular}
+
+\end{flushleft}
+
+
+\instructions{
+
+    \noindent Please mark ALL time slots during which every team member can attend review meetings.
+
+    \begin{flushleft}
+        \begin{tabular}{|c|l|}
+            \hline
+            XO   & Slot available online                               \\ \hline
+            XR   & Slot available in Rapperswil                        \\ \hline
+            (XO) & Slot available online, but not optimal              \\ \hline
+            (XR) & Slot available in Rapperswil, but not optimal       \\ \hline
+            -    & Slot not available                                  \\ \hline
+        \end{tabular}
+    \end{flushleft}
+
+    Having a slot available on campus automatically implies that this slot is also available online. The more slots that are available, the more likely it is that you will get an optimal slot and coach assignment. You are required to have a minimum of 5 slots available during regular working hours (08h-12h, 13h-17h) to be eligible to form a team.
+}
+
+
+\subsubsection*{Project Idea}
+
+\instructions{ \noindent
+    KubeWatch is a monitoring application for Kubernetes (K8S), intended for technical users.
+    It keeps track of multiple K8S nodes, records performance data over time and generates visualizations from the aggregated data.
+    It can detect when a node goes down, which triggers a notification to the person in charge.
+    We chose this topic because it combines multiple technical aspects, so that each team member can get something out of it.
+}
+
+\noindent Ideas for extending the project scope:
+\begin{itemize}
+    \item Notifications through multiple channels like Email, SMS, IM.
+    \item Running an analysis on the aggregated data to detect anomalies like a DDOS attack.
+    \item Visualizing the K8S pods and nodes in a graph.
+\end{itemize}
+
+\subsubsection*{Proposed Realisation}
+
+\instructions{ \noindent
+    The K8S nodes are polled with the K8S API and the data ist stored in a database, since the K8S API doesn't deliver historical data.
+    All interaction with the application happens through a web interface, which is backed by a Node.js server.
+    We use Handlebars for templating and TypeScript for typesafe programming.
+}\\
+\\
+
+\noindent We discussed our proposal briefly with Thomas Kälin and he approved of the direction we're going.
