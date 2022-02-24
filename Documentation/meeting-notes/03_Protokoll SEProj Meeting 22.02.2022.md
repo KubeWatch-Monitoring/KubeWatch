@@ -4,7 +4,7 @@
 
 - SEP2 Group Assignment
 - GitLab (welches?)
-- Gropplanung
+- Grobplanung
 
 
 
