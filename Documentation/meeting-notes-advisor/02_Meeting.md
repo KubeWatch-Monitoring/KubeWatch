@@ -1,46 +1,37 @@
 # Meeting SEProj
 ## Meeting Information
-**Meeting Date/Time:** meeting_date, meeting_time  
-**Meeting Purpose:** meeting_purpose  
-**Note Taker:** actuar  
+**Meeting Date/Time:** 01.03.2022, 12:00 - 13:00 
+**Meeting Purpose:** Recurring Meeting with Advisor  
+**Note Taker:** Benjamin  
 **Attendees:**
-
-* Petra Heeb
-
+- Petra Heeb
 - Pascal Lehmann
 - Oliver Lischer
 - Benjamin Plattner
 - Jan Untersander
 - Laurent Metzger (Advisor)
+- Yannick Zwicker (INS)
 
 ## Agenda Items
-
-- Current project status
-
-  - The team members update the advisor about the actual status of the project, including the problems we had since the last meeting and the solutions to fix it.
-
-  - | Questions | Decisions |
-    | --------- | --------- |
-    |           |           |
-
-  - Other Notes
-
-- Deadline for documentation submission (time, date)?
-
-  - Review 1
-  
-- Item 3
-
-  - Description
-
-  - | Questions | Decisions |
-    | --------- | --------- |
-    |           |           |
-
-  - Other Notes
-
-
-
+1. Current project status
+    - Last week's achievements
+      - GitLab Repo setup
+      - Time Tracking
+      - Availability
+      - Initial project plan
+      - Meeting notes template
+    - Overall status vs Milestone 1 checklist
+2. This weeks's deliverables
+      - Project Plan
+      - Backfill time tracking
+      - Define Scrum roles
+      - Create risk matrix
+      - Define web project setup
+      - Define Kubernetes Guidelines
+3. Items to discuss
+    - Deadline for documentation submission (confirm time and date)
+    - K8s cluster setup progress
+4. Any other business
 
 ## Action Items
 | Done? | Item | Responsible | Due Date |
