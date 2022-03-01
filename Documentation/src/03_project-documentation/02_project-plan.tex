@@ -19,7 +19,29 @@ For the long-term planning we use RUP (\ref{phases}).
 For the short-term planning we use Scrum.
 The Scrum roles and other assignments are made in \ref{roles}.
 The Scrum Events (Sprint Planning, Sprint Review, ...) are declared in \ref{meetings}.
-The Gitlab Issue feature is used to model the Product Backlog and Sprint Backlog.
+How we implement the Scrum artifacts is defined in \ref{scrum}.
+
+\subsection{Scrum}
+\label{scrum}
+For the short term planning iteration we use the Scrum method.
+In the following we describe how we want to implement the Scrum process using Gitlab.
+
+\begin{tabular}{|l|l|}
+  \textbf{Scrum} & \textbf{Gitlab} \\
+  \hline
+  User Story / Feature & Issues with Project Backlog label \\
+  Work Item & Issue linked to the User Story issue \\
+  Prioritization & Prioritized Labels \\
+  Scrum Board & Issue Board \\
+\end{tabular}
+
+To build a Scrum Board the following labels are required:
+
+\begin{itemize}
+\item ToDo
+\item Work in Progress / WIP
+\item Done
+\end{itemize}
 
 \section{Roles}
 \label{roles}
@@ -102,9 +124,6 @@ The basic points of this finish phase are:
 \subsection{RUD - Rational Unified Process}
 To define a rough project plan we use the RUD model. \newline
 \includegraphics[height=10cm]{resources/project-plan-RUD.png}
-
-\subsection{Scrum}
-For the short term planning iteration we use the Scrum method.
 
 \section{Risk management}
 
