@@ -11,3 +11,15 @@
         \item Explain the reasons behind your actions: \textit{Why did we build it like this?}
     \end{itemize}   
 }
+
+
+\includegraphics[height=10cm]{resources/architecture.png}
+
+\begin{tabular}{ll}
+    \textbf{Master:}        & Each Kubernetes cluster contains at least one master node which runs the \\ 
+                            & Kubernetes control plane. These control plane consists of an API server, \\
+                            & scheduler, controller manager, etc. \\
+    \textbf{Worker/Node:}   & Each cluster includes at least one worker node, this node runs containerized \\
+                            & applications. Each worker node host \textit{Pods}. \\
+    \textbf{Pod:}           & A pod is a components of the application workload. \\
+\end{tabular}
