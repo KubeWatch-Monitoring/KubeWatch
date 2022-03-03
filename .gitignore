@@ -6,3 +6,8 @@
 /Documentation/src/**/*.log
 /Documentation/src/**/*.out
 /Documentation/src/**/*.toc
+/Documentation/src/**/*.bbl
+/Documentation/src/**/*.blg
+/Documentation/src/**/*.fdb_latexmk
+/Documentation/src/**/*.fls
+Documentation/src/main.pdf
