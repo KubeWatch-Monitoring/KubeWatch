@@ -1,0 +1,88 @@
+{{#section 'title'}}
+    Overview
+{{/section}}
+{{#section 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+{{/section}}
+<div id="actionButtonDiv" class="btnDiv">
+    <a class="btn btn-primary" href="/">Create new todo</a>
+    <form>
+        <!-- TODO: Respect browser light / dark setting -->
+        <input type="hidden" name="style" value="{{#if_eq style "light"}}dark{{else}}light{{/if_eq}}">
+        <button id="toggleStyleBtn" class="btn btn-primary">Toggle style</button>
+    </form>
+</div>
+<div id="displaySettingBtnDiv" class="btnDiv">
+    <form>
+        <input id="orderByInput" type="hidden" name="orderBy" value="title">
+        <input id="orderAscendingInput" type="hidden" name="orderAscending"
+               value="{{use_if_neq_else_negate display.orderBy "title" display.orderAscending}}">
+        <button id="sortByTitleBtn" class="btn btn-primary{{#if_eq display.orderBy "title"}} active{{/if_eq}}"
+                data-order-by="title" data-sort-ascending="{{display.orderAscending}}">
+            By Title
+        </button>
+    </form>
+    <form>
+        <input id="orderByInput" type="hidden" name="orderBy" value="dueDate">
+        <input id="orderAscendingInput" type="hidden" name="orderAscending"
+               value="{{use_if_neq_else_negate display.orderBy "dueDate" display.orderAscending}}">
+        <button id="sortByDueDateBtn"
+                class="btn btn-primary{{#if_eq display.orderBy "dueDate"}} active{{/if_eq}}"
+                data-order-by="dueDate" data-sort-ascending="{{display.orderAscending}}">
+            By Due Date
+        </button>
+    </form>
+    <form>
+        <input id="orderByInput" type="hidden" name="orderBy" value="creationDate">
+        <input id="orderAscendingInput" type="hidden" name="orderAscending"
+               value="{{use_if_neq_else_negate display.orderBy "creationDate" display.orderAscending}}">
+        <button id="sortByCreationDateBtn"
+                class="btn btn-primary{{#if_eq display.orderBy "creationDate"}} active{{/if_eq}}"
+                data-order-by="creationDate" data-sort-ascending="{{display.orderAscending}}">
+            By Creation Date
+        </button>
+    </form>
+    <form>
+        <input id="orderByInput" type="hidden" name="orderBy" value="importance">
+        <input id="orderAscendingInput" type="hidden" name="orderAscending"
+               value="{{use_if_neq_else_negate display.orderBy "importance" display.orderAscending}}">
+        <button id="sortByImportanceBtn"
+                class="btn btn-primary{{#if_eq display.orderBy "importance"}} active{{/if_eq}}"
+                data-order-by="importance" data-sort-ascending="{{display.orderAscending}}">
+            By Importance
+        </button>
+    </form>
+    <form>
+        <input id="filterCompletedInput" type="hidden" name="filterCompleted" value="{{not display.filterCompleted}}">
+        <button id="filterCompletedBtn"
+                class="btn btn-primary{{#if display.filterCompleted}} active{{/if}}">
+            Filter Completed
+        </button>
+    </form>
+</div>
+<div id="todoDiv">
+    {{#if_empty examples}}
+        <div class="alert alert-primary" role="alert">
+            No Todos found.
+        </div>
+    {{else}}
+        <ol id="todoOl">
+            {{#each examples}}
+                <li class="listElement">
+                    <div class="dueDateDiv">{{formatDate this.dueDate}}</div>
+                    <div class="finishedDiv form-check">
+                        <label class="form-check-label">Finished</label>
+                        <input class="form-check-input" type="checkbox" name="isFinished"
+                               {{#if this.isFinished}} checked{{/if}} disabled>
+                    </div>
+                    <div class="titleDiv">{{this.title}}</div>
+                    <div class="descriptionDiv">{{this.description}}</div>
+                    <div class="importanceDiv">{{#if this.importance}}Importance: {{this.importance}}{{/if}}</div>
+                    <div class="editDiv">
+                        <a class="btn btn-primary" href="//{{this._id}}">Edit</a>
+                    </div>
+                </li>
+            {{/each}}
+        </ol>
+    {{/if_empty}}
+</div>

@@ -1,0 +1,62 @@
+.btnDiv {
+    margin-bottom: 1em;
+}
+
+.btnDiv form:last-child {
+    margin-left: auto;
+}
+
+.btnDiv button:last-child {
+    margin-left: auto;
+}
+
+.btn.active {
+    font-weight: bold;
+}
+
+#displaySettingBtnDiv button.active[data-sort-ascending="true"]::after {
+    content: " ▲";
+}
+
+#displaySettingBtnDiv button.active[data-sort-ascending="false"]::after {
+    content: " ▼";
+}
+
+#todoOl {
+    padding-left: 0;
+}
+
+.listElement {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 0.5em;
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.dueDateDiv {
+    grid-area: 1/1/2/2;
+}
+
+.finishedDiv {
+    grid-area: 2/1/3/2;
+}
+
+.titleDiv {
+    grid-area: 1/2/2/3;
+}
+
+.descriptionDiv {
+    grid-area: 2/2/3/3;
+}
+
+.importanceDiv {
+    grid-area: 1/3/2/4;
+    text-align:right
+}
+
+.editDiv {
+    grid-area: 2/3/3/4;
+    text-align:right
+}

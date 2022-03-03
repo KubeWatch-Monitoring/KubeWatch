@@ -1,0 +1,13 @@
+out/
+latexdiff-base/
+gitDescription.tmp
+src/**/*.aux
+src/**/*.gz
+src/**/*.log
+src/**/*.out
+src/**/*.toc
+src/**/*.bbl
+src/**/*.blg
+src/**/*.fdb_latexmk
+src/**/*.fls
+src/main.pdf
