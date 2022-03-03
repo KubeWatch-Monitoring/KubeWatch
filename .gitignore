@@ -11,3 +11,4 @@
 /Documentation/src/**/*.fdb_latexmk
 /Documentation/src/**/*.fls
 Documentation/src/main.pdf
+.vscode/

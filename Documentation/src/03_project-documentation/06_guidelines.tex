@@ -1,16 +1,31 @@
 \chapter{Guidelines}
-Project Guidlines for Kubernetes resources aswell as application coding guidelines.
+Project guidelines for Kubernetes resources as well as application coding guidelines.
 
 \section{Kubernetes}
 \begin{itemize}
     \item Configuration files written in yaml.
     \item Related objects are grouped in a single file if possible.
-    \item Ressource descriptions in annotations above resource definition.
+    \item Resource descriptions in annotations above resource definition.
     \item Use Deployment or StatefulSet to run workloads.
     \item Services are defined before corresponding workload.
-    \item Filnames in snake\_case.
+    \item Filenames in snake\_case.
     \item Placeholder in angle brackets.
     \item Use label that define semantic attributes of the application or deployment. (Frontend,Backend,etc.)
 \end{itemize}
 
 \section{Web-API}
+\begin{itemize}
+    \item Use WebStorm's default linter to ensure conformity with the basic formatting rules, code smells, syntax, etc.
+    \item Use WebStorm's default style guide for TypeScript
+    \item Put CSS and JavaScript in separate files
+    \item No JavaScript inline styles
+    \item No HTML inline styles
+    \item Variable names are in camelCase format
+    \item All-caps for constant variables
+    \item Boolean values start with is..
+    \item Arrays have plural names
+    \item Function names are verbs written in camelCase format
+    \item Functions are short, handle one task, have as few arguments as possible, have a descriptive name, and do nothing else than what is implied
+    \item Understandable, easily maintainable code that can be extended in a simple manner with straight forward troubleshooting is important
+    \item Use NPM (Node Package Manager) for packages wherever possible
+\end{itemize}

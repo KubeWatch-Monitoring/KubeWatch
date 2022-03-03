@@ -1,23 +1,23 @@
 \chapter{Project Plan}
 
-\instructions{
-    Describe the project plan as covered in the SEP2 module. A project plan typically consists of the following topics:
+% \instructions{
+%     Describe the project plan as covered in the SEP2 module. A project plan typically consists of the following topics:
     
-    \begin{itemize}
-        \item Processes, meetings and roles
-        \item Phases, iterations and milestones
-        \item A \textbf{rough} list of things to be done (work items)
-        \item Risk management
-        \item Planning Tools (issue tracker, time tracker, ...)
-    \end{itemize}
+%     \begin{itemize}
+%         \item Processes, meetings and roles
+%         \item Phases, iterations and milestones
+%         \item A \textbf{rough} list of things to be done (work items)
+%         \item Risk management
+%         \item Planning Tools (issue tracker, time tracker, ...)
+%     \end{itemize}
     
-    You should \textbf{\underline{not}} describe your \textbf{technical solution} in this chapter. It is all about organizing your project.
-}
+%     You should \textbf{\underline{not}} describe your \textbf{technical solution} in this chapter. It is all about organizing your project.
+% }
 
 \section{Processes}
 For the long-term planning we use RUP (\ref{phases}).
 For the short-term planning we use Scrum.
-The Scrum roles and other assignments are made in \ref{roles}.
+The Scrum roles and other assignments are described in \ref{roles}.
 The Scrum Events (Sprint Planning, Sprint Review, ...) are declared in \ref{meetings}.
 How we implement the Scrum artifacts is defined in \ref{scrum}.
 
@@ -26,16 +26,17 @@ How we implement the Scrum artifacts is defined in \ref{scrum}.
 For the short term planning iteration we use the Scrum method.
 In the following we describe how we want to implement the Scrum process using Gitlab.
 
-\begin{tabular}{|l|l|}
+\begin{tabular}{l|l}
+  \centering
   \textbf{Scrum} & \textbf{Gitlab} \\
   \hline
-  User Story / Feature & Issues with Project Backlog label \\
-  Work Item & Issue linked to the User Story issue \\
-  Prioritization & Prioritized Labels \\
-  Scrum Board & Issue Board \\
-\end{tabular}
+  \textbf{User Story / Feature:} & Issues with Project Backlog label \\
+  \textbf{Work Item:} & Issue linked to the User Story issue \\
+  \textbf{Prioritization:} & Prioritized Labels \\
+  \textbf{Scrum Board:} & Issue Board \\
+\end{tabular} \newline
 
-To build a Scrum Board the following labels are required:
+\noindent To build our Scrum Board the following labels are required:
 
 \begin{itemize}
 \item ToDo
@@ -46,10 +47,10 @@ To build a Scrum Board the following labels are required:
 \section{Roles}
 \label{roles}
 
-\begin{tabular}{|l|l|}
+\begin{tabular}{l|l}
     \textbf{Role} & \textbf{Person}\\
     \hline
-    \textbf{Session Chair:} & changes every week \\
+    \textbf{Session Chair:} & Changes every week \\
     \textbf{Product Owner (PO):} & The whole team \\
     \textbf{Developer:} & Benjamin Plattner, Olivier Lischer, Pascal Lehmann\\
     \textbf{Network:} & Jan Untersander, Petra Heeb \\
@@ -61,17 +62,17 @@ Members of the \textsl{Developer} group sometimes also work on the network part 
 
 \section{Meetings}
 \label{meetings}
-We have two weekly meetings.
-A team internal meeting on each Monday.
-This meeting is used to implement:
+We have two weekly meetings: \newline
+The first is an internal team meeting every Monday morning is used to implement:
 \begin{itemize}
   \item Sprint Planning
   \item Sprint Retrospective 
 \end{itemize}
 
-\noindent The second meeting is on each Tuesday with the advisor Laurent Metzger.
+\noindent The second meeting takes place every Tuesday noon with our advisor Laurent Metzger.
 In this meeting the \textsl{Sprint Review} is done.
-The \textsl{Daily Scrum} take places during the week at lunch or during breaks.
+\newline
+\noindent The \textsl{Daily Scrum} take places during the week at lunch or during breaks.
 One Sprint last between two and four weeks.
 
 
@@ -86,24 +87,24 @@ In our project we work with the four project phases which are defined also in th
 \end{itemize}
 
 \subsection{Inception}
-The first phase is the \textit{Inception} phase. In this phase we start the new project and use to define the following things to plan our project:
+The first phase is the \textit{Inception} phase. In this phase we start the new project and  define the following items to plan our project:
 \begin{itemize}
     \item Approximate vision
     \item Defining the scope
-    \item Rough estimates for efforts
+    \item Rough estimates of efforts
 \end{itemize}
 
 \subsection{Elaboration}
-The second phase is called \textit{Elaboration}. This phase is used to start the practical part of the project and the goal of this phase is to eliminate potential risks. There are some parts you need to handle in this phase:
+The second phase is called \textit{Elaboration}. This phase is used to start the practical part of the project and the goal of this phase is to eliminate potential risks. There are a few parts we need to handle during this phase:
 \begin{itemize}
     \item Identification of most requirements
-    \item Iterative implementation of core architecture
+    \item Iterative implementation of the core architecture
     \item Resolution of high risks
     \item More realistic estimates for efforts
 \end{itemize}
 
 \subsection{Construction}
-The third and biggest phase is the \textit{Construction} phase. In this phase the team need to make the project around the risk parts of the project. In this phase the risk parts should be already solved.
+The third and biggest phase is the \textit{Construction} phase. In this phase the team needs to make the project around the risk parts of the project. In this phase the risk parts should already be solved.
 The contents of this phase are:
 \begin{itemize}
     \item Iterative implementation of functionality
@@ -112,8 +113,8 @@ The contents of this phase are:
 \end{itemize}
 
 \subsection{Transition}
-The last project phase is to finish the project and to test the project with the whole environment and called \textit{Transition} phase.
-The basic points of this finish phase are:
+The last project phase is called the \textit{Transition} phase during which the project is tested in the whole environment and the project is finished.
+The basic elements of this final phase are:
 \begin{itemize}
     \item Beta Tests
     \item Deployment
@@ -123,10 +124,72 @@ The basic points of this finish phase are:
 \section{Project Plan}
 \subsection{RUD - Rational Unified Process}
 To define a rough project plan we use the RUD model. \newline
-\includegraphics[height=10cm]{resources/project-plan-RUD.png}
-
+\includegraphics[width=\textwidth]{resources/project-plan-RUD.png}
+\newline
+The detailed project plan can be found in the projects GitLab repository\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/tree/main/Documentation/src/03_project-documentation}}.
 \section{Risk management}
+
+As part of a continuing risk management analysis, we use a risk matrix (\ref{fig:risk-matrix}) to estimate the impact of the identified risks.\newline
+Table \ref{tab:risk-classification} presents an overview of the categorisation of the identified risks.
+
+\begin{figure}
+    \centering
+    \includegraphics[height=7cm]{resources/risk-matrix.png}
+    \caption{Risk Matrix \url{https://en.wikipedia.org/wiki/Risk_matrix}}
+    \label{fig:risk-matrix}
+\end{figure}
+
+
+\begin{table}
+    \caption{Classification of identified risks}
+    \label{tab:risk-classification}
+    \begin{tabular*}{\textwidth}{ p{2.2cm} | p{2.3cm} | p{2cm} | p{3.5cm} | p{1cm} }
+        \textbf{Impact / Likelihood} & \textbf{Negligible} & \textbf{Marginal} & \textbf{Critical} & \textbf{Catastrophic} \\ \hline
+        \textbf{Certain}     & & & & \\ \hline
+        \textbf{Likely}      & & & & \\ \hline
+        \textbf{Possible}    & & Unknown API & Unknown Development Environment & \\ \hline
+        \textbf{Unlikely}    & Scrum Methodology & & Accessing K8s Cluster, New Architecture & \\ \hline
+        \textbf{Rare}        & & & & \\ \hline
+        \textbf{Eliminated}  & \multicolumn{1}{c}{Kubernetes Cluster} \\
+    \end{tabular*}
+\end{table}
+
+\subsection{Kubernetes Cluster}
+\paragraph{Risk description} The deployment and setup of the Kubernetes Cluster has only been performed by Petra and Jan as part of their Cloud Infrastructure class. It may take a long time to fully configure the desired setup.
+\paragraph{Mitigation} With the help of the INS we can leverage their expertise in setting up K8s clusters and apply default configurations.
+\paragraph{Previous risk category:} High - Likely / Critical
+\paragraph{New risk category:} Eliminated
+
+\subsection{Unknown API}
+\paragraph{Risk description} The API to extract data points from the K8s cluster is new to us. There are libraries like Prometheus which can collect such data, but we do not have much experience using it.
+\paragraph{Mitigation} As a first step we investigated the API and did a few preliminary test to see how it works. The results were positive but we may need to do more tests when the architecture is further refined.
+\paragraph{Previous risk category:} High - Likely / Critical
+\paragraph{New risk category:} Medium - Possible / Marginal
+
+\subsection{Accessing K8s Cluster}
+\paragraph{Risk description} To access the K8s Cluster that is set up in the INS, we need to define the best way for everyone to work on the Cluster and subsequently the Web API.
+\paragraph{Mitigation} The INS has different options to access the cluster, but we have not yet been able to test it.
+\paragraph{Previous risk category:} High - Likely / Critical
+\paragraph{New risk category:} Medium - Unlikely / Critical
+
+\subsection{Unknown Development Environment}
+\paragraph{Risk description} To run a Web Server on a K8s Cluster is new for us and may come with certain obstacles which would not appear in a local development environment. However, the tech stack we are planning on using is well known to us.
+\paragraph{Mitigation} Test the K8s development environment as soon as possible and stick to tutorials for setting up Web services on a K8s Node. This has been achieved by others before, and since we are not using a highly customised K8s setup, other use cases may help us with troubleshooting if necessary.
+\paragraph{Previous risk category:} High - Possible / Critical
+\paragraph{New risk category:} to be defined
+
+\subsection{Scrum Methodology}
+\paragraph{Risk description} We are applying an Agile approach for the development of this project. The Scrum framework is best suited for us as it has clear guidelines. However, we do not have much experience in running Scrum methodologies. 
+\paragraph{Mitigation} The Software Engineering Project module, which we attend in parallel, is designed to support us in learning and applying Scrum. Also, we help each other out with running Scrum meetings. The impact of not fully conforming with the Scrum methodology should not have a massive impact on the final product as we can improve our processes with each iteration.
+\paragraph{Previous risk category:} Medium - Possible / Marginal
+\paragraph{New risk category:} Low - Unlikely / Negligible
+
+\subsection{New Architecture}
+\paragraph{Risk description} Designing a new architecture for a project for which we have on prior experience is always a risk that something gets overlooked.
+\paragraph{Mitigation} The architecture for our desired final state of the project is not overly complex. Also, we have experience with the individual components that we intend to use, just not in combining them in the desired setup. However, the available documentations are fairly extensive and keeping the architecture simple is key. Once the architecture is finalised, we should have a better grasp of how comfortable we feel with implementing it.
+\paragraph{Previous risk category:} High - Likely / Critical
+\paragraph{New risk category:} Medium - Unlikely / Critical
 
 
 \section{Planning Tools}
-For planning our work, for issue handling and time tracking we use the GitLab tool which is hosted by the OST themself.
+For planning our work, for issue handling and time tracking we use the GitLab tool, which is hosted by OST.
