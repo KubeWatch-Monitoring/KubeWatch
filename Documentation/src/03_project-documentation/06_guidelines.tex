@@ -1,13 +1,16 @@
 \chapter{Guidelines}
-For our project we need to define some guidelines.
+Project Guidlines for Kubernetes resources aswell as application coding guidelines.
 
 \section{Kubernetes}
-\begin{tabular}{r|l}
-    \textbf{Definition} & \textbf{Guideline} \\
-    file names & snake\_case \\
-    placeholders & angle brackets \\
-    document interface elements & bold \\
-    document filenames or directories & code style \\
-\end{tabular}
+\begin{itemize}
+    \item Configuration files written in yaml.
+    \item Related objects are grouped in a single file if possible.
+    \item Ressource descriptions in annotations above resource definition.
+    \item Use Deployment or StatefulSet to run workloads.
+    \item Services are defined before corresponding workload.
+    \item Filnames in snake\_case.
+    \item Placeholder in angle brackets.
+    \item Use label that define semantic attributes of the application or deployment.
+\end{itemize}
 
 \section{Web-API}
