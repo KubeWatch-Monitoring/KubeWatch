@@ -54,7 +54,7 @@
 
   - other notes
 
-- Item 2
+- GitLab Feature Branch definieren (Wie, was, wo)
 
   - description
 
