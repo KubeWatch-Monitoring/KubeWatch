@@ -30,16 +30,16 @@ build_doc:
     paths:
       - Documentation/out/*.pdf
 
-build_doc_diff:
-  stage: diff
-  needs: ["build_doc"]
-  script:
-    - cd Documentation
-    - make doc_diff
-    - cd ..
-  artifacts:
-    paths:
-      - Documentation/out/*.pdf
+# build_doc_diff:
+#  stage: diff
+#  needs: ["build_doc"]
+#  script:
+#    - cd Documentation
+#    - make doc_diff
+#    - cd ..
+#  artifacts:
+#    paths:
+#      - Documentation/out/*.pdf
 
 build_proposal:
   stage: build
