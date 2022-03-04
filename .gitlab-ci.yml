@@ -17,7 +17,7 @@ before_script:
 
 stages:
   - build
-  - diff
+  # - diff
 
 build_doc:
   stage: build
