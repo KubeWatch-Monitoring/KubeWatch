@@ -10,4 +10,10 @@ src/**/*.bbl
 src/**/*.blg
 src/**/*.fdb_latexmk
 src/**/*.fls
+src/project-proposal-standalone.pdf
 src/main.pdf
+
+# Time Tracking
+time_tracking/report.pdf
+time_tracking/*.csv
+time_tracking/gtt.db
