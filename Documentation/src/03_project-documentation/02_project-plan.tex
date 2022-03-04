@@ -95,7 +95,7 @@ The first phase is the \textit{Inception} phase. In this phase we start the new 
 \end{itemize}
 
 \subsection{Elaboration}
-The second phase is called \textit{Elaboration}. This phase is used to start the practical part of the project and the goal of this phase is to eliminate potential risks. There are a few parts we need to handle during this phase:
+The second phase is called \textit{Elaboration}. This phase is used to start the practical part of the project and the goal of this phase is to eliminate potential risks, sometimes using prototypes. There are a few parts we need to handle during this phase:
 \begin{itemize}
     \item Identification of most requirements
     \item Iterative implementation of the core architecture
@@ -104,7 +104,7 @@ The second phase is called \textit{Elaboration}. This phase is used to start the
 \end{itemize}
 
 \subsection{Construction}
-The third and biggest phase is the \textit{Construction} phase. In this phase the team needs to make the project around the risk parts of the project. In this phase the risk parts should already be solved.
+The third and biggest phase is the \textit{Construction} phase. In this phase the team needs to implement the features defined in the project to achieve the product goal. All identified risks should be eliminated by that time or mitigations should be in place to control the risks. The main goal is to have a product ready that can be deployed.
 The contents of this phase are:
 \begin{itemize}
     \item Iterative implementation of functionality
@@ -145,14 +145,14 @@ Table \ref{tab:risk-classification} presents an overview of the categorization o
 \begin{table}[h]
     \caption{Classification of identified risks}
     \label{tab:risk-classification}
-    \begin{tabular*}{\textwidth}{ p{2.2cm} | p{2.3cm} | p{2cm} | p{3.5cm} | p{1cm} }
+    \begin{tabular*}{\textwidth}{ p{2.2cm} | p{3cm} | p{2cm} | p{3.5cm} | p{2cm} }
         \textbf{Impact / Likelihood} & \textbf{Negligible} & \textbf{Marginal} & \textbf{Critical} & \textbf{Catastrophic} \\ \hline
         \textbf{Certain}     & & & & \\ \hline
         \textbf{Likely}      & & & & \\ \hline
         \textbf{Possible}    & & Unknown API & Unknown Development Environment & \\ \hline
         \textbf{Unlikely}    & Scrum Methodology & & Accessing K8s Cluster, New Architecture & \\ \hline
-        \textbf{Rare}        & & & & \\ \hline
-        \textbf{Eliminated}  & \multicolumn{1}{c}{Kubernetes Cluster} \\
+        \textbf{Rare}        & Team member becomes unavailable & & & \\ \hline
+        \textbf{Eliminated}  & \multicolumn{1}{c}{Kubernetes Cluster} \\ \hline
     \end{tabular*}
 \end{table}
 
@@ -192,6 +192,11 @@ Table \ref{tab:risk-classification} presents an overview of the categorization o
 \paragraph{Previous risk category:} High - Likely / Critical
 \paragraph{New risk category:} Medium - Unlikely / Critical
 
+\subsection{Team member becomes unavailable}
+\paragraph{Risk description} One or more team members may become unavailable for the project due to illness, accident or other personal reasons. In this case, the workload must be spread across fewer members, which has an impact on the timeline. Also, information may get lost that was only available to that person.
+\paragraph{Mitigation} Information sharing across team members is important. We formed two sub-groups (Network and Web development) where information is shared, and we train each other during the weekly meetings on important developments. In addition, we maintain a practice of documenting code and other implementation specific details in a shared repository. Thanks to an agile approach, change in timelines only impact the number of features available in the final product, rather than posing a threat to the success of the overall project.
+\paragraph{Previous risk category:} High - Possible / Critical
+\paragraph{New risk category:} Low - Rare / Negligible
 
 \section{Planning Tools}
 For planning our work, for issue handling and time tracking we use GitLab issues, merg requests and the built-in time tracking functionality.
