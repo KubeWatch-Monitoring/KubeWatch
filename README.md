@@ -17,15 +17,15 @@ Requirements:  NodeJS, npm, python3
 2. cd ~
 3. npm install gitlab-time-tracker
 4. Add ~/node_modules/.bin/ to PATH
-5. Generate a personal access token with the `api` scope here: https://gitlab.ost.ch/-/profile/personal_access_tokens. Make sure to save it somewhere, it will only be displayed once.
+5. Generate a [personal access token](https://gitlab.ost.ch/-/profile/personal_access_tokens) with the `api` scope selected. Make sure to save it somewhere, it will only be displayed once.
 6. Run `gtt config` and enter the following information:
 ```
 url: https://gitlab.ost.ch/api/v4/
 token: <insert your personal access token here>
 ```
-7. Navigate to the /Documentation directory
+7. Navigate to the `/Documentation` directory
 8. make time_tracking_report
-9. Navigate to /Documentation/time_tracking, here you can find the `report.pdf`
+9. Navigate to `/Documentation/time_tracking`, here you can find the `report.pdf`
 
 ## Development Setup
 Requirements: WebStorm, NodeJS and npm
