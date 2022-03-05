@@ -21,7 +21,12 @@ stages:
 
 build_doc:
   stage: build
-  # when: manual
+  rules:
+    - changes:
+      - Documentation/*
+      when: on_success
+    - when: manual
+      allow_failure: true
   script:
     - cd Documentation
     - make doc
