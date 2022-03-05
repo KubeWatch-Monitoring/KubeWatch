@@ -17,7 +17,7 @@ before_script:
 
 stages:
   - build
-  # - diff
+  - diff
 
 build_doc:
   stage: build
@@ -35,7 +35,7 @@ build_doc:
     paths:
       - Documentation/out/*.pdf
 
- build_doc_diff:
+build_doc_diff:
   stage: diff
   when: manual
   needs: ["build_doc"]
@@ -65,7 +65,7 @@ build_proposal:
 
 # The following job duplicates the functionality of the previous ones, just in case one in confident that everything works and would like to build everything in one job to save time and resources  
 build_proposal_doc_diff:
-  stage: build
+  stage: diff
   when: manual
   script:
     - cd Documentation
