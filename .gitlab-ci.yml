@@ -21,12 +21,6 @@ stages:
 
 build_doc:
   stage: build
-  rules:
-    - changes:
-      - Documentation/*
-      when: on_success
-    - when: manual
-      allow_failure: true
   script:
     - cd Documentation
     - make doc
@@ -49,12 +43,7 @@ build_doc_diff:
 
 build_proposal:
   stage: build
-  rules:
-    - changes:
-      - Documentation/*
-      when: on_success
-    - when: manual
-      allow_failure: true
+  when: manual
   script:
     - cd Documentation
     - make proposal
