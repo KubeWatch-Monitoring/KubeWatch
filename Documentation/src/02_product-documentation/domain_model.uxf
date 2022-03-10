@@ -1,0 +1,177 @@
+<diagram program="umletino" version="14.3.0"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>402</x><y>410</y><w>100</w><h>110</h></coordinates><panel_attributes>K8sCluster
+--
+clusterId: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>392</x><y>770</y><w>100</w><h>70</h></coordinates><panel_attributes>Pod
+--
+podId: String
+parent: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1022</x><y>830</y><w>210</w><h>110</h></coordinates><panel_attributes>WebApp
+--
+userGroupId: String
+accessToken: String
+activeWindows: performanceMetric
+alert: notificationType
+isDarkMode: Boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1262</x><y>1320</y><w>130</w><h>70</h></coordinates><panel_attributes>Email
+--
+emailAddress: String
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1402</x><y>1320</y><w>140</w><h>70</h></coordinates><panel_attributes>SMS
+--
+phoneNumber: Number</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1552</x><y>1320</y><w>110</w><h>70</h></coordinates><panel_attributes>PopUp
+--
+application: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1462</x><y>1160</y><w>120</w><h>110</h></coordinates><panel_attributes>Notification
+--
+threshold: Number
+message: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1042</x><y>610</y><w>130</w><h>110</h></coordinates><panel_attributes>Database
+--
+clusterId: String
+table: String
+userGroupId: String
+accessToken: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1042</x><y>410</y><w>120</w><h>110</h></coordinates><panel_attributes>API
+--
+clusterId: String
+accessToken: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>152</x><y>410</y><w>100</w><h>110</h></coordinates><panel_attributes>K8sAdmin
+--
+loginId: String
+password: String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>102</x><y>70</y><w>730</w><h>100</h></coordinates><panel_attributes>Vision for KubeWatch
+--
+- KubeWatch is a monitoring application for Kubernetes (K8S), intended for technical users.
+- It keeps track of multiple K8S nodes, records performance data over time and generates visualizations from the aggregated data.
+- It can detect when a node goes down, which triggers a notification to the person in charge.
+- We chose this topic because it combines multiple technical aspects, so that each team member can get something out of it.
+
+style=wordwrap
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>242</x><y>450</y><w>180</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1..*
+manages &gt;</panel_attributes><additional_attributes>10;20;160;20</additional_attributes></element><element><id>Relation</id><coordinates><x>372</x><y>690</y><w>80</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=2..*</panel_attributes><additional_attributes>10;10;50;80</additional_attributes></element><element><id>UMLClass</id><coordinates><x>312</x><y>590</y><w>130</w><h>110</h></coordinates><panel_attributes>Worker
+--
+workerId: String
+parentCluster: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>462</x><y>590</y><w>130</w><h>110</h></coordinates><panel_attributes>Master
+--
+masterId: String
+parentCluster: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>452</x><y>690</y><w>80</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=2..*
+m2pos=5,7
+</panel_attributes><additional_attributes>60;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>442</x><y>510</y><w>100</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1..*</panel_attributes><additional_attributes>10;10;70;80</additional_attributes></element><element><id>Relation</id><coordinates><x>372</x><y>510</y><w>80</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=2..*
+m2pos=5,7
+</panel_attributes><additional_attributes>60;10;10;80</additional_attributes></element><element><id>UMLNote</id><coordinates><x>952</x><y>70</y><w>510</w><h>220</h></coordinates><panel_attributes>style=wordwrap
+Glossary:
+- K8s: short form for Kubernetes (K followed by 8 letters and an s)
+
+Assumptions:
+- The User is within the same local network as the K8s Cluster
+
+Questions:
+- Should the Threshold Class access the Database directly (polling) or should the WebApp trigger the Threshold (pushing)? The direct access is probably a bit quicker, but doubles the numbers of queries. On the other hand, the WebApp has already filtered and pre-processed the data which may make it easier to trigger the relevant thresholds.</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>492</x><y>450</y><w>240</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1..*
+generates &gt;</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>712</x><y>410</y><w>150</w><h>110</h></coordinates><panel_attributes>PerformanceData
+--
+value: Number
+timeStamp: Date
+type: performanceMetric
+unit: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>852</x><y>450</y><w>210</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1
+&lt; polls</panel_attributes><additional_attributes>10;20;190;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1092</x><y>510</y><w>70</w><h>120</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+feeds v</panel_attributes><additional_attributes>10;10;10;100</additional_attributes></element><element><id>Relation</id><coordinates><x>1102</x><y>710</y><w>100</w><h>140</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1
+populates v</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>242</x><y>920</y><w>500</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=*
+m2=1
+accesses &gt;</panel_attributes><additional_attributes>10;20;480;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>782</x><y>1160</y><w>120</w><h>110</h></coordinates><panel_attributes>User
+--
+loginId: String
+userGroupId: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>942</x><y>1350</y><w>110</w><h>110</h></coordinates><panel_attributes>Account
+--
+accountId: Number
+isActive: Boolean
+open: Date
+closed: Date</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>832</x><y>1260</y><w>180</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+m2pos=5,-17
+</panel_attributes><additional_attributes>10;10;160;90</additional_attributes></element><element><id>UMLClass</id><coordinates><x>152</x><y>870</y><w>100</w><h>110</h></coordinates><panel_attributes>KubeWatchUser
+--
+loginId: String
+password: String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>192</x><y>510</y><w>30</w><h>380</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;360;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>832</x><y>980</y><w>120</w><h>200</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+authenticates v</panel_attributes><additional_attributes>10;10;10;180</additional_attributes></element><element><id>UMLClass</id><coordinates><x>162</x><y>1010</y><w>100</w><h>110</h></coordinates><panel_attributes>KubeWatchAdmin
+--
+loginId: String
+password: String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>252</x><y>980</y><w>540</w><h>130</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1..*
+accesses &gt;</panel_attributes><additional_attributes>10;100;500;100;500;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1332</x><y>590</y><w>160</w><h>200</h></coordinates><panel_attributes>performanceMetric
+"enumeration"
+--
+CPUPerformance
+memoryUsage
+nodeHealth
+clusterHealth
+ActiveClusters
+WorkersPerCluster
+MastersPerCluster
+NodesPerCluster
+NodesPerWorker
+NodesPerMaster
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1512</x><y>590</y><w>160</w><h>110</h></coordinates><panel_attributes>notificationType
+"enumeration"
+--
+eMail
+popUp
+push
+SMS</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1392</x><y>1030</y><w>160</w><h>150</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1..*
+triggers v
+m1pos=5,-7
+m2pos=-5,-7
+
+</panel_attributes><additional_attributes>10;10;140;130</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1322</x><y>930</y><w>150</w><h>110</h></coordinates><panel_attributes>Threshold
+--
+type: performanceMetric
+thresholdValue: Number
+userGroupId: String
+accessToken: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1522</x><y>1260</y><w>90</w><h>80</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>70;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1442</x><y>1260</y><w>90</w><h>80</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;60;70;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1332</x><y>1260</y><w>150</w><h>80</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>10;60;130;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1672</x><y>1320</y><w>100</w><h>70</h></coordinates><panel_attributes>Push
+--
+color: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1572</x><y>1260</y><w>160</w><h>80</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>140;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1222</x><y>860</y><w>190</w><h>90</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+triggers &gt;</panel_attributes><additional_attributes>10;20;170;20;170;70</additional_attributes></element><element><id>Relation</id><coordinates><x>1172</x><y>1030</y><w>200</w><h>150</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1..*
+defines ^
+m1pos=-15,-20
+m2pos=-5,-7
+</panel_attributes><additional_attributes>10;130;180;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1112</x><y>1160</y><w>120</w><h>110</h></coordinates><panel_attributes>UserGroup
+--
+userGroupId: String
+accessToken: String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1022</x><y>1260</y><w>160</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+m2pos=-5,-17
+</panel_attributes><additional_attributes>140;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>892</x><y>1200</y><w>240</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1..*
+joins &gt;</panel_attributes><additional_attributes>10;20;220;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>722</x><y>880</y><w>210</w><h>110</h></coordinates><panel_attributes>WebAppLogin
+--
+activeWindows: performanceMetric
+alert: notificationType
+isDarkMode: Boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1122</x><y>930</y><w>100</w><h>250</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+accesses ^</panel_attributes><additional_attributes>10;10;10;230</additional_attributes></element><element><id>Relation</id><coordinates><x>1222</x><y>1200</y><w>260</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=*
+&lt; informs</panel_attributes><additional_attributes>10;20;240;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>140</x><y>360</y><w>520</w><h>500</h></coordinates><panel_attributes>lt=..
+K8s Environment - this for illustration only
+-</panel_attributes><additional_attributes></additional_attributes></element></diagram>
