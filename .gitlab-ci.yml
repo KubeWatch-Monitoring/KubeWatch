@@ -79,4 +79,4 @@ deploy_cluster_job:
     - kubectl get pods
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-      when: on_success    
+      when: manual 
