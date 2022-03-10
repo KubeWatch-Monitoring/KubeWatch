@@ -18,6 +18,7 @@ before_script:
 stages:
   - build
   - diff
+  - deploy
 
 build_doc:
   stage: build
@@ -65,3 +66,17 @@ build_proposal_doc_diff:
   artifacts:
     paths:
       - Documentation/out/*.pdf
+
+deploy_cluster_job:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  environment: 
+    name: cldop
+    url: https://10.20.1.29:6443
+  script:
+    - kubectl config get-contexts
+    - kubectl config use-context .gitlab/agents/ins-cluster-agent/repository:ins-cluster-agent
+    - kubectl get pods
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success    
