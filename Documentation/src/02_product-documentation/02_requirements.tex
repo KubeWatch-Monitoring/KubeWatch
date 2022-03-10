@@ -1,11 +1,41 @@
 \chapter{Requirements}
 
-\instructions{
-    Describe the functional and non-functional requirements as covered in the SEP1 and SEP2 modules.
-}
+% \instructions{
+%     Describe the functional and non-functional requirements as covered in the SEP1 and SEP2 modules.
+% }
 
 
 \section {Functional Requirements}
+The functional requirements are written as a description in the GitLab issue\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/issues/55}}.
 
 
 \section {Non-Functional Requirements}
+\subsection{Test Coverage}
+\begin{description}
+\item[Criteria] The test coverage must be minimal 75\%.
+\item[Priority] Medium
+\end{description}
+
+\subsection{Response Time}
+\begin{description}
+\item[Criteria] The response time must be under 2s.
+\item[Priority] High
+\end{description}
+
+\subsection{Memory Usage}
+\begin{description}
+\item[Criteria] The maximal memory usage must be less than 200 MB.
+\item[Priority] Medium
+\end{description}
+
+\subsection{Scalability}
+\begin{description}
+\item[Criteria] The product must support minimal 3 pods.
+\item[Priority] High
+\end{description}
+
+\subsection{Environment}
+\begin{description}
+\item[Criteria] The product must be implemented using Node.js and Kubernetes.
+\item[Priority] Low
+\end{description}
