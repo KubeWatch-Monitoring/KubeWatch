@@ -1,0 +1,5 @@
+ gitops:
+    manifest_projects:
+    - id: "Your Project ID"
+      paths:
+      - glob: '/manifests/*.{yaml,yml,json}'
