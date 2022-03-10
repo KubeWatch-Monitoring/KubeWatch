@@ -5,8 +5,7 @@
 **Note Taker:** Olivier Lischer  
 **Attendees:**
 
-* Petra Heeb
-
+- Petra Heeb
 - Pascal Lehmann
 - Oliver Lischer
 - Benjamin Plattner

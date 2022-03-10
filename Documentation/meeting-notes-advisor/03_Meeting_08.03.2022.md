@@ -21,6 +21,7 @@
 - Feedback Review 1
 
   - What is the state of Review 1?
+  - 
   
 - Item 3
 
@@ -41,3 +42,10 @@
 |       | item | who         | dd.mm.jj |
 
 ## Other Notes & Information
+### Review
+- Projektplan könnte ein wenig übersichtlicher sein (evtl. Gantt?)
+  - Unterscheidung Hell / Dunkel Grau noch in Legende
+- Risk Table / Matrix kann besser dargestellt werden
+  - Risk in Matrix (Bild) mit R#
+  - Risk in Table format etc.
+- Alles OK: Note 6
