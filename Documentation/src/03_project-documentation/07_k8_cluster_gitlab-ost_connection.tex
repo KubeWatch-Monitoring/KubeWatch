@@ -20,11 +20,11 @@ The \textit{Runner} is independent of the location, so it does not depend on the
     \item Add the Kubernetes cluster in the GitLab project, it's important to add this configuration file at the correct path: `.gitlab/agents/ins-cluster-agent/ins-epj.yaml`
     \item Got to the \textbf{Infrastructure -> Kubernetes cluster} tab and install there a new agent (choose the ins-cluster-agent in the drop down menu)
     \item Safe the token! (Our Token: r8J8f3ve-DsU-v8cmrRSZx\_-atYyJqVCyePyk7zVCvSADy5-qg)
-    \item Run the docker installation command from the popup window in you CLI (you need first to install docker locally)
+    \item Run the docker installation command from the popup window in you CLI (you need first to install docker locally) \newline
     \includegraphics[height=5cm]{resources/agent-installation.png}
-    \item Check if the connection in the GitLab is working
+    \item Check if the connection in the GitLab is working \newline
     \includegraphics[height=5cm]{resources/ins-cluster-agent-connection.png}
-    \item Check if the Cluster is running with the command kubectl config view (the output should be your agent configuration file)
+    \item Check if the Cluster is running with the command kubectl config view (the output should be your agent configuration file) \newline
     \includegraphics[height=5cm]{resources/ins-cluster-agent-accessing-cluster-test.png}
     \item update you .gitlab-ci.yml file to run kubectl commands
     \item update the agent configuration file for authorize the agent to access the project
