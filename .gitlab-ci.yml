@@ -32,7 +32,6 @@ build_doc:
 
 build_doc_diff:
   stage: diff
-  when: manual
   needs: ["build_doc"]
   script:
     - cd Documentation
