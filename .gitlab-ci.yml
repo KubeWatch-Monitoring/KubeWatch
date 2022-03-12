@@ -13,7 +13,7 @@ image: registry.gitlab.com/islandoftex/images/texlive:latest
   # Note: it seems that `latexdiff --version` returns SIG(127) as an error code. Therefore use `|| true` to ignore this.
   - latexdiff --version || true
   # Check the current output from git-describe that may be added to the document
-  - git describe --exclude "latexdiff" --always --long --dirty --broken
+  - git describe --exclude "latexdiff-base" --always --long --dirty --broken
 
 stages:
   - build
@@ -34,6 +34,7 @@ build_doc:
 
 build_doc_diff:
   stage: diff
+  when: manual
   before_script:
     *latex-before_script
   needs: 
