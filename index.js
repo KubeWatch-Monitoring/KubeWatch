@@ -24,10 +24,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 (async () => {
     const app = (await Promise.resolve().then(() => __importStar(require("./app.js")))).app;
-    const hostname = "127.0.0.1";
-    const port = 3001;
-    app.listen(port, hostname, () => {
-        console.log(`Server running at http://${hostname}:${port}/`);
+    const PORT = process.env.PORT || 8080;
+    app.listen(PORT, () => {
+        console.log(`Hello! The container started successfully and is listening for HTTP requests on ${PORT}`);
+        console.log("Press Ctrl+C to quit.");
     });
 })();
 //# sourceMappingURL=index.js.map
