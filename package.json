@@ -1,5 +1,5 @@
 {
-  "name": "KubeWatch",
+  "name": "kubewatch",
   "version": "0.0.1",
   "description": "KubeWatch is a monitoring application for Kubernetes.\nIt will keep track of multiple K8S nodes, records performance data and visualize it.\nFurthermore, it should send some kind of notification to the responsible people.",
   "main": "index.ts",
@@ -14,7 +14,8 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.2",
-    "express-session": "^1.16.1"
+    "express-session": "^1.16.1",
+    "nedb-promises": "^6.0.3"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.1",
@@ -29,13 +30,15 @@
     "chai": "^4.3.4",
     "chai-dom": "^1.9.0",
     "chai-http": "^4.3.0",
-    "eslint": "^7.32.0",
     "jsdom": "^16.5.1",
     "mocha": "^8.3.2",
     "moment": "^2.29.1",
     "prettier": "^2.5.1",
     "sinon": "^9.2.4",
     "ts-node": "^10.0.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "eslint": "8.9.0",
+    "express-winston": "4.2.0",
+    "winston": "3.5.1"
   }
 }

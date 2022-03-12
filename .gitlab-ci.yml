@@ -13,7 +13,7 @@ image: registry.gitlab.com/islandoftex/images/texlive:latest
   # Note: it seems that `latexdiff --version` returns SIG(127) as an error code. Therefore use `|| true` to ignore this.
   - latexdiff --version || true
   # Check the current output from git-describe that may be added to the document
-  - git describe --exclude "latexdiff-base" --always --long --dirty --broken
+  - git describe --exclude "latexdiff" --always --long --dirty --broken
 
 stages:
   - build
@@ -34,10 +34,9 @@ build_doc:
 
 build_doc_diff:
   stage: diff
-  when: manual
   before_script:
     *latex-before_script
-  needs: 
+  needs:
     - "build_doc"
   script:
     - cd Documentation
@@ -60,7 +59,7 @@ build_proposal:
     paths:
       - Documentation/out/*.pdf
 
-# The following job duplicates the functionality of the previous ones, just in case one in confident that everything works and would like to build everything in one job to save time and resources  
+# The following job duplicates the functionality of the previous ones, just in case one in confident that everything works and would like to build everything in one job to save time and resources
 build_proposal_doc_diff:
   stage: diff
   before_script:
@@ -82,7 +81,7 @@ deploy_cluster_job:
   image:
     name: bitnami/kubectl:1.22.7
     entrypoint: [""]
-  environment: 
+  environment:
     name: test
     url: https://10.20.1.29:6443
   script:
