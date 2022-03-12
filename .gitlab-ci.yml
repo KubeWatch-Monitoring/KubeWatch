@@ -5,7 +5,7 @@ image: registry.gitlab.com/islandoftex/images/texlive:latest
 # Tested with the TeX Live 2021 snapshot as of 09.12.2021
 # Docker image: registry.gitlab.com/islandoftex/images/texlive:TL2021-2021-12-05-04-05
 
-before_script:
+.latex-before_script: &latex-before_script
   - tlmgr --version
   - git --version
   - latex --version
@@ -13,7 +13,7 @@ before_script:
   # Note: it seems that `latexdiff --version` returns SIG(127) as an error code. Therefore use `|| true` to ignore this.
   - latexdiff --version || true
   # Check the current output from git-describe that may be added to the document
-  - git describe --exclude "latexdiff-base" --always --long --dirty --broken
+  - git describe --exclude "latexdiff" --always --long --dirty --broken
 
 stages:
   - build
@@ -22,6 +22,8 @@ stages:
 
 build_doc:
   stage: build
+  before_script:
+    *latex-before_script
   script:
     - cd Documentation
     - make doc
@@ -32,7 +34,10 @@ build_doc:
 
 build_doc_diff:
   stage: diff
-  needs: ["build_doc"]
+  before_script:
+    *latex-before_script
+  needs: 
+    - "build_doc"
   script:
     - cd Documentation
     - make doc_diff
@@ -43,6 +48,8 @@ build_doc_diff:
 
 build_proposal:
   stage: build
+  before_script:
+    *latex-before_script
   when: manual
   script:
     - cd Documentation
@@ -55,6 +62,8 @@ build_proposal:
 # The following job duplicates the functionality of the previous ones, just in case one in confident that everything works and would like to build everything in one job to save time and resources  
 build_proposal_doc_diff:
   stage: diff
+  before_script:
+    *latex-before_script
   when: manual
   script:
     - cd Documentation
@@ -68,14 +77,22 @@ build_proposal_doc_diff:
 
 deploy_cluster_job:
   stage: deploy
-  image: bitnami/kubectl:latest
+  needs: []
+  image:
+    name: bitnami/kubectl:1.22.7
+    entrypoint: [""]
   environment: 
-    name: cldop
+    name: test
     url: https://10.20.1.29:6443
   script:
     - kubectl config get-contexts
-    - kubectl config use-context .gitlab/agents/ins-cluster-agent/repository:ins-cluster-agent
+    - kubectl config use-context SEProj/2022-FS/g03-kubewatch/kubewatch:ins-cluster-agent
     - kubectl get pods
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
-      when: manual 
+      changes:
+        - Documentation/**/*
+      when: manual
+      allow_failure: true
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: on_success

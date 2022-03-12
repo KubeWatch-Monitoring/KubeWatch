@@ -114,18 +114,3 @@ fabric.properties
 
 node_modules/
 .vscode/
-
-# Project Documentation Latex build artifacts
-/Documentation/out/
-/Documentation/latexdiff-base/
-/Documentation/gitDescription.tmp
-/Documentation/src/**/*.aux
-/Documentation/src/**/*.gz
-/Documentation/src/**/*.log
-/Documentation/src/**/*.out
-/Documentation/src/**/*.toc
-/Documentation/src/**/*.bbl
-/Documentation/src/**/*.blg
-/Documentation/src/**/*.fdb_latexmk
-/Documentation/src/**/*.fls
-Documentation/src/main.pdf 
