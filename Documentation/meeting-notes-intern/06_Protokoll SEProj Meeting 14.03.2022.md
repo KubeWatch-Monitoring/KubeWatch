@@ -33,7 +33,9 @@
       | --------- | --------- |
       |           |           |
 
-  - 
+- async/await or with .then()
+  - `let res = await someFuncion()`
+  - `someFunction().then()`
 
 
 
