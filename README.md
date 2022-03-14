@@ -41,7 +41,7 @@ systemctl enable docker.service
 systemctl start docker.service
 minikube start
 ```
-> It might be necessary to add your user to the docker group: `sudo usermod -aG docker $USER && newgrp docker`
+> It might be necessary to add your user to the docker group: `sudo usermod -aG docker $USER && newgrp docker` and restart your computer afterwards.
 2. Always before you can start the web application with the local K8s cluster enter the following command in your shell:
 ```
 minikube start
