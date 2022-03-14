@@ -5,37 +5,49 @@
 % }
 
 
-\section {Functional Requirements}
+\section{Functional Requirements}
 The functional requirements are written as a description in the GitLab issue\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/issues/55}}.
 
+We do use Scrum.
+Therefore, all estimates and other refinements are made every two weeks in the sprint meeting.
 
-\section {Non-Functional Requirements}
+The User Stories are prioritised.
+The higher a User Story is in the Story Board\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/boards/935}} the higher is the priority.
+
+
+
+\section{Non-Functional Requirements}
 \subsection{Test Coverage}
 \begin{description}
 \item[Criteria] The test coverage must be minimal 75\%.
 \item[Priority] Medium
+\item[Check] Use the test coverage tool \textsl{Istanbul}.
 \end{description}
 
 \subsection{Response Time}
 \begin{description}
-\item[Criteria] The response time must be under 2s.
+\item[Criteria] The response time must be under 5s.
 \item[Priority] High
+\item[Check] Use Browsers Developer Tools to verify the loading time.
 \end{description}
 
 \subsection{Memory Usage}
 \begin{description}
 \item[Criteria] The maximal memory usage must be less than 200 MB.
 \item[Priority] Medium
+\item[Check] Monitor the system over a given period of time.
 \end{description}
 
 \subsection{Scalability}
 \begin{description}
 \item[Criteria] The product must support minimal 3 pods.
 \item[Priority] High
+\item[Check] Install 3 pods and use it in the Frontend.
 \end{description}
 
 \subsection{Environment}
 \begin{description}
 \item[Criteria] The product must be implemented using Node.js and Kubernetes.
 \item[Priority] Low
+\item[Check] Check the source code and the deployment infrastructure.
 \end{description}
