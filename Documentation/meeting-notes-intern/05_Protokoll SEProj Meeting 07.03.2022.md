@@ -56,13 +56,13 @@
 ## Action Items
 | Done? | Item                                     | Responsible    | Due Date |
 |-------|------------------------------------------|----------------|----------|
-|       | K8S Cluster communication GitLab         | Petra          | 14.03.22 |
-|       | Local K8S Cluster testing                | Petra / Jan    | 14.03.22 |
-|       | GitLab Handling Docu (Branch, Diff Job)  | Oli            | 14.03.22 |
-|       | Create Backlog (Scrum)                   | Pascal / Petra | 14.03.22 |
-|       | Check Checklist Review 2                 | All            | 14.03.22 |
-|       | Domain Model                             | Benjamin       | 14.03.22 |
-|       | Prepare Requirements (Epics, User Story) | Benjamin, Oli  | 14.03.22 |
+|   X   | K8S Cluster communication GitLab         | Petra          | 14.03.22 |
+|   X   | Local K8S Cluster testing                | Petra / Jan    | 14.03.22 |
+|   X   | GitLab Handling Docu (Branch, Diff Job)  | Oli            | 14.03.22 |
+|   X   | Create Backlog (Scrum)                   | Pascal / Petra | 14.03.22 |
+|   X   | Check Checklist Review 2                 | All            | 14.03.22 |
+|   X   | Domain Model                             | Benjamin       | 14.03.22 |
+|   X   | Prepare Requirements (Epics, User Story) | Benjamin, Oli  | 14.03.22 |
 |       | Who is responsible for risks?            |                | 14.03.22 |
 
 ## Other Notes & Information

@@ -33,3 +33,19 @@ Requirements: WebStorm, NodeJS and npm
 2. Open project with Webstorm
 3. Run npm install
 4. Run KubeWatch with existing run configuration
+
+## Start web application with local Kubernetes cluster
+1. First time before you can start the web application with the local K8s cluster enter the following commands in your shell:
+```
+systemctl enable docker.service
+systemctl start docker.service
+minikube start
+```
+> It might be necessary to add your user to the docker group: `sudo usermod -aG docker $USER && newgrp docker` and restart your computer afterwards.
+2. Always before you can start the web application with the local K8s cluster enter the following command in your shell:
+```
+minikube start
+```
+This command set the context for your web application.
+3. Choose the Running Configuration with the name "KubeWatch local K8s cluster" (with the Cloud Code Symbol)
+4. Run you application :)

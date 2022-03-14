@@ -25,14 +25,20 @@
 
   - Other Notes
 
-- Item 2
+- Additional Artefacts
 
-  - Description
+  - Context diagram
 
-  - | Questions | Decisions |
-      | --------- | --------- |
-      |           |           |
+  - UI sketches
+  
+  - Personas
 
+  - Other
+  
+  - | Questions                      | Decisions |
+      | ------------------------------ | --------- |
+      | What is expected from Advisor? |           |
+  
   - Other Notes
   
 - Item 3
@@ -54,3 +60,4 @@
 | | item | who | dd.mm.jj |
 
 ### Other Notes & Information
+
