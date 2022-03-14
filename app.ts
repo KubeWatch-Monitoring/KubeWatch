@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import session from "express-session";
 import { indexRoutes } from "./routes/index-routes";
+import { loginRoutes } from "./routes/login-routes";
 import { helpers } from "./utils/handlebar-util";
 
 import exphbs from "express-handlebars";
@@ -54,3 +55,4 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/", indexRoutes);
+app.use("/login", loginRoutes);
