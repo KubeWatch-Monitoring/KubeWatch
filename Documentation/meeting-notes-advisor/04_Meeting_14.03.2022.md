@@ -61,3 +61,13 @@
 
 ### Other Notes & Information
 
+- Contexdiagram auslassen, bzw. referenzieren
+- Personas auslassen
+- SonaQube: Petra spricht mit Yannik wie das gehen soll
+- Data visualize: Requirements etc. bischen auseinander nehmen
+- Notification: Send message to AWS (SNS - Simple Notification Service): [Amazon Simple Notification Service (SNS) | Messaging Service | AWS](https://aws.amazon.com/sns/)
+- Functional Requirements: Requirements must be numbered (FR 3.1)
+  - 3 Notification
+    - 3.1 Notification on UI
+- User Management **nicht** in MVP
+
