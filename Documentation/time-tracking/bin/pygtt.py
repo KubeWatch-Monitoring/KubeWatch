@@ -20,7 +20,7 @@ def convert_to_hours(time):
 
 
 def save(issues, records, output):
-    db_file = "time_tracking/gtt.db"
+    db_file = "time-tracking/bin/gtt.db"
     try:
         os.remove(db_file)
     except OSError:
