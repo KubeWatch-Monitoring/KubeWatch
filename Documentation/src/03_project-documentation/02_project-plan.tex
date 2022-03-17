@@ -30,29 +30,31 @@ Working on the master branch directly is only allowed when the documentation is 
 For the short term planning iteration we use the Scrum method.
 In the following we describe how we want to implement the Scrum process using GitLab.
 
-\begin{tabular}{l|l}
-  \centering
-  \textbf{Scrum} & \textbf{GitLab} \\
-  \hline
-  \textbf{Epic:} & Label with format Epic:xxx \\
-  \textbf{User Story / Feature:} & Numbered issues starting with FR:xx (for Functional Requirements), tagged with User Story label plus MVP label if appropriate \\
-  \textbf{Work Item:} & Issue linked to the User Story issue \\
-  \textbf{Prioritization:} & Prioritized labels: low, medium, important, critical \\
-  \textbf{Story Points:} & Label with format xx\$ \\
-  \textbf{Scrum Board:} & Issue Board \\
-\end{tabular} \newline
+\begin{table}
+    \centering
+    \caption{Scrum process elements}
+    \label{tab:scrum-elements}
+    \begin{tabular*}{\textwidth}{ p{5cm} | p{9cm} }
+        \textbf{Scrum} & \textbf{GitLab} \\ 
+        \hline
+        \textbf{Epic:} & Label with format Epic:xxx \\
+        \textbf{User Story / Feature:} & Numbered issues starting with FR:xx (for Functional Requirements), tagged with User Story label plus MVP label if appropriate \\
+        \textbf{Work Item:} & Issue linked to the User Story issue \\
+        \textbf{Prioritization:} & Prioritized labels: low, medium, important, critical \\
+        \textbf{Story Points:} & Label with format xx\$ \\
+        \textbf{Scrum Board:} & Issue Board \\
+    \end{tabular*}
+\end{table}
 
 \noindent To build our Scrum Board the following labels are required:
 
 \begin{itemize}
-\item ToDo
-\item Work in Progress / WIP
-\item Done
+\item ToDo - no work done yet
+\item WIP - work in Progress
+\item Done - done, but do not close (yet)
 \end{itemize}
 
-\noindent Work Item issues should not be closed.
-However, if the Work Item is finished, then the Label \textsl{Done} should be used.
-This approach is used to have an overview per sprint what we have already done.
+\noindent We manage the status of Work Items with the above labels. Work Item issues should not be closed during an ongoing sprint, rather the label \textsl{Done} should be assigned (and \textsl{WIP} removed). Once the sprint is complete, all Work Item issues from that particular sprints are closed at once. The reason for this approach is have an overview per sprint what we have already done. We created a Board using the above labels to monitor the progress.
 
 \noindent To build our Story map the following labels are required \footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/boards/935}}:
 
@@ -66,15 +68,19 @@ This approach is used to have an overview per sprint what we have already done.
 \section{Roles}
 \label{roles}
 
-\begin{tabular}{l|l}
-    \textbf{Role} & \textbf{Person}\\
-    \hline
-    \textbf{Session Chair:} & Changes every week \\
-    \textbf{Product Owner (PO):} & The whole team \\
-    \textbf{Developer:} & Benjamin Plattner, Olivier Lischer, Pascal Lehmann\\
-    \textbf{Network:} & Jan Untersander, Petra Heeb \\
-\end{tabular}
-\newline
+\begin{table}[h]
+    \centering
+    \caption{Project roles}
+    \label{tab:project-roles}
+    \begin{tabular}{l|l}
+        \textbf{Role} & \textbf{Person}\\ \hline
+        \textbf{Session Chair:} & Changes every week \\
+        \textbf{Product Owner (PO):} & The whole team \\
+        \textbf{Developer:} & Benjamin Plattner, Olivier Lischer, Pascal Lehmann\\
+        \textbf{Network:} & Jan Untersander, Petra Heeb \\
+    \end{tabular}
+\end{table}
+
 \noindent The classification in \textsl{Developer} and \textsl{Network} shows only the primary strengths.
 Members of the \textsl{Developer} group sometimes also work on the network part and vice versa.
 
@@ -92,7 +98,7 @@ The first is an internal team meeting every Monday morning is used to implement:
 In this meeting the \textsl{Sprint Review} is done.
 \newline
 \noindent The \textsl{Daily Scrum} take places during the week at lunch or during breaks.
-One Sprint lasts between two and four weeks.
+One Sprint lasts two weeks.
 
 
 \section{Phases, iterations and milestones}
@@ -179,8 +185,9 @@ The table \ref{tab:risk-review} lists all risk reviews.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=11cm]{resources/risk_matrix.png}
+    \caption{KubeWatch Risk Matrix}
     \label{fig:risk-matrix}
+    \includegraphics[width=11cm]{resources/risk_matrix.png}
 \end{figure}
 
 
