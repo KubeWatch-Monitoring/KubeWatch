@@ -12,7 +12,7 @@ deploy:
   kubectl:
     manifests:
       - kubernetes-manifests/**
-      - manifests-monitoring/**
+      - prometheus-manifests/**
 profiles:
   - name: cloudbuild
     build:

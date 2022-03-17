@@ -1,10 +1,11 @@
 \chapter{Prometheus}
+We use Prometheus to access the K8s clusters metrics. To avoid a self-writing manifest we copied some from an existing demonstration project which is called \href{https://github.com/microservices-demo/microservices-demo}{Socket Shop}.
 
 \section{On local K8s cluster}
 To test our environment and start developing the application we need to set up our local Kubernetes cluster with the Prometheus monitoring interface. This interface can be configured locally with some cluster configuration files. For this case, there is the folder "manifests-monitoring". Our application should run on the local Kubernetes cluster and this application should be able to monitor a K8s cluster. In our environment, we decided to monitor our local cluster, where also our application is running on.
 
 With the configuration files in the "kubernetes-manifests" folder, we can deploy this cluster. The configuration files in the "manifests-monitoring" folder install and set up the Prometheus environment which is monitored automatically our cluster.
 
-To start the Prometheus monitoring you can just start the minikube first from your console (command: minikube start) and then start the web application directly from Webstorm. The setup is so configured that you only need to start the web application in the cluster and the Prometheus monitoring will automatically start for you. Remember to stop the minikube service (command: minikube stop) when you stop developing. On the webstorm console there will all the IP addresses and the Ports list which you need to use to access Prometheus or our local web application.
+To start the Prometheus monitoring you can just start the minikube first from your console (command: minikube start) and then start the web application directly from Webstorm. The setup is so configured that you only need to start the web application in the cluster and the Prometheus monitoring will automatically start for you. Remember to stop the minikube service (command: minikube stop) when you stop developing. On the webstorm console, there will be all the IP addresses and the Ports list which you need to use to access Prometheus or our local web application.
 
 \section{On INS K8s cluster}
