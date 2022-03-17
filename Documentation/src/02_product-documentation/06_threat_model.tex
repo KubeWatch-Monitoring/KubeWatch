@@ -8,8 +8,8 @@ Writing secure software starts with the awareness of the various threats a proje
 The table \ref{tab:threat-review} lists all risk reviews.
 
 \begin{table}[h!]
-\centering
-  \caption{\label{tab:threat-review}All Threat Reviews}
+  \centering
+  \caption{\label{tab:threat-review}Threat Reviews and Changelog}
   \begin{tabular}{ | l | l | }
     \hline
     \textbf{Date} & \textbf{Changes} \\
@@ -36,33 +36,43 @@ For KubeWatch we define our threat model based on the STRIDE model.
 
 \section{Architecture and Trusted Boundaries}
 
-\includegraphics[height=12cm]{resources/architecture_threat_model.png}
+\begin{figure}
+    \centering
+    \caption{Threat Model Architecture}
+    \label{fig:threat-model-architecture}
+    \includegraphics[height=12cm]{resources/architecture_threat_model.png}
+\end{figure}
 
 
 \section{Threat Identification}
 
-\begin{tabular*}{\textwidth}{p{2.1cm} p{1.8cm} p{3cm} p{2cm} p{3.5cm}}
-    \textbf{Component} & \textbf{Category} & \textbf{Threats} & \textbf{Risk} & \textbf{Mitigation} \\
-    \hline
-    User                & D, E & Worm & Low & \\
-                        & I & Keylogger & Low & \\
-                        & & Residual risk & Low & \\
-    \hline
-    Interface User \(\leftrightarrow\) Master   & I, T & Man-in-the-middle & Medium & \\
-                            & I, T & SQL Injection & Medium & Input validation \\
-                            & & & & Patch Services \\
-    \hline
-    API server          & D & Denial of Service & Medium & CPU limitation \\
-                        & & & & Alerts \\
-                        & & Service vulnerability (later) & & \\
-    \hline
-    K8s Cluster             & D & Hardware failure & Low & Keep backups of K8s configuration files \\
-    \hline
-    Interface GitLab \(\leftrightarrow\) Master & D & Tunnel is unresponsive for CI/CD & Low & Manual deployment of source code on K8s cluster \\
-    \hline
-    GitLab             & T & Malicious source code injected through automated GitLab Runner & Low & \\ 
-    \hline
-\end{tabular*}
+\begin{table}
+    \centering
+    \caption{Classification of identified threats}
+    \label{tab:threats-classification}
+    \begin{tabular*}{\textwidth}{p{2.1cm} p{1.8cm} p{3cm} p{2cm} p{3.5cm}}
+        \textbf{Component} & \textbf{Category} & \textbf{Threats} & \textbf{Risk} & \textbf{Mitigation} \\
+        \hline
+        User                & D, E & Worm & Low & \\
+                            & I & Keylogger & Low & \\
+                            & & Residual risk & Low & \\
+        \hline
+        Interface User \(\leftrightarrow\) Master   & I, T & Man-in-the-middle & Medium & \\
+                                & I, T & SQL Injection & Medium & Input validation \\
+                                & & & & Patch Services \\
+        \hline
+        API server          & D & Denial of Service & Medium & CPU limitation \\
+                            & & & & Alerts \\
+                            & & Service vulnerability (later) & & \\
+        \hline
+        K8s Cluster             & D & Hardware failure & Low & Keep backups of K8s configuration files \\
+        \hline
+        Interface GitLab \(\leftrightarrow\) Master & D & Tunnel is unresponsive for CI/CD & Low & Manual deployment of source code on K8s cluster \\
+        \hline
+        GitLab             & T & Malicious source code injected through automated GitLab Runner & Low & \\ 
+        \hline
+    \end{tabular*}
+\end{table}
 
 
 \section{Model Assumptions and Explanations}
