@@ -31,10 +31,10 @@ doc_diff: gitDiffDescription
 		latexdiff -V --flatten main.tex  ../../src/main.tex > diff.tex && \
 		latexmk -outdir=../../out -cd -interaction=batchmode -pdf -f diff.tex
 
-time_tracking_report:
-	gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --closed --show_without_times --output=pdf --file=time_tracking/report.pdf
-	gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --closed --show_without_times --output=csv --file=time_tracking/report.csv
-	python3 time_tracking/pygtt.py -i time_tracking/report.issues.csv -r time_tracking/report.records.csv
+timeTrackingReport:
+	gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --milestone="M2 Requirements" --report=stats --report=issues --report=records --closed --show_without_times --output=markdown --file="time-tracking/M2 Requirements Time Tracking Report.md"
+	gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --closed --show_without_times --output=csv --file=time-tracking/bin/full_report.csv
+	python3 time-tracking/bin/pygtt.py -i time-tracking/bin/full_report.issues.csv -r time-tracking/bin/full_report.records.csv
 
 all: proposal doc doc_diff
 

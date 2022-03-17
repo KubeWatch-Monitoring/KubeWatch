@@ -15,6 +15,5 @@ src/project-proposal-standalone.pdf
 src/main.pdf
 
 # Time Tracking
-time_tracking/report.pdf
-time_tracking/*.csv
-time_tracking/gtt.db
+time-tracking/bin/*.csv
+time-tracking/bin/gtt.db
