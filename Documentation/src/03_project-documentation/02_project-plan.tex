@@ -22,7 +22,7 @@ The Scrum Events (Sprint Planning, Sprint Review, ...) are declared in \ref{meet
 How we implement the Scrum artifacts is defined in \ref{scrum}.
 
 \subsection{Git Workflow}
-When working on source code a new branch must be created and before merging the source should be approved by someone other.
+When working on source code a new branch must be created. Before merging into the main branch the source should be approved by someone else from our team.
 Working on the master branch directly is only allowed when the documentation is updated.
 
 \subsection{Scrum}
@@ -35,9 +35,9 @@ In the following we describe how we want to implement the Scrum process using Gi
   \textbf{Scrum} & \textbf{GitLab} \\
   \hline
   \textbf{Epic:} & Label with format Epic:xxx \\
-  \textbf{User Story / Feature:} & Issues with User Story label \\
+  \textbf{User Story / Feature:} & Numbered issues starting with FR:xx (for Functional Requirements), tagged with User Story label plus MVP label if appropriate \\
   \textbf{Work Item:} & Issue linked to the User Story issue \\
-  \textbf{Prioritization:} & Prioritized Labels \\
+  \textbf{Prioritization:} & Prioritized labels: low, medium, important, critical \\
   \textbf{Story Points:} & Label with format xx\$ \\
   \textbf{Scrum Board:} & Issue Board \\
 \end{tabular} \newline
@@ -50,7 +50,7 @@ In the following we describe how we want to implement the Scrum process using Gi
 \item Done
 \end{itemize}
 
-\noindent Work Items issues should not be closed.
+\noindent Work Item issues should not be closed.
 However, if the Work Item is finished, then the Label \textsl{Done} should be used.
 This approach is used to have an overview per sprint what we have already done.
 
@@ -92,7 +92,7 @@ The first is an internal team meeting every Monday morning is used to implement:
 In this meeting the \textsl{Sprint Review} is done.
 \newline
 \noindent The \textsl{Daily Scrum} take places during the week at lunch or during breaks.
-One Sprint last between two and four weeks.
+One Sprint lasts between two and four weeks.
 
 
 \section{Phases, iterations and milestones}
@@ -153,10 +153,10 @@ For planning our work, issue handling and time tracking we use GitLab issues, me
 \section{Risk Management}
 
 As part of a continuing risk management analysis, we use a risk matrix to estimate the impact of the identified risks.\newline
-Figure \ref{fig:risk-matrix} presents an overview of the categorisation of the identified risks.
+We use a spreadsheet to quantify the risks and to create the resulting figure. The current risk matrix can be seen in figure \ref{fig:risk-matrix}. It presents an overview of the categorisation of the identified risks.
 
 \subsection{Risk Methodology}
-We use a risk weighted approach to estimate the impact of a new risk. The impact is calculated as the product of the 'severity of the damage', which is a category of scale 1 to 10, and the 'probability of occurrence'. To better gauge the severity of damage, we use a relativistic approach where we compare existing risks with new risks and decide on the relative impact one risk has versus others.
+We use a risk weighted approach to estimate the impact of a new risk. The impact is calculated as the product of the 'severity of the damage', which is a category of scale 1 to 10, and the 'probability of occurrence'. To better gauge the severity of damage, we use a relativistic approach where we compare existing risks with new risks and decide on the relative impact of one risk versus others.
 
 \subsection{Risk Review Process}
 The identification and analysis of new risks happen continuously, but at least once every new sprint. There, the team discusses potential new risks and one team member is then assigned to update the documentation accordingly.
@@ -165,7 +165,7 @@ The table \ref{tab:risk-review} lists all risk reviews.
 
 \begin{table}[h!]
 \centering
-  \caption{\label{tab:risk-review}All Risk Reviews}
+  \caption{\label{tab:risk-review}Risk Reviews and Changelog}
   \begin{tabular}{ | l | l | }
     \hline
     \textbf{Date} & \textbf{Changes} \\
@@ -205,7 +205,7 @@ The table \ref{tab:risk-review} lists all risk reviews.
             & The INS has different options to access the cluster, but we have not yet been able to test it.
             & 40\% & 8 & 3.2 \\ \hline
         Unknown Development Environment
-            & To run a Web Server on a K8s Cluster is new for us and may come with certain obstacles which would not appear in a local development environment. However, the tech stack we are planning on using is well known to us.
+            & To run a Web Server on a K8s Cluster is new for us and may come with certain obstacles which would not appear in a local development environment. However, the tech stack we are planning on using is well-known to us.
             & Test the K8s development environment as soon as possible and stick to tutorials for setting up Web services on a K8s Node. This has been achieved by others before, and since we are not using a highly customised K8s setup, other use cases may help us with troubleshooting if necessary.
             & 60\% & 7 & 4.2 \\ \hline
         Scrum Methodology 
@@ -213,8 +213,8 @@ The table \ref{tab:risk-review} lists all risk reviews.
             & The Software Engineering Project module, which we attend in parallel, is designed to support us in learning and applying Scrum. Also, we help each other out with running Scrum meetings. The impact of not fully conforming with the Scrum methodology should not have a massive impact on the final product as we can improve our processes with each iteration.
             & 40\% & 1 & 0.4 \\ \hline
         New Architecture 
-            & Designing a new architecture for a project for which we have on prior experience is always a risk that something gets overlooked.
-            & The architecture for our desired final state of the project is not overly complex. Also, we have experience with the individual components that we intend to use, just not in combining them in the desired setup. However, the available documentations are fairly extensive and keeping the architecture simple is key. Once the architecture is finalised, we should have a better grasp of how comfortable we feel with implementing it.
+            & Designing a new architecture for a project for which we have no prior experience is always a risk that something gets overlooked.
+            & The architecture for our desired final state of the project is not overly complex. Also, we have experience with most of the individual components that we intend to use, just not in combining them in the desired setup. However, the available documentations are fairly extensive and keeping the architecture simple is key. Once the architecture is finalised, we should have a better grasp of how comfortable we feel with implementing it.
             & 80\% & 8 & 6.4 \\ \hline
         Team member unavailable
             & One or more team members may become unavailable for the project due to illness, accident or other personal reasons. In this case, the workload must be spread across fewer members, which has an impact on the timeline. Also, information may get lost that was only available to that person.
