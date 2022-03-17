@@ -11,6 +11,8 @@ src/**/*.bbl
 src/**/*.blg
 src/**/*.fdb_latexmk
 src/**/*.fls
+src/**/*.lof
+src/**/*.lot
 src/project-proposal-standalone.pdf
 src/main.pdf
 
