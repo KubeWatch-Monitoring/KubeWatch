@@ -6,6 +6,10 @@ To test our environment and start developing the application we need to set up o
 
 With the configuration files in the "kubernetes-manifests" folder, we can deploy this cluster. The configuration files in the "manifests-monitoring" folder install and set up the Prometheus environment which is monitored automatically our cluster.
 
-To start the Prometheus monitoring you can just start the minikube first from your console (command: minikube start) and then start the web application directly from Webstorm. The setup is so configured that you only need to start the web application in the cluster and the Prometheus monitoring will automatically start for you. Remember to stop the minikube service (command: minikube stop) when you stop developing. On the webstorm console, there will be all the IP addresses and the Ports list which you need to use to access Prometheus or our local web application.
+\section{Installation of Prometheus}
+To start the Prometheus monitoring you can just start minikube first from your console and then start the web application directly from WebStorm. The setup is configured in a way so that you only need to start the web application in the cluster. Then, Prometheus monitoring will automatically start for you. Remember to stop the minikube service when you finish your development session. On the WebStorm console, there will be all the IP addresses and the Ports list which you need to use to access Prometheus or our local web application.
 
-\section{On INS K8s cluster}
+For detailed and up-to-date instructions, please see our repository\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch}}.
+
+
+% \section{On INS K8s cluster}
