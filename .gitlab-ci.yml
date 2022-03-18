@@ -36,7 +36,7 @@ build_doc_diff:
   stage: diff
   before_script:
     *latex-before_script
-  when: on_success
+  when: manual
   needs:
     - "build_doc"
   script:
