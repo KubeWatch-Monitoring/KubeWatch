@@ -3,26 +3,25 @@
 ### TIME STATS
 
 * **total estimate**: 8d 1h
-* **total spent**: 7d 5h 35m
-* **spent**: 7d 5h 35m
+* **total spent**: 8d 6h 10m
+* **spent**: 8d 6h 10m
 
-* **benjamin.plattner**: 2d 2h 20m
-* **pascal.lehmann**: 1d 3h 15m
-* **olivier.lischer**: 1d 1h 30m
-* **jan.untersander**: 1d 1h
-* **petra.heeb**: 1d 5h 30m
+* **olivier.lischer**: 1d 2h 30m
+* **benjamin.plattner**: 2d 3h 45m
+* **jan.untersander**: 1d 4h 45m
+* **petra.heeb**: 1d 7h
+* **pascal.lehmann**: 1d 4h 15m
 
 ### ISSUES
 
 | iid | title                                            | spent  | total estimate |
 | --- | ------------------------------------------------ | ------ | -------------- |
 | 86  | Set up my local Kubernetes dev env               |        | 2h             |
-| 84  | Finalise M2 document                             | 1h     | 5h             |
-| 82  | Prometheus Architecture                          |        |                |
-| 81  | Epcis and Personas description                   | 1h 30m | 2h             |
+| 84  | Finalise M2 document                             | 6h 20m | 5h             |
+| 81  | Epcis and Personas description                   | 2h 45m | 2h             |
 | 80  | Advisor Meeting Tue 15.03.22                     | 5h     | 5h             |
 | 77  | Create Wireframe                                 | 45m    | 30m            |
-| 75  | Webstorm project cleanup                         | 2h     | 3h             |
+| 75  | Webstorm project cleanup                         | 3h     | 3h             |
 | 73  | Implement feedback from review 1                 | 1h 50m | 2h             |
 | 72  | Update risk matrix and layout                    | 3h 20m | 3h             |
 | 71  | Define process to refine FRs with lower priority | 15m    | 30m            |
@@ -37,12 +36,22 @@
 | 39  | Internal Meeting Mon 07.03.22                    | 5h     | 5h             |
 | 37  | Fix and reactivate build_doc_diff job            | 30m    | 15m            |
 | 27  | Interface between K8 Cluster and GitLab-OST      | 6h     | 5h             |
-| 12  | Model Architecture                               | 1h 30m | 4h             |
+| 12  | Model Architecture                               | 2h 30m | 4h             |
 
 ### TIME RECORDS
 
 | user              | date                | type  | iid | time    |
 | ----------------- | ------------------- | ----- | --- | ------- |
+| olivier.lischer   | 18.03.2022 15:02:28 | Issue | 84  | 1h      |
+| jan.untersander   | 18.03.2022 14:59:45 | Issue | 84  | 1h      |
+| pascal.lehmann    | 18.03.2022 14:59:34 | Issue | 84  | 1h      |
+| petra.heeb        | 18.03.2022 13:00:09 | Issue | 81  | 30m     |
+| benjamin.plattner | 18.03.2022 09:23:13 | Issue | 84  | 30m     |
+| petra.heeb        | 18.03.2022 09:22:39 | Issue | 84  | 1h      |
+| jan.untersander   | 18.03.2022 02:26:18 | Issue | 12  | 1h      |
+| jan.untersander   | 18.03.2022 00:08:01 | Issue | 81  | 45m     |
+| jan.untersander   | 17.03.2022 21:14:40 | Issue | 75  | 1h      |
+| benjamin.plattner | 17.03.2022 15:25:50 | Issue | 84  | 50m     |
 | pascal.lehmann    | 17.03.2022 14:46:09 | Issue | 86  | 1h 30m  |
 | pascal.lehmann    | 17.03.2022 14:45:58 | Issue | 86  | -1h 45m |
 | pascal.lehmann    | 17.03.2022 14:45:14 | Issue | 86  | 15m     |
