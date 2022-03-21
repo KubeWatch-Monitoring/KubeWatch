@@ -35,8 +35,8 @@
   - Other
   
   - | Questions                      | Decisions |
-      | ------------------------------ | --------- |
-      | What is expected from Advisor? |           |
+    | ------------------------------ | --------- |
+    | What is expected from Advisor? |           |
   
   - Other Notes
   
