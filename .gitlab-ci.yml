@@ -1,6 +1,9 @@
 # GitLab CI configuration to build PDFs from LaTeX sources and Diffs of these.
 # (c) Farhad Mehta 2021
 
+variables:
+  DOCKER_DRIVER: overlay2
+
 image: registry.gitlab.com/islandoftex/images/texlive:latest
 # Tested with the TeX Live 2021 snapshot as of 09.12.2021
 # Docker image: registry.gitlab.com/islandoftex/images/texlive:TL2021-2021-12-05-04-05
