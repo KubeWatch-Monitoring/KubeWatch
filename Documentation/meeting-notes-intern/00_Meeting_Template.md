@@ -5,7 +5,8 @@
 **Note Taker:** note_taker  
 **Attendees:**
 
-- Petra Heeb
+* Petra Heeb
+
 - Pascal Lehmann
 - Oliver Lischer
 - Benjamin Plattner

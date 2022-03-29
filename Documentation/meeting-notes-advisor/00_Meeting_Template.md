@@ -5,7 +5,8 @@
 **Note Taker:** actuar  
 **Attendees:**
 
-- Petra Heeb
+* Petra Heeb
+
 - Pascal Lehmann
 - Oliver Lischer
 - Benjamin Plattner
