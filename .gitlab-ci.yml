@@ -78,7 +78,7 @@ build_proposal_doc_diff:
       - Documentation/out/*.pdf
 
 test_all:
-  image: node:latest
+  image: node:17-slim
   stage: test
   script:
     - npm install
