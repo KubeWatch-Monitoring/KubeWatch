@@ -80,13 +80,15 @@ build_proposal_doc_diff:
 test_all:
   image: node:17-slim
   stage: test
+  needs: []
   script:
     - npm install
     - npm test
 
 deploy_cluster_job:
   stage: deploy
-  needs: []
+  needs:
+    - "test_all"
   image:
     name: bitnami/kubectl:1.22.7
     entrypoint: [""]
