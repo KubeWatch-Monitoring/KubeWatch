@@ -18,6 +18,7 @@ image: registry.gitlab.com/islandoftex/images/texlive:latest
 stages:
   - build
   - diff
+  - test
   - deploy
 
 build_doc:
@@ -75,6 +76,13 @@ build_proposal_doc_diff:
   artifacts:
     paths:
       - Documentation/out/*.pdf
+
+test_all:
+  image: node:latest
+  stage: test
+  script:
+    - npm install
+    - npm test
 
 deploy_cluster_job:
   stage: deploy
