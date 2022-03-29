@@ -1,0 +1,29 @@
+################################################################################
+# WARNING: This MongoDB deployment is not suitable for production as the data is
+# not persistently stored and will go away every time the Pod restarts. Need to
+# switch to StatefulSet instead of Deployment.
+################################################################################
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: -mongodb
+  labels:
+    app: nodejs-kubewatch
+    tier: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs-kubewatch
+      tier: db
+  template:
+    metadata:
+      labels:
+        app: nodejs-kubewatch
+        tier: db
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:5.0.6
+          ports:
+            - containerPort: 27017
