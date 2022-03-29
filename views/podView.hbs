@@ -1,0 +1,25 @@
+{{#section 'title'}}
+    {{this.name}}
+{{/section}}
+{{#section 'stylesheets'}}
+{{/section}}
+{{#section 'scripts'}}
+{{/section}}
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="card pod" data-pod-id="{{pod.id}}">
+            <div class="card-header">
+                {{pod.name}}
+            </div>
+            <div class="card-body">
+                <img class="card-img-left" width="45%" src="img/logo.jpeg" alt="some logo">
+                <p>
+                    {{pod.description}}
+                </p>
+
+                <a href="/pods/{{this.id}}" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>

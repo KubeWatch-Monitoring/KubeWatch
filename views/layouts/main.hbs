@@ -11,6 +11,25 @@
     {{{section.stylesheets}}}
 </head>
 <body data-style="{{style}}">
-{{{body}}}
+<div class="container-fluid">
+    <div class="row">
+        <ul id="navigation" class="nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pods">List of all Pods</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Other stuff</a>
+            </li>
+        </ul>
+    </div>
+    {{{body}}}
+</div>
+{{{section.scripts}}}
 </body>
 </html>
