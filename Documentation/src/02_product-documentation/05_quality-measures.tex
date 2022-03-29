@@ -1,17 +1,17 @@
 \chapter{Quality Measures}
 
-\instructions{
-    Describe the quality measures applied in your project as covered in the SEP2 module. Things that might be included in this chapter:
+%% \instructions{
+%%     Describe the quality measures applied in your project as covered in the SEP2 module. Things that might be included in this chapter:
     
-    \begin{itemize}
-        \item Organizational means like \textit{Merge Requests}, \textit{Definition of Done}, etc.
-        \item Tools used to assess the quality of your product (linter, metrics, ...)
-        \item Tools used to build and deploy your product (CI/CD)
-        \item The \textit{Test Concept} used for testing your product
-    \end{itemize}
+%%     \begin{itemize}
+%%         \item Organizational means like \textit{Merge Requests}, \textit{Definition of Done}, etc.
+%%         \item Tools used to assess the quality of your product (linter, metrics, ...)
+%%         \item Tools used to build and deploy your product (CI/CD)
+%%         \item The \textit{Test Concept} used for testing your product
+%%     \end{itemize}
     
-    Try to avoid duplication with other chapters such as the \textit{Project Plan}. Work with cross-references when appropriate.
-}
+%%     Try to avoid duplication with other chapters such as the \textit{Project Plan}. Work with cross-references when appropriate.
+%% }
 
 
 \section{Apply Quality standard}
@@ -32,6 +32,21 @@ For this project three different types of tests are used:
 \end{itemize}
 
 \subsection{Unit Test}
-The Unit Tests are done using the \textit{mocha}, \textit{chai}, \textit{chai-http} and \textit{chai-dom} framework.
+The Unit Tests are done using the \textit{mocha} and \textit{chai} framework.
 
 \subsection{Integration Test}
+The Integration Tests are also done using the \textit{mocha} and \textit{chai} framework.
+But \textit{chai} is extended using the \textit{chai-http} and \textit{chai-dom} framework.
+Using \textit{chai-http} HTTP request are simulated and \textit{chai-dom} is used to make assertion about the delivered HTML page.
+
+\subsection{Usability Test}
+To test the usability of the application we demonstrated and interact with Laurent Metzger, the advisor.
+Because he is a technical user he is perfectly suited to judge the application for its usability.
+
+\subsection{Integration into Workflow}
+Before pushing any changes you must run all Unit and Integrations Test.
+If all tests are passed you can push the changes.
+On the server side we use the GitLab CI/CD pipeline to test again the same tests.
+Only if this pass you your merge request can be integrated into the master branch.
+
+To run all tests in the IDE a run configuration is provided.
