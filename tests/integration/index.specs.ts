@@ -20,14 +20,5 @@ describe("Index", function () {
           done();
         });
     });
-    it("this should fail", function (done) {
-      chai
-        .request(app)
-        .get("/")
-        .end(function (err, res) {
-          expect(res).to.have.status(500);
-          done();
-        });
-    });
   });
 });

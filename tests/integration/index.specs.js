@@ -43,15 +43,6 @@ describe("Index", function () {
                 done();
             });
         });
-        it("this should fail", function (done) {
-            chai_1.default
-                .request(app_1.app)
-                .get("/")
-                .end(function (err, res) {
-                (0, chai_1.expect)(res).to.have.status(500);
-                done();
-            });
-        });
     });
 });
 //# sourceMappingURL=index.specs.js.map
