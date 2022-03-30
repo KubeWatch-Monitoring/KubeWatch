@@ -26,12 +26,12 @@
       - Risk Management and Threat Model
       - Test Concept
       - Architecture
-      - Prototype
+      - Prototype => Demo
       - DB <-> Web Appl.
 
   - | Questions                             | Decisions |
     | ------------------------------------- | --------- |
-    | Abgabe erst am Sonntag abend möglich? |           |
+    | Abgabe erst am Sonntag abend möglich? | ja        |
 
 - Architecture
 
