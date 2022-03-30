@@ -13,6 +13,8 @@ import {
   Style,
 } from "./utils/session-middleware.index";
 
+import { promRoutes } from "./routes/prom-routes";
+
 declare module "express-session" {
   interface SessionData {
     style: Style;
@@ -56,3 +58,8 @@ app.use(bodyParser.json());
 
 app.use("/", indexRoutes);
 app.use("/pods", podRoutes);
+// app.use("/prom-metrics", promRoutes);
+app.use("/prom-metrics", indexRoutes);
+
+const cors = require("cors");
+app.use(cors());

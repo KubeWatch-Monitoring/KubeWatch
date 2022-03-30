@@ -35,4 +35,8 @@ exports.app.use(body_parser_1.default.urlencoded({ extended: false }));
 exports.app.use(body_parser_1.default.json());
 exports.app.use("/", index_routes_1.indexRoutes);
 exports.app.use("/pods", pod_routes_1.podRoutes);
+// app.use("/prom-metrics", promRoutes);
+exports.app.use("/prom-metrics", index_routes_1.indexRoutes);
+const cors = require("cors");
+exports.app.use(cors());
 //# sourceMappingURL=app.js.map
