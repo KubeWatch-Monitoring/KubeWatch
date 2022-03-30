@@ -1,10 +1,5 @@
 \chapter{Requirements}
 
-% \instructions{
-%     Describe the functional and non-functional requirements as covered in the SEP1 and SEP2 modules.
-% }
-
-
 \section{Functional Requirements}
 The functional requirements are written as a description in the GitLab issue\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/issues/55}}.
 
@@ -25,7 +20,10 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
         \hline
         \textbf{Date} & \textbf{Changes} \\
         \hline
-        15.03.22 & Created initial set of NFRs. \\ \hline
+        15.03.22 & Created initial set of NFRs. \\
+        \hline
+        30.03.22 & Added NFR 5-10, Updated NFR-1 \\
+        \hline
       \end{tabular}
     \end{table}
 
@@ -34,13 +32,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-1\\ 
  \hline
- \textbf{Requirement} & Software must be tested\\  
+ \textbf{Requirement} & The software must have a good quality. \\
  \hline
- \textbf{Priority} & Medium\\
+ \textbf{Priority} & High\\
  \hline
- \textbf{Measure(s)} & The test coverage must be minimal 75\%\\
+ \textbf{Measure(s)} & The test coverage must be minimal 75\%.\\
  \hline
- \textbf{Process} & Metrics from \textsl{SonarQube}\\
+ \textbf{Process} & Use \textit{SonarQube} Coverage metrics. \\
  \hline
 \end{tabular}
 \end{center}
@@ -50,13 +48,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-2\\ 
  \hline
- \textbf{Requirement} & The web interface must be loaded fast\\
+ \textbf{Requirement} & The web interface must load fast.\\
  \hline
  \textbf{Priority} & High\\
  \hline
- \textbf{Measure(s)} & The response time must be under 5s\\
+ \textbf{Measure(s)} & The response time must be under 5s.\\
  \hline
- \textbf{Process} & Use Browsers Developer Tools to verify the loading time\\
+ \textbf{Process} & Use Browsers Developer Tools to verify the loading time.\\
  \hline
 \end{tabular}
 \end{center}
@@ -66,13 +64,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-3\\ 
  \hline
- \textbf{Requirement} & The application memory usage must be minimal\\
+ \textbf{Requirement} & The application memory usage must be minimal.\\
  \hline
  \textbf{Priority} & Medium\\
  \hline
- \textbf{Measure(s)} & The maximal memory usage must be less than 200 MB\\
+ \textbf{Measure(s)} & The maximal memory usage must be less than 200 MB.\\
  \hline
- \textbf{Process} & Monitor the system over a given period of time\\
+ \textbf{Process} & Monitor the system over a given period of time.\\
  \hline
 \end{tabular}
 \end{center}
@@ -82,15 +80,109 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-4\\ 
  \hline
- \textbf{Requirement} & The product must be implemented using Node.js and Kubernetes\\
+ \textbf{Requirement} & The product must be implemented using Node.js and Kubernetes.\\
  \hline
  \textbf{Priority} & Low\\
  \hline
- \textbf{Measure(s)} & Only JS / TS files are used\\
+ \textbf{Measure(s)} & Only JS / TS files are used.\\
  \hline
- \textbf{Process} & Check the source code and the deployment infrastructure\\
+ \textbf{Process} & Check the source code and the deployment infrastructure.\\
  \hline
 \end{tabular}
 \end{center}
 
+\begin{center}
+\begin{tabular}{ | m{8em} | m{25em}| } 
+ \hline
+ \textbf{ID} & NFR-5\\ 
+ \hline
+ \textbf{Requirement} & The product must support at least 10 pods. \\
+ \hline
+ \textbf{Priority} & Middle\\
+ \hline
+ \textbf{Measure(s)} & Software is usable with 10 pods.\\
+ \hline
+ \textbf{Process} & Let the software monitor at least 10 pods.\\
+ \hline
+\end{tabular}
+\end{center}
 
+\begin{center}
+\begin{tabular}{ | m{8em} | m{25em}| } 
+ \hline
+ \textbf{ID} & NFR-6\\ 
+ \hline
+ \textbf{Requirement} & The Software must usable for a technical user.\\
+ \hline
+ \textbf{Priority} & High \\
+ \hline
+ \textbf{Measure(s)} & Technical User gives positive feedback.\\
+ \hline
+ \textbf{Process} & Have a technical user work with the software.\\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ | m{8em} | m{25em}| } 
+ \hline
+ \textbf{ID} & NFR-7\\ 
+ \hline
+ \textbf{Requirement} & The software must handle absence of the cluster.\\
+ \hline
+ \textbf{Priority} & High \\
+ \hline
+ \textbf{Measure(s)} & Software sends Notification about missing cluster.\\
+ \hline
+ \textbf{Process} & Let the software run without connection to the cluster.\\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ | m{8em} | m{25em}| } 
+ \hline
+ \textbf{ID} & NFR-8\\ 
+ \hline
+ \textbf{Requirement} & The software must reconnect to the cluster automatically.\\
+ \hline
+ \textbf{Priority} & Middle \\
+ \hline
+ \textbf{Measure(s)} & The software sends Notification that the cluster is alive again.\\
+ \hline
+ \textbf{Process} & Start software without cluster and start cluster after software.\\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ | m{8em} | m{25em}| } 
+ \hline
+ \textbf{ID} & NFR-9\\ 
+ \hline
+ \textbf{Requirement} & The software must be secure. \\
+ \hline
+ \textbf{Priority} & Middle \\
+ \hline
+ \textbf{Measure(s)} & The Security Rating must be at least a B. \\
+ \hline
+ \textbf{Process} & Use \textit{SonarQube} Security Rating metrics. \\
+ \hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{ | m{8em} | m{25em}| } 
+ \hline
+ \textbf{ID} & NFR-10\\ 
+ \hline
+ \textbf{Requirement} & Code must be maintainable. \\
+ \hline
+ \textbf{Priority} & High \\
+ \hline
+ \textbf{Measure(s)} & The Maintainability Rating must be at least a B.\\
+ \hline
+ \textbf{Process} & Use \textit{SonarQube} Maintainability Rating metrics. \\
+ \hline
+\end{tabular}
+\end{center}
