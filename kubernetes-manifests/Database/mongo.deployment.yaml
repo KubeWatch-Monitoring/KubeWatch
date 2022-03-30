@@ -6,7 +6,7 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: -mongodb
+  name: nodejs-kubewatch-mongodb
   labels:
     app: nodejs-kubewatch
     tier: db
