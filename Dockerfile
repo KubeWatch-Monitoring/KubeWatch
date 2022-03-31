@@ -7,8 +7,8 @@ WORKDIR /kubewatch
 COPY package*.json ./
 RUN npm install
 
-# Copy rest of the application csource code
+# Copy rest of the application source code
 COPY . .
 
 # Run index.ts
-ENTRYPOINT ["node", "index.ts"]
+ENTRYPOINT ["npm", "run", "dev"]

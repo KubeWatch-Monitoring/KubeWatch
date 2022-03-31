@@ -23,7 +23,7 @@
     </option>
     <option name="skaffoldNamespace" />
     <option name="skaffoldProfile" />
-    <option name="skaffoldWatchMode" value="ON_DEMAND" />
+    <option name="skaffoldWatchMode" value="ON_FILE_SAVE" />
     <option name="statusCheck" value="true" />
     <option name="verbosity" value="WARN" />
     <method v="2" />
