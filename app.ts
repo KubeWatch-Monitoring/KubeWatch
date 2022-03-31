@@ -43,9 +43,11 @@ app.set("view engine", "hbs");
 app.set("views", path.resolve("views"));
 
 app.use(express.static(path.resolve("public")));
+if (process.env.EXPRESS_SESSION_SECRET === undefined)
+    throw new Error("Environment variable EXPRESS_SESSION_SECRET is missing");
 app.use(
     session({
-        secret: "casduichasidbnuwezrfinasdcvjkadfhsuilfuzihfioda",
+        secret: process.env.EXPRESS_SESSION_SECRET,
         resave: false,
         saveUninitialized: true,
     })
