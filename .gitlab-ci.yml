@@ -111,6 +111,7 @@ deploy_cluster_job:
 
 # sonarqube configuration
 sonarqube-check:
+  stage: test
   image: 
     name: sonarsource/sonar-scanner-cli:latest
     entrypoint: [""]
