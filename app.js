@@ -14,6 +14,7 @@ const pod_routes_1 = require("./routes/pod-routes");
 const handlebar_util_1 = require("./utils/handlebar-util");
 const express_handlebars_1 = __importDefault(require("express-handlebars"));
 const session_middleware_index_1 = require("./utils/session-middleware.index");
+const prom_routes_1 = require("./routes/prom-routes");
 exports.app = (0, express_1.default)();
 const hbs = express_handlebars_1.default.create({
     extname: ".hbs",
@@ -36,8 +37,5 @@ exports.app.use(body_parser_1.default.urlencoded({ extended: false }));
 exports.app.use(body_parser_1.default.json());
 exports.app.use("/", index_routes_1.indexRoutes);
 exports.app.use("/pods", pod_routes_1.podRoutes);
-// app.use("/prom-metrics", promRoutes);
-exports.app.use("/prom-metrics", index_routes_1.indexRoutes);
-const cors = require("cors");
-exports.app.use(cors());
+exports.app.use("/prom-metrics", prom_routes_1.promRoutes);
 //# sourceMappingURL=app.js.map

@@ -1,26 +1,17 @@
 {{#section 'title'}}
-    {{this.name}}
+    Cluster Metrics
 {{/section}}
 {{#section 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="css/listPods.css">
 {{/section}}
 {{#section 'scripts'}}
 {{/section}}
 
-<div class="row">
-    <div class="col-lg-5">
-        {{promMetrics}}
-<!--        <div class="card pod" data-pod-id="{{this.id}}">-->
-<!--            <div class="card-header">-->
-<!--                {{this.name}}-->
-<!--            </div>-->
-<!--            <div class="card-body">-->
-<!--                <img class="card-img-left" width="45%" src="img/logo.jpeg" alt="some logo">-->
-<!--                <p>-->
-<!--                    {{this.description}}-->
-<!--                </p>-->
-
-<!--                <a href="/pods/{{this.id}}" class="btn btn-primary">Go to Pod Information</a>-->
-<!--            </div>-->
-<!--        </div>-->
-    </div>
-</div>
+<p>Blob</p>
+{{promMetrics}}
+<p>Details</p>
+{{#each promMetrics}}
+    <p>Metric {{@index}}:</p>
+    <p>{{this.metric}}</p>
+    <p>{{this.values}}</p>
+{{/each}}
