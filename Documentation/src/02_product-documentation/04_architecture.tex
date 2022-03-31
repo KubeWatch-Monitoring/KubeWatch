@@ -13,36 +13,46 @@
 % }
 
 \section{System Architecture}
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \caption{\label{fig:system-context-diagram}System context diagram}
-  \includegraphics[height=6cm]{resources/System_context_diagram.png} \newline
+  \includegraphics[height=5cm]{resources/System_context_diagram.png}
+  \caption{System context diagram}
+  \label{fig:system-context-diagram}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
-  \caption{\label{fig:container-diagram}Container diagram}
   \includegraphics[height=8cm]{resources/Container_diagram.png}
+  \caption{Container diagram}
+  \label{fig:container-diagram}
 \end{figure}
 
-\begin{table}[h]
-  \centering
-  \caption{\label{tab:k8s-elements-explained}K8s elements explained}
-  \begin{tabular*}{\textwidth}{p{4cm} | p{9cm}}
+\begin{table}[H]
+  \begin{tabular*}{\textwidth}{p{3.5cm} | p{9cm}}
     \textbf{Master:}
-      & Each Kubernetes cluster contains at least one master node which runs the Kubernetes control plane. These control plane consists of an API server, scheduler, controller manager, etc. \\
+      & Each Kubernetes cluster contains at least one master node which runs the Kubernetes control plane. These control plane consists of an API server, scheduler, controller manager, etc. \bigskip \\
     \textbf{Worker/Node:}
-      & Each cluster includes at least one worker node, this node runs containerized applications. Each worker node host \textit{Pods}. \\
+      & Each cluster includes at least one worker node, this node runs containerized applications. Each worker node host \textit{Pods}. \bigskip \\
     \textbf{Pod:}
       & A pod is a component of the application workload. \\
   \end{tabular*}
+  \caption{K8s elements explained}
+  \label{tab:k8s-elements-explained}
 \end{table}
 
-\begin{figure}[h]
+\begin{figure}[H]
   \centering
+  \includegraphics[height=7.3cm]{resources/architecture.png}
   \caption{KubeWatch CI/CD Pipeline architecture}
   \label{fig:architecture}
-  \includegraphics[height=8cm]{resources/architecture.png}
+\end{figure}
+
+\section{Web App}
+\begin{figure}[H]
+  \centering
+  \includegraphics[height=14cm]{resources/clean_architecture.png}
+  \caption{Web app clean architecture}
+  \label{fig:web-app-architecture}
 \end{figure}
 
 \section{Wireframe}
