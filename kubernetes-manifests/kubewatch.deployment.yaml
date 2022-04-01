@@ -25,6 +25,8 @@ spec:
           env:
             - name: PORT
               value: "8080"
+            - name: DB_CONN_STRING
+              value: "mongodb://nodejs-kubewatch-mongodb:27017/kubewatch"
           readinessProbe:
             tcpSocket:
               port: 8080

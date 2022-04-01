@@ -5,6 +5,8 @@ import path from "path";
 import session from "express-session";
 import {indexRoutes} from "./routes/index-routes";
 import {podRoutes} from "./routes/pod-routes";
+import {userRoutes} from "./routes/user-routes";
+import {UserStore} from "./services/userStore";
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
 
@@ -23,8 +25,8 @@ declare module "express-session" {
 
 declare global {
     namespace Express {
-        interface Request {
-            settings: Settings;
+        interface Application {
+            userStore: UserStore;
         }
     }
 }
@@ -59,3 +61,4 @@ app.use(bodyParser.json());
 
 app.use("/", indexRoutes);
 app.use("/pods", podRoutes);
+app.use("/users", userRoutes);
