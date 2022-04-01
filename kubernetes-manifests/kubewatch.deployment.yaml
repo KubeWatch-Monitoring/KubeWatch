@@ -25,6 +25,8 @@ spec:
           env:
             - name: PORT
               value: "8080"
+            - name: PROMETHEUS_CONN_STRING
+              value: "http://prometheus.monitoring:9090"
           readinessProbe:
             tcpSocket:
               port: 8080

@@ -1,11 +1,15 @@
 import { Request, Response } from "express";
 import { PrometheusDriver } from 'prometheus-query';
 
+
+if (process.env.PROMETHEUS_CONN_STRING === undefined)
+  throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
 const prom = new PrometheusDriver({
   // endpoint: 'http://127.0.0.1:9090',
   // endpoint: 'http://prometheus:9090',
   // endpoint: "https://prometheus.demo.do.prometheus.io",
-  endpoint: "http://prometheus.monitoring:9090",
+
+  endpoint: process.env.PROMETHEUS_CONN_STRING,
   baseURL: "/api/v1",
 });
 
