@@ -5,40 +5,41 @@ import { PrometheusDriver } from 'prometheus-query';
 if (process.env.PROMETHEUS_CONN_STRING === undefined)
   throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
 const prom = new PrometheusDriver({
-  // endpoint: 'http://127.0.0.1:9090',
-  // endpoint: 'http://prometheus:9090',
-  // endpoint: "https://prometheus.demo.do.prometheus.io",
-
   endpoint: process.env.PROMETHEUS_CONN_STRING,
   baseURL: "/api/v1",
 });
 
 async function retrieveInstantQuery() {
-  const instantQuery = 'up{instance="demo.do.prometheus.io:9090",job="node"}';
-  // const instantQuery = 'prometheus_target_interval_length_seconds_sum{interval="15s"}';
+  const instantQuery = 'prometheus_target_sync_length_seconds_count{scrape_job="kube-state-metrics"}';
   const instantQueryResponse = await prom.instantQuery(instantQuery);
-  return instantQueryResponse.result;
+  return instantQueryResponse.result.flat();
 }
 
 async function retrieveRangeQuery() {
   const q = 'up';
   const start = new Date().getTime() - 24 * 60 * 60 * 1000;
   const end = new Date();
-  const step = 6 * 60 * 60; // 1 point every 6 hours
-  const rangeQuery = await prom.rangeQuery(q, start, end, step);
-  return rangeQuery.result;
+  const step = 60 * 60 //6 * 60 * 60; // 1 point every 6 hours
+  const rangeQueryResponse = await prom.rangeQuery(q, start, end, step);
+  return rangeQueryResponse.result;
+}
+
+async function retrieveSeriesQuery() {
+  const match = 'up';
+  const start = new Date().getTime() - 24 * 60 * 60 * 1000;
+  const end = new Date();
+  return await prom.series(match, start, end);
 }
 
 export class PrometheusController {
   async getMetrics(req: Request, res: Response) {
     console.log("getMetrics start");
-    // const test = await axios.get('http://prometheus.monitoring:9090');
-    // console.log(test);
     res.render("promView", {
       style: req.session.style,
       display: req.session.display,
-      promMetrics: await retrieveRangeQuery(),
-      // promMetrics: await retrieveInstantQuery(),
+      rangeMetrics: await retrieveRangeQuery(),
+      instantMetrics: await retrieveInstantQuery(),
+      seriesMetrics: await retrieveSeriesQuery(),
     });
     console.log('getMetrics stop')
   }
