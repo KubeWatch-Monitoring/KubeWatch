@@ -1,1 +1,49 @@
-<mxfile host="Electron" modified="2022-03-18T01:24:14.888Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/16.5.1 Chrome/96.0.4664.110 Electron/16.0.7 Safari/537.36" etag="9_eD6vTHmZS3Uvf0swHO" version="16.5.1" type="device"><diagram id="AmTqFOqn3dXTEwt37umZ" name="Page-1">3Vjbcts2EP0aPbbDqyI/WpKTdmpPNXFbT/sGkisSMQhoQNCS8vVdEOCdlpVUrt0+EVjisjx7zmLBmb/KD58k2WV3IgE285zkMPPXM89zXcfDh7YcrcXxQmNJJU2srTXc069QD7TWkiZQ9AYqIZiiu74xFpxDrHo2IqXY94dtBevvuiMpjAz3MWFj6wNNVGasC+9Da/8JaJrVO7vzK/MmJ/Vg+yVFRhKx75j8m5m/kkIo08oPK2AavRoXM+/jM28bxyRwdc6E/dd1+CeP+WNe/vZwd5dlf8m7H6yzT4SV9oN/KSPYExVn1mt1rKGQouQJ6NWcmb/cZ1TB/Y7E+u0eo4+2TOUMey42E1Jk1Vjd2VLGVoIJiX0uOM5YEkZTjl0GW/R++QRSUUT92pqV0OtZ5/AdHJ79arfBElkIIgcljzjETlhY9C3/vMD2920wA9/ask4g/XogsQRKm6VbjLFhYf4GyP0R5H9QQJqiiRYl4lIQRQVHA67vcKHoFpGxpjnTaEUSW6luEZ4Y8m9pWkrQq+gAPpgAzkmuYeRR0aLZCSgkSHXbFVJlIhWcsJvWuuyHvB1zK3R8qth+AaWOVrekVKJPA7On3uh0/NAvUcoYTuBWq5/IFNSpcc40ISQwRPGp78jFo+tOCsrGw/m9ADkKAyaGnW6WObuOlRZJI4dbEgHbiILq8OOQSCgl8mf10gFelIpRDqsmLTqX0VOjCyuo8GosqCk9zV9LTuEI8E3JmBaCXp/GE6LZSsTwvy0G70wxBG+pBe+kFpYkfoQqfV1vfh6F44Xj5dXOC+8q7PHb98b8dr1/k+AfRih+wtIC5Luk+Jcy39Vb2JPecHQDkqK3IHVMKU/tFoXp3VZVQNfy2SKrTUxnQfQmATmoIqrtjC9zPbcusaqFHkETrZv5LiK94EzpLf6h9OzUjaDoYcPPuTvv8zMc8M74b2d1y8HhQk6f6MFisJCN23ChisPN93w/rYNx3pZ60QzK4t1kgzB4b9lgMZlTJUdp6YSwYmWhpmqMrhhIsTM1wZYetNi7UO50vCunw+UsXHcq9RgxA12c0Ly6My23gisrPtdr7Wuap/hpjEb6A4uYAD5bJ38sntILBWdQ2zcM7gQnnIhNsHit2s8d4f6tKbcXp4lkOkh435Ghezny+cx6MmtfMJvW9/wX06n3lpVM7WVHdh8l0r+qX95JrhpWLsH8rXOVO77qfgaS6Dxl6pPp2+xeUpPMkLr/Gz3ZY/nV9XTuxcB9Wz2NrwZrokhEChgfXfZ6HB/xQovA+i//fIoMB26jxoB3jbRixq/mXlwHzx5f4fRPqguo0nX6h5TvjlW5mBDlsBo7A/qZzkn130RTprU/Zf2bvwE=</diagram></mxfile>
+<mxfile host="65bd71144e">
+    <diagram id="AmTqFOqn3dXTEwt37umZ" name="Page-1">
+        <mxGraphModel dx="716" dy="782" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-9" value="Kubewatch" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;fillColor=none;align=left;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="240" width="430" height="340" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-3" value="Views visualisations, notifications&lt;br&gt;and configures KubeWatch&amp;nbsp;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wzD5YncnkmuTWMMhhZrM-1" target="wzD5YncnkmuTWMMhhZrM-10" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-1" value="KubeWatch User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="590" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-5" value="Pulls metrics&lt;br&gt;from using http" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="wzD5YncnkmuTWMMhhZrM-2" target="wzD5YncnkmuTWMMhhZrM-4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-2" value="KubeWatch Backend API" style="whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="295" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-7" value="Gathers metrics&lt;br&gt;from" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;jumpStyle=none;targetPerimeterSpacing=0;spacingLeft=0;spacingRight=0;labelBorderColor=none;jumpSize=6;shadow=0;sketch=0;" parent="1" source="wzD5YncnkmuTWMMhhZrM-4" target="wzD5YncnkmuTWMMhhZrM-8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="616" y="350" as="sourcePoint"/>
+                        <mxPoint x="605" y="480" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-4" value="Prometheus" style="whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="545" y="320" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-8" value="Kubernetes Cluster" style="sketch=0;aspect=fixed;html=1;points=[];align=center;image;fontSize=12;image=img/lib/mscae/Kubernetes.svg;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="480" width="50" height="48" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-11" value="http/https requests" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;jumpStyle=none;jumpSize=6;orthogonalLoop=1;jettySize=auto;html=1;shadow=0;labelBorderColor=none;targetPerimeterSpacing=0;" parent="1" source="wzD5YncnkmuTWMMhhZrM-10" target="wzD5YncnkmuTWMMhhZrM-2" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-10" value="Frontend" style="whiteSpace=wrap;html=1;verticalAlign=top;" parent="1" vertex="1">
+                    <mxGeometry x="294" y="474" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-13" value="Reads from&lt;br&gt;and writes to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;sketch=0;jumpStyle=none;jumpSize=6;orthogonalLoop=1;jettySize=auto;html=1;shadow=0;labelBorderColor=none;sourcePerimeterSpacing=0;" parent="1" source="wzD5YncnkmuTWMMhhZrM-2" target="wzD5YncnkmuTWMMhhZrM-12" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="wzD5YncnkmuTWMMhhZrM-12" value="Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=none;" parent="1" vertex="1">
+                    <mxGeometry x="100" y="310" width="80" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
