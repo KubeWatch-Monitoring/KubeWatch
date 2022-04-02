@@ -208,20 +208,20 @@ The table \ref{tab:risk-review} lists all risk reviews.
             & \multicolumn{1}{c}{Eliminated} \\ \hline
         Accessing K8s Cluster 
             & To access the K8s Cluster that is set up in the INS, we need to define the best way for everyone to work on the Cluster and subsequently the Web API.
-            & The INS has different options to access the cluster, but we have not yet been able to test it.
-            & 40\% & 8 & 3.2 \\ \hline
+            & The INS has different options to access the cluster, but we have not yet been able to test it. However, we deployed the web application locally on a K8s cluster which workes just fine. Therefore, the likelihood of this risk impacting the project is significantly reduced.
+            & 10\% & 7 & 0.7 \\ \hline
         Unknown Development Environment
             & To run a Web Server on a K8s Cluster is new for us and may come with certain obstacles which would not appear in a local development environment. However, the tech stack we are planning on using is well-known to us.
             & Each of the team members tested the local development environment and it works. The development environment on the INS Cluster is not fully tested, this should be done as soon as possible. But with this step the risk for the development environment is mostly mitigated.
-            & 20\% & 5 & 2.2 \\ \hline
+            & 20\% & 5 & 1.0 \\ \hline
         Scrum Methodology 
             & We are applying an Agile approach for the development of this project. The Scrum framework is best suited for us as it has clear guidelines. However, we do not have much experience in running Scrum methodologies.
             & The Software Engineering Project module, which we attend in parallel, is designed to support us in learning and applying Scrum. During the last weeks we got some regularity in how to use agile methodologies and it works really good until now. There is a small residual risk because we need more practice in implementing and applying Scrum to be most beneficial for our needs.
-            & 10\% & 1 & 0.4 \\ \hline
+            & 10\% & 1 & 0.1 \\ \hline
         New Architecture 
             & Designing a new architecture for a project for which we have no prior experience is always a risk that something gets overlooked.
             & The architecture for our desired final state of the project is not overly complex. Also, we have experience with most of the individual components that we intend to use, just not in combining them in the desired setup. In the last week we create an architecture overview which helps us to manage each component and understand the combinations. While this process reduced the risk significantly, there is still a probability that we did not combine the components correctly, or we need to change the architecture at a later which is quite costly for the project.
-            & 30\% & 8 & 4.4 \\ \hline
+            & 30\% & 8 & 2.4 \\ \hline
         Team member unavailable
             & One or more team members may become unavailable for the project due to illness, accident or other personal reasons. In this case, the workload must be spread across fewer members, which has an impact on the timeline. Also, information may get lost that was only available to that person.
             & Information sharing across team members is important. We formed two sub-groups (Network and Web development) where information is shared, and we train each other during the weekly meetings on important developments. In addition, we maintain a practice of documenting code and other implementation specific details in a shared repository. Thanks to an agile approach, change in timelines only impact the number of features available in the final product, rather than posing a threat to the success of the overall project.
@@ -229,7 +229,7 @@ The table \ref{tab:risk-review} lists all risk reviews.
         Web App Monitors Own Cluster
             & The Web Application that monitors the Kubernetes Cluster runs on the same Cluster which it monitors. This may become a risk if the Cluster or Node where the app runs goes down unexpectedly so that a notification cannot be sent before the shutdown.
             & We are aware of this issue and constantly monitor the Cluster while development is ongoing. Once in production, the app should then reside on a separate Cluster. Development happens on a local and smaller version of Kubernetes (Minikube), which lowers this risk and impact drastically.
-            & 5\% & 4 & 0.4 \\ \hline
+            & 5\% & 4 & 0.2 \\ \hline
         Amazon Simple Notification Service API
             & As a potential extension to the basic push notification on the Web Application itself, we intend to add the ability to notify a user through email. The Amazon Simple Notification Service (SNS) API would provide this feature in a way that is easy to setup and configure.
             & We have not yet been able to test this API as we are still in the elaboration phase and will soon be focused on developing the MVP which does not yet include this feature. There is a risk that this API does not work as expected, and we have not yet requested an account for it. The alternative would be to set up an email service through an established email provider, which we know would work. However, the latter option would be more cumbersome to manage.
