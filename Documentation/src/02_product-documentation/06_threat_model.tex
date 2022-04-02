@@ -20,6 +20,8 @@ The table \ref{tab:threat-review} lists all risk reviews.
     \hline
     31.03.22 & Threat reviewed. \\
     \hline
+    02.04.22 & Threat reviewed. Addapted architecture \\
+    \hline
   \end{tabular}
 \end{table}
 
@@ -43,6 +45,8 @@ For KubeWatch we define our threat model based on the STRIDE model.
     \caption{\label{fig:threat-model-architecture}Threat Model Architecture}
     \includegraphics[height=12cm]{resources/architecture_threat_model.png}
 \end{figure}
+Legend: \newline
+- - - Trusted Boundaries
 
 
 \newpage
@@ -57,36 +61,58 @@ The following table includes all threats that we found in our architecture and a
     User                & D, E & Worm & Low & \\
                         & & Residual risk & Low & \\
     \hline
-    User \(\leftrightarrow\) Master   
+    User \(\leftrightarrow\) Frontend   
                         & T & Redirects Data Flow & Low & use certificate on web server \\ 
                         & I & Eavesdropping & Medium & Data Encryption \\
-                        & I & SQL Injection & Medium & Input validation \\
+                        & I & NoSQL Injection & High & Input validation \\
                         & D & Website Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CDN and redundant system \\
                         & & & & Patch Services \\
     \hline
-    API server          & S & Session Hijacking & Medium & Instal SSL certificate \\
-                        & T & SQL Injection & High & Input validation \\
+    Frontend            & S & Session Hijacking & Medium & Instal SSL certificate \\
                         & T & XSS & Medium & Input validation, alert system, santization \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
                         & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Website Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
-                        & & Service vulnerability (later) & & \\
     \hline
-    K8s Cluster             
-                        & S & IP Redirection & Low & use certificate \\
-                        & D & Hardware failure & Low & Keep backups of K8s configuration files \\
-                        & D & Absorb CPU & Medium & logging and alert system \\
+    Frontend  \(\leftrightarrow\) KubeWatch Backend API
+                        & T & Redirects Data Flow & Low & use certificate on web server \\
+                        & I & NoSQL Injection & High & Input validation \\
+                        & D & Botnet Attack & High & CDN and redundant system \\
     \hline
-    GitLab \(\leftrightarrow\) Master 
-                        & T & Change packet content & High & digital signature \\
-                        & I & Evesdropping & High & Data Encryption \\
-                        & D & Tunnel is unresponsive for CI/CD & Low & Manual deployment of source code on K8s cluster \\
+    KubeWatch Backend API
+                        & S & Session Hijacking & Medium & Instal SSL certificate \\
+                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & R & Audit Log Deletion & Low & Backup audit log \\
+                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & I & NoSQL Injection & High & Input validation \\
+                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
+                        & D & Server Defacement & Low & ACL and Filtering \\
+                        & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
     \hline
-    GitLab
-                        & T & Malicious source code injected through automated GitLab Runner & Low & \\
+    KubeWatch Backend API \(\leftrightarrow\) Database
+                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & I & NoSQL Injection & High & Input validation \\
+                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
+    \hline
+    Database            & T & XSS & Medium & Input validation, alert system, santization \\
+                        & R & Audit Log Deletion & Low & Backup audit log \\
+                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & I & NoSQL Injection & High & Input validation \\
+                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
+                        & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
+    \hline
+    KubeWatch Backend API \(\leftrightarrow\) Prometheus
+                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & I & NoSQL Injection & High & Input validation \\
+                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
+    \hline
+    Prometheus          & S & Session Hijacking & Medium & Instal SSL certificate \\
+                        & R & Audit Log Deletion & Low & Backup audit log \\
+                        & R & Insecure Backup & Low & implement digital signature and encryption \\
     \hline
 \end{longtable}
 
@@ -95,8 +121,8 @@ The following table includes all threats that we found in our architecture and a
 
 \subsection{User}
 \begin{itemize}
-    \item Assumption: The user have read-only access to the web application because he just need to look at the cluster metrics.
-    \item In a next step when the user need to change some data the login will be required and then the threat model needs to be updated to the authentication.
+    \item Assumption: The user has read-only access to the web application because he just needs to look at the cluster metrics.
+    \item In the next step when the user needs to change some data the login will be required and then the threat model needs to be updated to the authentication.
 \end{itemize}
 
 
