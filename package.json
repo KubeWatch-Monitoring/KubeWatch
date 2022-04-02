@@ -11,6 +11,7 @@
   "author": "lehmann",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.26.1",
     "body-parser": "^1.19.0",
     "chart.js": "^3.7.1",
     "dotenv": "^16.0.0",
@@ -20,10 +21,11 @@
     "express-winston": "4.2.0",
     "moment": "^2.29.1",
     "mongodb": "^4.4.1",
-    "nedb-promises": "^6.0.3",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3",
-    "winston": "3.6.0"
+    "winston": "3.6.0",
+    "nedb-promises": "^6.0.3",
+    "prometheus-query": "^3.2.1"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
