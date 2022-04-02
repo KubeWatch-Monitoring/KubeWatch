@@ -24,6 +24,10 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
         \hline
         30.03.22 & Added NFR 5-10, Updated NFR-1 \\
         \hline
+        01.04.22 & Updated NFR 5,7,8 \\
+        \hline
+        02.04.22 & Updated NFR 4 \\
+        \hline
       \end{tabular}
     \end{table}
 
@@ -84,7 +88,7 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{Priority} & Low\\
  \hline
- \textbf{Measure(s)} & Only JS / TS files are used.\\
+ \textbf{Measure(s)} & Only JS, TS (Application) and YAML (Kubernetes) files are used.\\
  \hline
  \textbf{Process} & Check the source code and the deployment infrastructure.\\
  \hline
@@ -96,13 +100,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-5\\ 
  \hline
- \textbf{Requirement} & The product must support at least 10 pods. \\
+ \textbf{Requirement} & The product must be scalable for high availability.\\
  \hline
  \textbf{Priority} & Middle\\
  \hline
- \textbf{Measure(s)} & Software is usable with 10 pods.\\
+ \textbf{Measure(s)} & Software must run in a container environment.\\
  \hline
- \textbf{Process} & Let the software monitor at least 10 pods.\\
+ \textbf{Process} & Let the software run in a container.\\
  \hline
 \end{tabular}
 \end{center}
@@ -128,13 +132,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-7\\ 
  \hline
- \textbf{Requirement} & The software must handle absence of the cluster.\\
+ \textbf{Requirement} & The software must handle absence of APIs it depends on.\\
  \hline
  \textbf{Priority} & High \\
  \hline
- \textbf{Measure(s)} & Software sends Notification about missing cluster.\\
+ \textbf{Measure(s)} & Software sends Notification about missing APIs.\\
  \hline
- \textbf{Process} & Let the software run without connection to the cluster.\\
+ \textbf{Process} & Let the software run without connection to any API.\\
  \hline
 \end{tabular}
 \end{center}
@@ -144,13 +148,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-8\\ 
  \hline
- \textbf{Requirement} & The software must reconnect to the cluster automatically.\\
+ \textbf{Requirement} & The software must reconnect to APIs it depends on automatically.\\
  \hline
  \textbf{Priority} & Middle \\
  \hline
- \textbf{Measure(s)} & The software sends Notification that the cluster is alive again.\\
+ \textbf{Measure(s)} & The software sends Notification that it is fully functional again.\\
  \hline
- \textbf{Process} & Start software without cluster and start cluster after software.\\
+ \textbf{Process} & Start software without connection to any API and start APIs after software.\\
  \hline
 \end{tabular}
 \end{center}
