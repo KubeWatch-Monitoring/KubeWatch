@@ -57,25 +57,9 @@ The following table includes all threats that we found in our architecture and a
     \endhead
     \caption{\label{tab:threats-classification}Classification of identified threats}
     \endlastfoot
-    User                & D, E & Worm & Low & Anti-virus / Anti-malware\\
+    Frontend (inkl. User)              
+                        & D, E & Worm & Low & Anti-virus / Anti-malware\\
                         & & Residual risk & Low & \\
-    \hline
-    User \(\leftrightarrow\) Frontend   
-                        & T & Redirects Data Flow & Low & Use certificate on web server \\ 
-                        & I & Eavesdropping & Medium & Data Encryption \\
-                        & I & NoSQL Injection & High & Input validation \\
-                        & D & Website Defacement & Low & ACL and Filtering \\
-                        & D & Botnet Attack & High & CDN and redundant system \\
-                        & & & & Patch Services \\
-    \hline
-    Frontend            & S & Session Hijacking & Medium & Install SSL certificate \\
-                        & T & XSS & Medium & Input validation, alert system, santisation \\
-                        & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
-                        & I & NoSQL Injection & High & Input validation \\
-                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
-                        & D & Website Defacement & Low & ACL and Filtering \\
-                        & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
     \hline
     Frontend  \(\leftrightarrow\) KubeWatch Backend API
                         & T & Redirects Data Flow & Low & Use certificate on web server \\
@@ -87,7 +71,6 @@ The following table includes all threats that we found in our architecture and a
                         & T & XSS & Medium & Input validation, alert system, sanitisation \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
                         & R & Insecure Backup & Low & Implement digital signature and encryption \\
-                        & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Server Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
@@ -100,13 +83,11 @@ The following table includes all threats that we found in our architecture and a
     Database            & T & XSS & Medium & Input validation, alert system, sanitisation \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
                         & R & Insecure Backup & Low & Implement digital signature and encryption \\
-                        & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
     \hline
     KubeWatch Backend API \(\leftrightarrow\) Prometheus
                         & T & XSS & Medium & Input validation, alert system, sanitisation \\
-                        & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
     \hline
     Prometheus          & S & Session Hijacking & Medium & Install SSL certificate \\
