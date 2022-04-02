@@ -2,7 +2,7 @@
 
 Security as part of a software project is nowadays an element that should no longer be neglected. When security is considered from the beginning of a project, it is much easier to keep pace of the evolving threat landscape, quickly derive implications in case of an emerging vulnerability and adapt the project where necessary. Another benefit is the significantly shorter time to react as identifying the project's exposure is faster and easier with a constantly kept up-to-date threat model.
 
-Writing secure software starts with the awareness of the various threats a project might exposed to. This includes applications, interfaces, hardware and users, where potential vulnerabilities can impact the reliability and integrity of a system. If the developer team sticks to the practice of continually updating the threat model and implementing security features as part of each deployment, security can actually become a fun topic and an imporant feature of the project.
+Writing secure software starts with the awareness of the various threats a project might exposed to. This includes applications, interfaces, hardware and users, where potential vulnerabilities can impact the reliability and integrity of a system. If the developer team sticks to the practice of continually updating the threat model and implementing security features as part of each deployment, security can actually become a fun topic and an important feature of the project.
 
 \section{Track Thread Review}
 The table \ref{tab:threat-review} lists all risk reviews.
@@ -16,11 +16,11 @@ The table \ref{tab:threat-review} lists all risk reviews.
     \hline
     03.03.22 & Created initial analysis. \\
     \hline
-    14.03.22 & Threat reviewed. Nothing changed. \\
+    14.03.22 & Threats reviewed. Nothing changed. \\
     \hline
-    31.03.22 & Threat reviewed. \\
+    31.03.22 & Threats reviewed. Provided more detailed analysis. \\
     \hline
-    02.04.22 & Threat reviewed. Addapted architecture \\
+    02.04.22 & Threats reviewed. Adapted architecture.\\
     \hline
   \end{tabular}
 \end{table}
@@ -34,7 +34,7 @@ For KubeWatch we define our threat model based on the STRIDE model.
     \item [{\bfseries R}]epudiation (Non-Repudiation)
     \item [{\bfseries I}]nformation disclosure (Confidentiality)
     \item [{\bfseries D}]enial of Service ( Availability)
-    \item [{\bfseries E}]levation of privilege (Authorization)
+    \item [{\bfseries E}]levation of privilege (Authorisation)
 \end{itemize}
 
 
@@ -53,66 +53,66 @@ Legend: \newline
 \section{Threat Identification}
 The following table includes all threats that we found in our architecture and are categorized in the STRIDE model categories.
 \begin{longtable}[h!]{p{2.1cm} p{1.8cm} p{3cm} p{2cm} p{3.5cm}}
-    \caption{\label{tab:threats-classification}Classification of identified threats}
-    \endfirsthead
-    \textbf{Component} & \textbf{Category} & \textbf{Threats} & \textbf{Risk} & \textbf{Mitigation} \\
+    \textbf{Component} & \textbf{Category} & \textbf{Threats} & \textbf{Risk} & \textbf{Mitigation} \\ \hline
     \endhead
-    \hline
-    User                & D, E & Worm & Low & \\
+    \caption{\label{tab:threats-classification}Classification of identified threats}
+    \endlastfoot
+    User                & D, E & Worm & Low & Anti-virus / Anti-malware\\
                         & & Residual risk & Low & \\
     \hline
     User \(\leftrightarrow\) Frontend   
-                        & T & Redirects Data Flow & Low & use certificate on web server \\ 
+                        & T & Redirects Data Flow & Low & Use certificate on web server \\ 
                         & I & Eavesdropping & Medium & Data Encryption \\
                         & I & NoSQL Injection & High & Input validation \\
                         & D & Website Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CDN and redundant system \\
                         & & & & Patch Services \\
     \hline
-    Frontend            & S & Session Hijacking & Medium & Instal SSL certificate \\
-                        & T & XSS & Medium & Input validation, alert system, santization \\
+    Frontend            & S & Session Hijacking & Medium & Install SSL certificate \\
+                        & T & XSS & Medium & Input validation, alert system, santisation \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
                         & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Website Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
     \hline
     Frontend  \(\leftrightarrow\) KubeWatch Backend API
-                        & T & Redirects Data Flow & Low & use certificate on web server \\
+                        & T & Redirects Data Flow & Low & Use certificate on web server \\
                         & I & NoSQL Injection & High & Input validation \\
                         & D & Botnet Attack & High & CDN and redundant system \\
     \hline
     KubeWatch Backend API
-                        & S & Session Hijacking & Medium & Instal SSL certificate \\
-                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & S & Session Hijacking & Medium & Install SSL certificate \\
+                        & T & XSS & Medium & Input validation, alert system, sanitisation \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
                         & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Server Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
     \hline
     KubeWatch Backend API \(\leftrightarrow\) Database
-                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & T & XSS & Medium & Input validation, alert system, sanitisation \\
                         & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
     \hline
-    Database            & T & XSS & Medium & Input validation, alert system, santization \\
+    Database            & T & XSS & Medium & Input validation, alert system, sanitisation \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
                         & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
     \hline
     KubeWatch Backend API \(\leftrightarrow\) Prometheus
-                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & T & XSS & Medium & Input validation, alert system, sanitisation \\
                         & I & NoSQL Injection & High & Input validation \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
     \hline
-    Prometheus          & S & Session Hijacking & Medium & Instal SSL certificate \\
+    Prometheus          & S & Session Hijacking & Medium & Install SSL certificate \\
                         & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
+                        & T & Metrics manipulation & Low & Use secure channel / tunnel \\
     \hline
 \end{longtable}
 
