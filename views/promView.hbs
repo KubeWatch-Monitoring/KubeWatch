@@ -1,0 +1,134 @@
+{{#section 'title'}}
+    Cluster Metrics
+{{/section}}
+{{#section 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+{{/section}}
+{{#section 'scripts'}}
+{{/section}}
+
+<h1>Content</h1>
+<ol>
+    <li><a href="#objects">Objects</a></li>
+    <li><a href="#instant-metrics">Instant Metrics</a></li>
+    <li><a href="#range-metrics">Range Metrics</a></li>
+    <li><a href="#series-metrics">Series Metrics</a></li>
+</ol>
+
+<h2 id="objects">Objects of ranges, instant and series</h2>
+<ul>
+    <li>instant metrics: {{instantMetrics}}</li>
+    <li>range metrics: {{rangeMetrics}}</li>
+    <li>series metrics: {{seriesMetrics}}</li>
+</ul>
+
+<h2 id="instant-metrics">Instant metrics details</h2>
+<p>Has name, one Time &amp Value, one Label &amp Value</p>
+{{#each instantMetrics}}
+    <h3>Metric {{@index}}</h3>
+    <h4>Name: {{this.metric.name}}</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{this.value.time}}</td>
+            <td>{{this.value.value}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Label</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each this.metric.labels}}
+            <tr>
+                <td>{{@key}}</td>
+                <td>{{this}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <br>
+{{/each}}
+
+<h2 id="range-metrics">Range metrics details</h2>
+<p>Has name, series of Time &amp Value, series of Label &amp Value</p>
+{{#each rangeMetrics}}
+    <h3>Metric {{@index}}</h3>
+    <h4>Name: {{this.metric.name}}</h4>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each this.values}}
+            <tr>
+                <td>{{this.time}}</td>
+                <td>{{this.value}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+
+    <br>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Label</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each this.metric.labels}}
+        <tr>
+            <td>{{@key}}</td>
+            <td>{{this}}</td>
+        </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <br>
+{{/each}}
+<br>
+
+<h2 id="series-metrics">Series metrics details</h2>
+<p>Has name, series of Label &amp Value</p>
+{{#each seriesMetrics}}
+    <h3>Metric {{@index}}</h3>
+    <h4>Name: {{this.name}}</h4>
+    <table>
+        <thead>
+        <tr>
+            <th>Label</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each this.labels}}
+            <tr>
+                <td>{{@key}}</td>
+                <td>{{this}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+    <br>
+{{/each}}
