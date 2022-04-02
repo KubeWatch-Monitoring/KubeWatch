@@ -18,6 +18,8 @@ The table \ref{tab:threat-review} lists all risk reviews.
     \hline
     14.03.22 & Threat reviewed. Nothing changed. \\
     \hline
+    31.03.22 & Threat reviewed. \\
+    \hline
   \end{tabular}
 \end{table}
 
@@ -45,42 +47,64 @@ For KubeWatch we define our threat model based on the STRIDE model.
 
 \newpage
 \section{Threat Identification}
-
-\begin{table}[h]
-    \centering
+The following table includes all threats that we found in our architecture and are categorized in the STRIDE model categories.
+\begin{longtable}[h!]{p{2.1cm} p{1.8cm} p{3cm} p{2cm} p{3.5cm}}
     \caption{\label{tab:threats-classification}Classification of identified threats}
-    \begin{tabular*}{\textwidth}{p{2.1cm} p{1.8cm} p{3cm} p{2cm} p{3.5cm}}
-        \textbf{Component} & \textbf{Category} & \textbf{Threats} & \textbf{Risk} & \textbf{Mitigation} \\
-        \hline
-        User                & D, E & Worm & Low & \\
-                            & I & Keylogger & Low & \\
-                            & & Residual risk & Low & \\
-        \hline
-        Interface User \(\leftrightarrow\) Master   & I, T & Man-in-the-middle & Medium & \\
-                                & I, T & SQL Injection & Medium & Input validation \\
-                                & & & & Patch Services \\
-        \hline
-        API server          & D & Denial of Service & Medium & CPU limitation \\
-                            & & & & Alerts \\
-                            & & Service vulnerability (later) & & \\
-        \hline
-        K8s Cluster             & D & Hardware failure & Low & Keep backups of K8s configuration files \\
-        \hline
-        Interface GitLab \(\leftrightarrow\) Master & D & Tunnel is unresponsive for CI/CD & Low & Manual deployment of source code on K8s cluster \\
-        \hline
-        GitLab             & T & Malicious source code injected through automated GitLab Runner & Low & \\ 
-        \hline
-    \end{tabular*}
-\end{table}
+    \endfirsthead
+    \textbf{Component} & \textbf{Category} & \textbf{Threats} & \textbf{Risk} & \textbf{Mitigation} \\
+    \endhead
+    \hline
+    User                & D, E & Worm & Low & \\
+                        & & Residual risk & Low & \\
+    \hline
+    User \(\leftrightarrow\) Master   
+                        & T & Redirects Data Flow & Low & use certificate on web server \\ 
+                        & I & Eavesdropping & Medium & Data Encryption \\
+                        & I & SQL Injection & Medium & Input validation \\
+                        & D & Website Defacement & Low & ACL and Filtering \\
+                        & D & Botnet Attack & High & CDN and redundant system \\
+                        & & & & Patch Services \\
+    \hline
+    API server          & S & Session Hijacking & Medium & Instal SSL certificate \\
+                        & T & SQL Injection & High & Input validation \\
+                        & T & XSS & Medium & Input validation, alert system, santization \\
+                        & R & Audit Log Deletion & Low & Backup audit log \\
+                        & R & Insecure Backup & Low & implement digital signature and encryption \\
+                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
+                        & D & Website Defacement & Low & ACL and Filtering \\
+                        & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
+                        & & Service vulnerability (later) & & \\
+    \hline
+    K8s Cluster             
+                        & S & IP Redirection & Low & use certificate \\
+                        & D & Hardware failure & Low & Keep backups of K8s configuration files \\
+                        & D & Absorb CPU & Medium & logging and alert system \\
+    \hline
+    GitLab \(\leftrightarrow\) Master 
+                        & T & Change packet content & High & digital signature \\
+                        & I & Evesdropping & High & Data Encryption \\
+                        & D & Tunnel is unresponsive for CI/CD & Low & Manual deployment of source code on K8s cluster \\
+    \hline
+    GitLab
+                        & T & Malicious source code injected through automated GitLab Runner & Low & \\
+    \hline
+\end{longtable}
 
 
 \section{Model Assumptions and Explanations}
 
+\subsection{User}
+\begin{itemize}
+    \item Assumption: The user have read-only access to the web application because he just need to look at the cluster metrics.
+    \item In a next step when the user need to change some data the login will be required and then the threat model needs to be updated to the authentication.
+\end{itemize}
+
+
 \subsection{Interface: User \(\leftrightarrow\) Kubernetes Master}
 \begin{itemize}
     \item Assumption: the web app is only accessible from within INS.
-    \item SQL Injection between Web App and database: mainly information disclosure, potentially Tampering to misrepresent the state of the nodes which are under a denial of service attack. This could pretend that the nodes are up and healthy, while the cluster is actually going down. However, the likelihood of this type of attack is rather low as it is questionable what the benefits are for an attacker. Unless there is a critical application running which may be the target.
-    \item SSH connection between user and K8s cluster: keep ssh service up do date, especially any TLS implementations to ensure authenticity and integrity.
+    \item SQL Injection between Web App and database: mainly information disclosure, potentially Tampering to misrepresent the state of the nodes which are under a denial of service attack. This could pretend that the nodes are up and healthy, while the cluster is actually going down. However, the likelihood of this type of attack is rather low as it is questionable what the benefits are for an attacker. Unless there is a critical application running that may be the target.
+    \item SSH connection between a user and K8s cluster: keep ssh service up to date, especially any TLS implementations to ensure authenticity and integrity.
     \item Potential extension: external web app / domain reqired \(\rightarrow\) requires user authentication \(\rightarrow\) update Threat model.
 \end{itemize}
 
@@ -102,6 +126,6 @@ For KubeWatch we define our threat model based on the STRIDE model.
 
 \subsection{Interface Master \(\leftrightarrow\) GitLab}
 \begin{itemize}
-    \item Tunnel between the Master / Cluster and the GitLab pipeline is assumed to be a low risk due to the default secure implementation nature of a tunnel. Of course, the same security issues for any component using TLS applies here as well.
+    \item Tunnel between the Master / Cluster and the GitLab pipeline is assumed to be low risk due to the default secure implementation nature of a tunnel. Of course, the same security issues for any component using TLS apply here as well.
 \end{itemize}
 

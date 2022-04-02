@@ -33,7 +33,6 @@ async function retrieveSeriesQuery() {
 
 export class PrometheusController {
   async getMetrics(req: Request, res: Response) {
-    console.log("getMetrics start");
     res.render("promView", {
       style: req.session.style,
       display: req.session.display,
@@ -41,7 +40,6 @@ export class PrometheusController {
       instantMetrics: await retrieveInstantQuery(),
       seriesMetrics: await retrieveSeriesQuery(),
     });
-    console.log('getMetrics stop')
   }
 }
 
