@@ -13,9 +13,15 @@
 % }
 
 The architecture of our application is modelled using the C4 model combined with Clean Architecture.
-Our application is build to use metrics which are scraped and stored by Prometheus in a Kubernetes cluster. 
+Our application is build to use metrics which are scraped and stored by Prometheus in a Kubernetes cluster.
+The functional requirements FR1 to 11 tracked on GitLab have been reviewed and are possible to be satisfied with this architecture. 
+The non-functional requirements NFR-2, NFR-3, NFR-4, are possible to satisfy with the technologies shown in the section Clean Architecture.
+The application will be built inside a container to satisfies NFR-5.
 
-\section{System Architecture}
+\section{Roles}
+The role of the architect is split up. We work according the architecture agent model, where we have two architects, one from each team in our group, namely Pascal and Jan.
+
+\section{System Architecture according C4 model}
 \begin{figure}[H]
   \centering
   \includegraphics[height=5cm]{resources/System_context_diagram.png}
@@ -59,5 +65,8 @@ Our application is build to use metrics which are scraped and stored by Promethe
 \end{figure}
 
 \section{Wireframe}
-The complete wireframe can be found as a PDF\footnote{\url{../appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{../appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
+\includegraphics[width=15cm]{../appendix/wireframe_kubewatch.drawio.pdf}
+
+
+The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
 The HTML page is interactive.
