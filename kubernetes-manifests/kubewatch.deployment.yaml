@@ -27,6 +27,8 @@ spec:
               value: "8080"
             - name: DB_CONN_STRING
               value: "mongodb://nodejs-kubewatch-mongodb:27017/kubewatch"
+            - name: PROMETHEUS_CONN_STRING
+              value: "http://prometheus.monitoring:9090"
           readinessProbe:
             tcpSocket:
               port: 8080
