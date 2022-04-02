@@ -19,7 +19,7 @@ async function retrieveRangeQuery() {
   const q = 'up';
   const start = new Date().getTime() - 24 * 60 * 60 * 1000;
   const end = new Date();
-  const step = 60 * 60 //6 * 60 * 60; // 1 point every 6 hours
+  const step = 60 // 1 point every 60 seconds
   const rangeQueryResponse = await prom.rangeQuery(q, start, end, step);
   return rangeQueryResponse.result;
 }
