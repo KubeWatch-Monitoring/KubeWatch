@@ -41,14 +41,14 @@ The following \textit{Definition of Done} was taken and adjusted to our needs fr
 
 
 \section{Apply Quality standard}
-To provide a certain code standard and quality some coding guidelines were specified.
+To provide a certain code standard and quality coding guidelines were specified.
 These guidelines can be found in the section \ref{guidelines-web-api}.
 For the Kubernetes similar guidelines were specified.
 You can find them in section \ref{guidelines-kubernetes}.
 
 
 \section{Test Concept}
-To provide a software with a good quality we need to test it.
+To develop software with good quality we need to test it.
 For this project three different types of tests are used:
 
 \begin{itemize}
@@ -66,13 +66,13 @@ But \textit{chai} is extended using the \textit{chai-http} and \textit{chai-dom}
 Using \textit{chai-http} HTTP request are simulated and \textit{chai-dom} is used to make assertion about the delivered HTML page.
 
 \subsection{Usability Test}
-To test the usability of the application we demonstrated and interact with Laurent Metzger, the advisor.
+To test the usability of the application we demonstrate and interact with Laurent Metzger, the advisor.
 Because he is a technical user he is perfectly suited to judge the application for its usability.
 
 \subsection{Integration into Workflow}
 Before pushing any changes you must run all Unit and Integrations Test.
 If all tests are passed you can push the changes.
-On the server side we use the GitLab CI/CD pipeline to test again the same tests.
-Only if this pass you your merge request can be integrated into the master branch.
+On the server side we use the GitLab CI/CD pipeline to test with the same tests.
+Only if they pass, merge request can be merged into the master branch.
 
 To run all tests in the IDE a run configuration is provided.
