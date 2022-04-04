@@ -6,7 +6,7 @@
   "scripts": {
     "start": "ts-node index.ts",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
-    "lint": "tsc --noEmit && eslint . --ext .ts"
+    "lint": "tsc --noEmit && eslint .. --ext .ts"
   },
   "author": "G03-KubeWatch",
   "license": "ISC",

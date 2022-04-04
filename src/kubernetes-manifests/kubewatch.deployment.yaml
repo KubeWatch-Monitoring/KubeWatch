@@ -6,30 +6,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nodejs-kubewatch
+  name: kubewatch
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodejs-kubewatch
+      app: kubewatch
   template:
     metadata:
       labels:
-        app: nodejs-kubewatch
+        app: kubewatch
     spec:
       containers:
         - name: server
-          image: nodejs-kubewatch
+          image: kubewatch
           ports:
             - containerPort: 8080
           env:
             - name: PORT
               value: "8080"
             - name: DB_CONN_STRING
-              value: "mongodb://nodejs-kubewatch-mongodb:27017/kubewatch"
+              value: "mongodb://kubewatch-mongodb:27017/kubewatch"
             - name: PROMETHEUS_CONN_STRING
               value: "http://prometheus.monitoring:9090"
-          readinessProbe:
-            tcpSocket:
-              port: 8080
-            initialDelaySeconds: 5

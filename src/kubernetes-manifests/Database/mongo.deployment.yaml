@@ -6,20 +6,20 @@
 kind: Deployment
 apiVersion: apps/v1
 metadata:
-  name: nodejs-kubewatch-mongodb
+  name: kubewatch-mongodb
   labels:
-    app: nodejs-kubewatch
+    app: kubewatch
     tier: db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nodejs-kubewatch
+      app: kubewatch
       tier: db
   template:
     metadata:
       labels:
-        app: nodejs-kubewatch
+        app: kubewatch
         tier: db
     spec:
       containers:

@@ -1,5 +1,12 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Local" type="NodeJSConfigurationType" node-parameters="--require ts-node/register" path-to-js-file="index.ts" working-dir="$PROJECT_DIR$">
+  <configuration default="false" name="Local" type="js.build_tools.npm">
+    <package-json value="$PROJECT_DIR$/src/package.json" />
+    <command value="run" />
+    <scripts>
+      <script value="start" />
+    </scripts>
+    <node-interpreter value="project" />
+    <envs />
     <method v="2" />
   </configuration>
 </component>

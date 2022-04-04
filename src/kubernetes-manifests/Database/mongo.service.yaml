@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: nodejs-kubewatch
+    app: kubewatch
     tier: db
-  name: nodejs-kubewatch-mongodb
+  name: kubewatch-mongodb
 spec:
   ports:
     - port: 27017
       targetPort: 27017
   selector:
-    app: nodejs-kubewatch
+    app: kubewatch
     tier: db
