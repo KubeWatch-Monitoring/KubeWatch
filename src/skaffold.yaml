@@ -1,0 +1,22 @@
+# To learn more about the skaffold.yaml schema visit
+# https://skaffold.dev/docs/references/yaml/
+apiVersion: skaffold/v2beta27
+kind: Config
+build:
+  artifacts:
+    - context: .
+      image: kubewatch
+deploy:
+  kubectl:
+    manifests:
+      - kubernetes-manifests/**
+profiles:
+  - name: dependencies-only
+    patches:
+      - op: remove
+        path: /build
+    deploy:
+      kubectl:
+        manifests:
+          - ./kubernetes-manifests/Database/**
+          - ./kubernetes-manifests/prometheus/**
