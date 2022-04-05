@@ -1,7 +1,7 @@
 # Meeting SEProj
 ## Meeting Information
 **Meeting Date/Time:** 4.42022, 09:00-10:00  
-**Note Taker:** note_taker  
+**Note Taker:** Benjamin  
 **Attendees:**
 
 - Petra Heeb
@@ -19,26 +19,16 @@
 
   - | Questions                        | Decisions |
     | -------------------------------- | --------- |
-    | When should we do this refactor? |           |
-
-  - Other Notes
-
-- Item 2
-
-  - 
-
-  - | Questions | Decisions |
-      | --------- | --------- |
-      |           |           |
-
-  - 
+    | When should we do this refactor? | Monday |
 
 
-
+- Sprint planning
+- Laurent meeting reschedule
+- Checklist M4
+- Track manual NFRs as part of the weekly meetings
 
 ## Action Items
-| Done? | Item | Responsible | Due Date |
-| ---- | ---- | ---- | ---- |
-| | item | who | dd.mm.jj |
+Tracked via issues.
 
 ## Other Notes & Information
+Do a commit of meeting notes right afterwards :)
