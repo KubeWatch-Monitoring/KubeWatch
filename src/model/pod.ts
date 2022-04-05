@@ -1,20 +1,25 @@
 import { MetricsData } from "./metrics-data";
 
+export enum Health {
+  Running = "Running",
+  Pending = "Pending",
+  Down = "Down"
+}
+
 export class Pod {
-  id: number = 0;
-  name: string = "";
-  description: string = "";
+  id = "";
+  name = "";
+  health = Health.Running;
+  image = ""
   metrics: MetricsData;
 
   constructor(
-    id: number,
-    name: string,
-    description: string,
-    metrics: MetricsData
+      id: string,
+      name: string,
+      metrics: MetricsData
   ) {
     this.id = id;
     this.name = name;
-    this.description = description;
     this.metrics = metrics;
   }
 
@@ -22,7 +27,7 @@ export class Pod {
     return {
       id: this.id,
       name: this.name,
-      description: this.description,
+      health: this.health,
       metrics: this.metrics.toObject(),
     };
   }

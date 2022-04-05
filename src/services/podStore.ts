@@ -5,9 +5,8 @@ export class PodStore {
   private getRandomPods() {
     return [
       new Pod(
-        1,
+        "1",
         "My Database Pod",
-        "Some Description",
         new MetricsData(
           Math.floor(Math.random() * 101),
           Math.floor(Math.random() * 101),
@@ -15,9 +14,8 @@ export class PodStore {
         )
       ),
       new Pod(
-        2,
+        "2",
         "My Webserver Pod",
-        "Some Description",
         new MetricsData(
           Math.floor(Math.random() * 101),
           Math.floor(Math.random() * 101),
@@ -25,9 +23,8 @@ export class PodStore {
         )
       ),
       new Pod(
-        3,
+        "3",
         "My Redis Pod",
-        "Some Description",
         new MetricsData(
           Math.floor(Math.random() * 101),
           Math.floor(Math.random() * 101),
