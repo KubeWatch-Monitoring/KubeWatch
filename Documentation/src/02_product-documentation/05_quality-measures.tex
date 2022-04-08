@@ -90,3 +90,30 @@ Therefore we need to test also the non-functional requirements in our project. S
 For the other non-functional requirements we need a concept to verify that the requirements be checked regularly. Like updating the threat model and the risk management it make sense to include this process directly in each sprint.
 
 Each NFR describe the test process for the verification and is placed directly by the NFR. So once per sprint one team-member needs to check all these NFRs excluding these which are checked by \textit{Sonar Qube}.
+
+\section{Test Concept - Security}
+To complete the test concept a section for security testing is needed. For this test concept the \href{OWASP Top Ten}{https://owasp.org/www-project-top-ten/} are used as guidline and build the basics of the security test concept.
+Following all the top ten security risks are listed and on each part there is a description how we test it.
+
+\subsection{A01 - Brocken Access Control}
+After implementing the login it's important to test our application for brocken access control.
+
+\begin{itemize}
+  \item Principle of least privilege
+  \item IDOR Attack (modifying URL to get access without login)
+  \item Login without an account (NoSQL Injection)
+\end{itemize}
+
+\subsection{A02 - Cryptographic Failures}
+???
+
+\subsection{A03 - Injection}
+
+
+\subsection{A04 - Insecure Design}
+\subsection{A05 - Security Misconfiguration}
+\subsection{A06 - Vulnerable and Outdated Components}
+\subsection{A07 - Identification and Authentication Failures}
+\subsection{A08 - Software and Data Integrity Failures}
+\subsection{A09 - Security Logging and Monitoring Failures}
+\subsection{A10 - Server-Side Request Forgery}
