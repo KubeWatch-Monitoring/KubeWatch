@@ -13,7 +13,7 @@
         <div class="col-lg-5">
             <div class="card pod" data-pod-id="{{this.id}}">
                 <div class="card-header">
-                    {{this.name}}
+                   Pod {{@index}}: {{this.name}}
                 </div>
                 <div class="card-body">
                     <div class="collapsable">
@@ -22,15 +22,23 @@
 
                         <table class="table">
                             <tr>
-                                <th scope="row">Current CPU Usage</th>
+                                <th scope="row">Image</th>
+                                <td>{{this.image}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Health</th>
+                                <td>{{this.health}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total CPU Usage (seconds)</th>
                                 <td>{{this.metrics.cpu}}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Current Memory Usage</th>
+                                <th scope="row">Total Memory Usage (MiB)</th>
                                 <td>{{this.metrics.memory}}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Current Disk Usage</th>
+                                <th scope="row">Total Disk Usage (KiB)</th>
                                 <td>{{this.metrics.disk}}</td>
                             </tr>
                         </table>
