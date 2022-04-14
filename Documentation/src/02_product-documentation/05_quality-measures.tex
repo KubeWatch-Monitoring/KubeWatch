@@ -53,7 +53,7 @@ Installation see chapter \ref{sonarqube}.
 Quality measures are defined in the section \ref{non-functional-requirements} as Non-Functional Requirements.
 
 
-\section{Test Concept}
+\section{Test Concept - Software}
 To develop software with good quality we need to test it.
 For this project three different types of tests are used:
 
@@ -82,3 +82,11 @@ On the server side we use the GitLab CI/CD pipeline to test with the same tests.
 Only if they pass, merge request can be merged into the master branch.
 
 To run all tests in the IDE a run configuration is provided.
+
+
+\section{Test Concept - NFR}
+Therefore we need to test also the non-functional requirements in our project. Some of the NFRs can be tested by SonarQube like the test coverage (NFR-1) the software security (NFR-9) and the code maintainability (NFR-10).
+
+For the other non-functional requirements we need a concept to verify that the requirements be checked regularly. Like updating the threat model and the risk management it make sense to include this process directly in each sprint.
+
+Each NFR describe the test process for the verification and is placed directly by the NFR. So once per sprint one team-member needs to check all these NFRs excluding these which are checked by \textit{Sonar Qube}.
