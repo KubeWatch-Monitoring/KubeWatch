@@ -5,19 +5,23 @@ const myChart = new Chart(ctx, {
   type: 'line',
   plugins: [ChartDatasourcePrometheusPlugin],
   options: {
+    animation: {
+      duration: 0,
+    },
     plugins: {
       'datasource-prometheus': {
         prometheus: {
-          endpoint: "https://prometheus.demo.do.prometheus.io",
-          baseURL: "/api/v1",   // default value
+          endpoint: 'http://127.0.0.1:9091',
+          baseURL: '/api/v1',   // default value
         },
-        query: 'sum by (job) (go_gc_duration_seconds)',
+        query: 'sum by (pod) (container_cpu_system_seconds_total)',
         timeRange: {
           type: 'relative',
 
           // from 12 hours ago to now
           start: -12 * 60 * 60 * 1000,
           end: 0,
+          msUpdateInterval: 5000,
         },
       },
     },
