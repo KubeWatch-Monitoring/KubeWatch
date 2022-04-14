@@ -3,13 +3,15 @@ import { MetricsData } from "./metrics-data";
 export enum Health {
   Running = "Running",
   Pending = "Pending",
-  Down = "Down"
+  Failed = "Failed",
+  Succeeded = "Succeeded",
+  Unknown = "Unknown",
 }
 
 export class Pod {
   id = "";
   name = "";
-  health = Health.Running;
+  health = Health.Unknown;
   image = ""
   metrics: MetricsData;
 

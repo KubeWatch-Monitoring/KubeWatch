@@ -1,5 +1,5 @@
 import { PrometheusDriver } from 'prometheus-query';
-import {Pod} from "../model/pod";
+import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
 
 export class PrometheusService {
@@ -48,6 +48,16 @@ export class PrometheusService {
                 return res.value.value;
             });
             pod.metrics.disk = (+podDiskValue)/(2**10);  // convert to kilobytes (KiB)
+
+            const podHealthQuery = `sum by (phase) (kube_pod_status_phase{pod=~"${pod.name}"})`;
+            const podHealthResult = await this.driver.instantQuery(podHealthQuery);
+            let podHealthValue:Health = Health.Unknown;
+            podHealthResult.result.forEach((res) => {
+                if(parseInt(res.value.value) === 1) {
+                    podHealthValue = res.metric.labels.phase as Health;
+                }
+            });
+            pod.health = podHealthValue;
         }
         return allPods;
     }
