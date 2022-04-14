@@ -13,12 +13,31 @@
                 {{pod.name}}
             </div>
             <div class="card-body">
-                <img class="card-img-left" width="45%" src="img/logo.jpeg" alt="some logo">
-                <p>
-                    {{pod.description}}
-                </p>
-
-                <a href="/pods/{{this.id}}" class="btn btn-primary">Go somewhere</a>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th scope="row">Image</th>
+                            <td>{{pod.image}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Health</th>
+                            <td>{{pod.health}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total CPU Usage (seconds)</th>
+                            <td>{{pod.metrics.cpu}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total Memory Usage (MiB)</th>
+                            <td>{{pod.metrics.memory}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Total Disk Usage (KiB)</th>
+                            <td>{{pod.metrics.disk}}</td>
+                        </tr>
+                    </table>
+                <a href="/pods" class="btn btn-primary">Go back</a>
+                </div>
             </div>
         </div>
     </div>

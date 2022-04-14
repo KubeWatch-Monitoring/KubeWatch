@@ -1,49 +1,22 @@
 import { Pod } from "../model/pod";
 import { MetricsData } from "../model/metrics-data";
+import {prometheusService} from "./prometheusService";
 
 export class PodStore {
-  private getRandomPods() {
-    return [
-      new Pod(
-        "1",
-        "My Database Pod",
-        new MetricsData(
-          Math.floor(Math.random() * 101),
-          Math.floor(Math.random() * 101),
-          Math.floor(Math.random() * 101)
-        )
-      ),
-      new Pod(
-        "2",
-        "My Webserver Pod",
-        new MetricsData(
-          Math.floor(Math.random() * 101),
-          Math.floor(Math.random() * 101),
-          Math.floor(Math.random() * 101)
-        )
-      ),
-      new Pod(
-        "3",
-        "My Redis Pod",
-        new MetricsData(
-          Math.floor(Math.random() * 101),
-          Math.floor(Math.random() * 101),
-          Math.floor(Math.random() * 101)
-        )
-      ),
-    ];
-  }
+  private podInfo: Pod | undefined;
+
   async getAllPods() {
-    return this.getRandomPods();
+    return await prometheusService.getAllPods();
   }
 
-  async getPodById(id: number) {
-    const allPods = this.getRandomPods();
-
-    if (id < 0 || id > allPods.length) {
-      throw new Error(`Pod with ID ${id} does not exist`);
-    }
-    return allPods[id];
+  async getPodById(id: string) {
+    const allPods = await this.getAllPods();
+    allPods.forEach((pod) => {
+      if(pod.id === id) {
+        this.podInfo = pod;
+      }
+    });
+    return this.podInfo;
   }
 }
 

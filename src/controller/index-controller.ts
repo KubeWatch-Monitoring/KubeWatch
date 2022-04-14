@@ -19,7 +19,6 @@ export class IndexController {
       notification: new Notification("my message"),
       style: req.session.style,
       display: req.session.display,
-      pods: await prometheusService.getAllPods(),
     });
   }
 }

@@ -1,29 +1,49 @@
 {{#section 'title'}}
-    List Pods
+    Pod List
 {{/section}}
 {{#section 'stylesheets'}}
-    <link rel="stylesheet" type="text/css" href="css/listPods.css">
 {{/section}}
 {{#section 'scripts'}}
+    <script type="module" src="js/listPods.js"></script>
 {{/section}}
 
-
-{{#each pods}}
+<button class="btn btn-primary btn-collapse-all">Collapse All</button>
 <div class="row">
-    <div class="col-lg-5">
-        <div class="card pod" data-pod-id="{{this.id}}">
-            <div class="card-header">
-                {{this.name}}
-            </div>
-            <div class="card-body">
-                <img class="card-img-left" width="45%" src="img/logo.jpeg" alt="some logo">
-                <p>
-                    {{this.description}}
-                </p>
-
-                <a href="/pods/{{this.id}}" class="btn btn-primary">Go to Pod Information</a>
+    {{#each pods}}
+        <div class="accordion-body">
+            <div class="card pod" data-pod-id="{{this.id}}">
+                <div class="card-header">
+                    Pod {{@index}}: {{this.name}}
+                </div>
+                <div class="card-body">
+                    <div class="collapsable">
+                        <table class="table">
+                            <tr>
+                                <th scope="row">Image</th>
+                                <td>{{this.image}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Health</th>
+                                <td>{{this.health}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total CPU Usage (seconds)</th>
+                                <td>{{this.metrics.cpu}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Memory Usage (MiB)</th>
+                                <td>{{this.metrics.memory}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Total Disk Usage (KiB)</th>
+                                <td>{{this.metrics.disk}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <a href="/pods/{{this.id}}" class="btn btn-primary">Go to Pod Information</a>
+                    <button class="btn btn-primary btn-collapse">Collapse</button>
+                </div>
             </div>
         </div>
-    </div>
+    {{/each}}
 </div>
-{{/each}}
