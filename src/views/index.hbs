@@ -10,32 +10,34 @@
 
 <div class="row">
     {{#each pods}}
-        <div class="col-lg-5">
+        <div class="col-4">
             <div class="card pod" data-pod-id="{{this.id}}">
                 <div class="card-header">
                     {{this.name}}
                 </div>
                 <div class="card-body">
                     <div class="collapsable">
-                        <img class="card-img-left" width="45%" src="img/line_chart.jpeg" alt="Here comes some metric graph">
-                        <img class="card-img-left" width="45%" src="img/pie_chart.jpeg" alt="Here comes some metric graph">
-
-                        <table class="table">
-                            <tr>
-                                <th scope="row">Current CPU Usage</th>
-                                <td>{{this.metrics.cpu}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Current Memory Usage</th>
-                                <td>{{this.metrics.memory}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Current Disk Usage</th>
-                                <td>{{this.metrics.disk}}</td>
-                            </tr>
-                        </table>
+                        <div class="row">
+                            <img class="card-img-left col-3" src="img/pie_chart.jpeg" alt="Here comes some metric graph">
+                            <div class="col">
+                                <table class="table">
+                                    <tr>
+                                        <th scope="row">Health</th>
+                                        <td>{{this.health}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Images</th>
+                                        <td>{{this.metrics.memory}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Created</th>
+                                        <td>{{this.metrics.disk}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <a href="/pods/{{this.id}}" class="btn btn-primary">Go to Pod Information</a>
+                    <a href="/pods/{{this.id}}" class="btn btn-primary">Information</a>
                     <button class="btn btn-primary btn-collapse">Collapse</button>
                 </div>
             </div>

@@ -82,6 +82,7 @@ test_all:
   stage: test
   needs: []
   script:
+    - cd src
     - npm install
     - npm test
 
