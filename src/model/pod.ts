@@ -1,9 +1,18 @@
 import { MetricsData } from "./metrics-data";
 
+export enum Health {
+  Running = "Running",
+  Pending = "Pending",
+  Failed = "Failed",
+  Succeeded = "Succeeded",
+  Unknown = "Unknown",
+}
+
 export class Pod {
   id: number = 0;
   name: string = "";
   description: string = "";
+  health = Health.Unknown;
   metrics: MetricsData;
 
   constructor(
