@@ -1,6 +1,7 @@
 import {MongoDbController} from "./mongoDbController";
 import {Collection, ObjectId, UpdateResult} from "mongodb";
 import {Notification} from "../model/notification";
+import {INotificationHandler} from "./prometheusWatcher";
 
 export interface INotificationStore {
     getById(id: ObjectId): Promise<Notification>;
@@ -10,7 +11,7 @@ export interface INotificationStore {
     createNotification(notification: Notification): Promise<Notification>;
 }
 
-export class NotificationStore implements INotificationStore {
+export class NotificationStore implements INotificationStore, INotificationHandler {
     private notificationCollection: Collection;
 
     constructor(dbController: MongoDbController) {
@@ -40,12 +41,7 @@ export class NotificationStore implements INotificationStore {
         return await this.notificationCollection.insertOne(notification) as unknown as Notification;
     }
 
-
-    runInBackground() {
-        // TODO: Query Prometheus to query the health state of pods, replicas, etc.
-        // - Query prometheus over the PrometheusService.
-        //setInterval(async () => {
-        //    await this.createNotification(new Notification("My Notification", new Date(), false, ""));
-        //}, 10_000);
+    async reactOnNotification(notification: Notification): Promise<void> {
+        await this.createNotification(notification);
     }
 }
