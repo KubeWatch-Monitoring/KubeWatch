@@ -1,7 +1,6 @@
 import {INotificationStore} from "./notificationStore";
 import {Notification} from "../model/notification";
 import {Health} from "../model/pod";
-import {ObjectId} from "mongodb";
 import {SettingsStore} from "./settingsStore";
 
 const CHECK_INTERVAL_MS = 10_000;
@@ -33,7 +32,7 @@ export class PrometheusWatcher {
             const pods = this.prometheus.getAllPods();
             for (const pod of pods) {
                 if (pod.health != Health.Running && pod.health != Health.Succeeded) {
-                    const message = `Pod {pod.name} is in a bad state ({pod.health})`;
+                    const message = `Pod ${pod.name} is in a bad state (${pod.health})`;
                     const notification = new Notification(message, new Date(), false, "");
                     await this.fireOnNotification(notification);
                 }
@@ -57,7 +56,8 @@ export class PrometheusWatcher {
         }
     }
 
-    private async isNotificationEnabled() {
-        return await this.store.getBoolean("notificationEnabled", true);
+    private async isNotificationEnabled(): Promise<boolean> {
+        const setting = await this.store.getByName("isNotificationEnabled", true);
+        return setting.value;
     }
 }

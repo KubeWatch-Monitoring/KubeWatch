@@ -1,5 +1,6 @@
 import {MongoDbController} from "./mongoDbController";
-import {Collection, ObjectId, UpdateResult} from "mongodb";
+import {Collection} from "mongodb";
+import {Setting} from "../model/setting";
 
 export class SettingsStore {
     private settingsCollection: Collection;
@@ -8,13 +9,24 @@ export class SettingsStore {
         this.settingsCollection = dbController.db.collection("settings");
     }
 
-    async getBoolean(name: string, defaultValue = false) {
+    async getSettings() {
+        return await this.settingsCollection.find().toArray() as unknown as Setting[];
+    }
+
+    async updateSetting(setting: Setting) {
+        const query = {name: setting.name};
+        return await this.settingsCollection.updateOne(query, {$set: setting});
+    }
+
+    async getByName(name: string, defaultValue: any): Promise<Setting> {
         const query = {name};
-        const value = await this.settingsCollection.findOne(query);
-        if (value == null) {
-            return defaultValue;
+        const result = await this.settingsCollection.findOne(query);
+        let value;
+        if (result == null) {
+            value = defaultValue;
         } else {
-            return value;
+            value = result.value;
         }
+        return new Setting(name, value);
     }
 }

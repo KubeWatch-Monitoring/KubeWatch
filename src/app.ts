@@ -20,6 +20,8 @@ import {
 import { promRoutes } from "./routes/prom-routes";
 import {notificationRoutes} from "./routes/notification-routes";
 import {PodStore} from "./services/podStore";
+import {SettingsStore} from "./services/settingsStore";
+import {settingsRoutes} from "./routes/settings-routes";
 
 declare module "express-session" {
     interface SessionData {
@@ -33,6 +35,7 @@ declare global {
         interface Application {
             userStore: UserStore;
             podStore: PodStore;
+            settingsStore: SettingsStore;
             notificationStore: INotificationStore;
         }
     }
@@ -63,7 +66,7 @@ app.use(
 );
 
 app.use(sessionUserSettings);
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 app.use("/", indexRoutes);
@@ -71,3 +74,4 @@ app.use("/pods", podRoutes);
 app.use("/users", userRoutes);
 app.use("/prom-metrics", promRoutes);
 app.use("/notifications", notificationRoutes);
+app.use("/settings", settingsRoutes);
