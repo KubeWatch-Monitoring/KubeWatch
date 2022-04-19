@@ -146,7 +146,7 @@ describe("NotificationController", () => {
             expect(store.updateNotification.called).to.be.true;
             expect(store.updateNotification.calledWith(updatedNotification)).to.be.true;
             expect(res.redirect.called).to.be.true;
-            expect(res.redirect.calledWith(req.body.url, 303)).to.be.true;
+            expect(res.redirect.calledWith(303, req.body.url)).to.be.true;
         });
     })
 })
