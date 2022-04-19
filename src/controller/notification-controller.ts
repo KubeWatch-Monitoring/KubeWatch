@@ -1,5 +1,6 @@
 import {Request, Response} from "express";
 import {ObjectId} from "mongodb";
+import {Notification} from "../model/notification";
 
 export class NotificationController {
     async getIndex(req: Request, res: Response) {
@@ -37,6 +38,13 @@ export class NotificationController {
             return;
         }
         res.redirect(url, 303);
+    }
+
+    async trigger(req: Request, res: Response) {
+        const {message} = req.body;
+        const notification = new Notification(message, new Date(), false, "");
+        await req.app.prometheusWatcher.fireManually(notification);
+        res.redirect("/", 303);
     }
 }
 

@@ -48,6 +48,10 @@ export class PrometheusWatcher {
         clearInterval(this.intervalId);
     }
 
+   async fireManually(notification: Notification) {
+        await this.fireOnNotification(notification);
+   }
+
     private async fireOnNotification(notification: Notification) {
         if (!await this.isNotificationEnabled()) {
             return;

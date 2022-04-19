@@ -7,6 +7,14 @@
 {{/section}}
 
 
+<form action="/notifications/trigger" method="POST">
+    <div class="form-group">
+        <label for="message">Message</label>
+        <input type="text" name="message" id="message" class="form-control" >
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Trigger Notification</button>
+</form>
+
 {{#if notifications.length }}
     {{#each notifications}}
         <div class="row">

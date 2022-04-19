@@ -22,6 +22,7 @@ import {notificationRoutes} from "./routes/notification-routes";
 import {PrometheusService} from "./services/prometheusService";
 import {SettingsStore} from "./services/settingsStore";
 import {settingsRoutes} from "./routes/settings-routes";
+import {PrometheusWatcher} from "./services/prometheusWatcher";
 
 declare module "express-session" {
     interface SessionData {
@@ -37,6 +38,7 @@ declare global {
             settingsStore: SettingsStore;
             notificationStore: INotificationStore;
             prometheusService: PrometheusService;
+            prometheusWatcher: PrometheusWatcher;
         }
     }
 }
