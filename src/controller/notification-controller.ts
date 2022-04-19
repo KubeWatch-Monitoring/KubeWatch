@@ -37,14 +37,14 @@ export class NotificationController {
             res.status(500).end();
             return;
         }
-        res.redirect(url, 303);
+        res.redirect(303, url);
     }
 
     async trigger(req: Request, res: Response) {
         const {message} = req.body;
         const notification = new Notification(message, new Date(), false, "");
         await req.app.prometheusWatcher.fireManually(notification);
-        res.redirect("/", 303);
+        res.redirect(303, "/");
     }
 }
 
