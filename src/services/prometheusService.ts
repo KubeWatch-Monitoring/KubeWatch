@@ -51,7 +51,7 @@ export class PrometheusService {
 
             const podHealthQuery = `sum by (phase) (kube_pod_status_phase{pod=~"${pod.name}"})`;
             const podHealthResult = await this.driver.instantQuery(podHealthQuery);
-            let podHealthValue:Health = Health.Unknown;
+            let podHealthValue:Health = "Unknown";
             podHealthResult.result.forEach((res) => {
                 if(parseInt(res.value.value) === 1) {
                     podHealthValue = res.metric.labels.phase as Health;

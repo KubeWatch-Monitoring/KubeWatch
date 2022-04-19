@@ -1,17 +1,11 @@
 import { MetricsData } from "./metrics-data";
 
-export enum Health {
-  Running = "Running",
-  Pending = "Pending",
-  Failed = "Failed",
-  Succeeded = "Succeeded",
-  Unknown = "Unknown",
-}
+export type Health = "Running" | "Pending" | "Failed" | "Succeeded" | "Unknown";
 
 export class Pod {
   id = "";
   name = "";
-  health = Health.Unknown;
+  health = "Unknown";
   image = ""
   metrics: MetricsData;
 

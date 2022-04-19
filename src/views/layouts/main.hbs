@@ -23,13 +23,35 @@
             <li class="nav-item">
                 <a class="nav-link" href="/users">Users (MongoDB Demo)</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="#">Settings</a>-->
-<!--            </li>-->
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" href="/prom-metrics">Cluster Metrics</a>-->
-<!--            </li>-->
+            <li class="nav-item">
+                <a class="nav-link" href="/notifications">Notification Overview</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/prom-metrics">Cluster Metrics (raw)</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Settings</a>
+            </li>
         </ul>
+    </div>
+
+    <div class="row justify-content-md-center">
+        {{#if pendingNotifications.length }}
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Danger card title</h5>
+                {{#each pendingNotifications as |notification| }}
+                    <p class="card-text">{{notification.message}}</p>
+                    <form method="POST" action="/notifications/silence">
+                        <input type="hidden" name="url" value="{{../currentUrl}}">
+                        <input type="hidden" name="id" value="{{notification._id}}">
+                        <textarea required rows="5" class="form-control mb-3" type="text" name="reason"></textarea>
+                        <button class="btn btn-primary">Silence</button>
+                    </form>
+                {{/each}}
+            </div>
+        </div>
+        {{/if}}
     </div>
     {{{body}}}
 </div>

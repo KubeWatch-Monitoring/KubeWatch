@@ -7,6 +7,7 @@ import {indexRoutes} from "./routes/index-routes";
 import {podRoutes} from "./routes/pod-routes";
 import {userRoutes} from "./routes/user-routes";
 import {UserStore} from "./services/userStore";
+import {INotificationStore} from "./services/notificationStore";
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
 
@@ -17,6 +18,8 @@ import {
 } from "./utils/session-middleware.index";
 
 import { promRoutes } from "./routes/prom-routes";
+import {notificationRoutes} from "./routes/notification-routes";
+import {PodStore} from "./services/podStore";
 
 declare module "express-session" {
     interface SessionData {
@@ -29,6 +32,8 @@ declare global {
     namespace Express {
         interface Application {
             userStore: UserStore;
+            podStore: PodStore;
+            notificationStore: INotificationStore;
         }
     }
 }
@@ -65,3 +70,4 @@ app.use("/", indexRoutes);
 app.use("/pods", podRoutes);
 app.use("/users", userRoutes);
 app.use("/prom-metrics", promRoutes);
+app.use("/notifications", notificationRoutes);

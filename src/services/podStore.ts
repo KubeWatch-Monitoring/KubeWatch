@@ -1,5 +1,4 @@
 import { Pod } from "../model/pod";
-import { MetricsData } from "../model/metrics-data";
 import {prometheusService} from "./prometheusService";
 
 export class PodStore {
