@@ -31,7 +31,7 @@ export class PrometheusWatcher {
         this.intervalId = setInterval(async() => {
             const pods = this.prometheus.getAllPods();
             for (const pod of pods) {
-                if (pod.health != Health.Running && pod.health != Health.Succeeded) {
+                if (pod.health != "Running" && pod.health != "Succeeded") {
                     const message = `Pod ${pod.name} is in a bad state (${pod.health})`;
                     const notification = new Notification(message, new Date(), false, "");
                     await this.fireOnNotification(notification);

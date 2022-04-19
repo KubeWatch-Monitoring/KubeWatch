@@ -2,7 +2,7 @@ import {expect} from "chai";
 import sinon from "sinon";
 import {NotificationStore} from "../../services/notificationStore";
 import {PrometheusWatcher} from "../../services/prometheusWatcher";
-import {Health, Pod} from "../../model/pod";
+import {Pod} from "../../model/pod";
 import {MetricsData} from "../../model/metrics-data";
 import {SettingsStore} from "../../services/settingsStore";
 
@@ -21,8 +21,8 @@ describe("PrometheusWatcher", () => {
     })
     describe("watchPrometheus", () => {
         it("should not create a new notification when everything is fine", async () => {
-            pod = new Pod(0, "a", "a", new MetricsData(0, 0, 0));
-            pod.health = Health.Running;
+            pod = new Pod("a", "a", new MetricsData(0, 0, 0));
+            pod.health = "Running"
             prometheusService = {
                 getAllPods: sinon.mock().returns([pod])
             };
@@ -41,8 +41,8 @@ describe("PrometheusWatcher", () => {
         });
 
         it("should create a new notification when something is wrong", async () => {
-            pod = new Pod(0, "a", "a", new MetricsData(0, 0, 0));
-            pod.health = Health.Failed;
+            pod = new Pod("a", "a", new MetricsData(0, 0, 0));
+            pod.health = "Failed"
             prometheusService = {
                 getAllPods: sinon.mock().returns([pod])
             };
@@ -61,8 +61,8 @@ describe("PrometheusWatcher", () => {
         });
 
         it("should not create a new notification when something is wrong but the notification is disabled", async () => {
-            pod = new Pod(0, "a", "a", new MetricsData(0, 0, 0));
-            pod.health = Health.Failed;
+            pod = new Pod("a", "a", new MetricsData(0, 0, 0));
+            pod.health = "Failed"
             prometheusService = {
                 getAllPods: sinon.mock().returns([pod])
             };

@@ -5,7 +5,7 @@ export class PodController {
     res.render("listPods", {
       style: req.session.style,
       display: req.session.display,
-      pods: await req.app.podStore.getAllPods(),
+      pods: await req.app.prometheusService.getAllPods(),
     });
   }
 
@@ -18,8 +18,8 @@ export class PodController {
 
     let pod;
     try {
-      const id = parseInt(reqId);
-      pod = await req.app.podStore.getPodById(id);
+      const id = String(reqId);
+      pod = await req.app.prometheusService.getPodById(id);
     } catch(e) {
       res.status(500).end();
       return;

@@ -19,7 +19,7 @@ import {
 
 import { promRoutes } from "./routes/prom-routes";
 import {notificationRoutes} from "./routes/notification-routes";
-import {PodStore} from "./services/podStore";
+import {PrometheusService} from "./services/prometheusService";
 import {SettingsStore} from "./services/settingsStore";
 import {settingsRoutes} from "./routes/settings-routes";
 
@@ -34,9 +34,9 @@ declare global {
     namespace Express {
         interface Application {
             userStore: UserStore;
-            podStore: PodStore;
             settingsStore: SettingsStore;
             notificationStore: INotificationStore;
+            prometheusService: PrometheusService;
         }
     }
 }
