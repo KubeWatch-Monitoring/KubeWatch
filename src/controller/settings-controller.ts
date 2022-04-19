@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {Setting} from "../model/setting";
+import {castValue, Setting, settingTypeFromString} from "../model/setting";
 
 export class SettingsController {
     async getSettings(req: Request, res: Response) {
@@ -27,7 +27,8 @@ export class SettingsController {
                 res.status(400).end();
                 return;
             }
-            const setting = new Setting(name, value);
+            const setting = await req.app.settingsStore.getByName(name, "");
+            setting.value = castValue(value, setting.type);
             await req.app.settingsStore.updateSetting(setting);
         }
         res.redirect("/settings", 303);

@@ -1,6 +1,6 @@
 import {MongoDbController} from "./mongoDbController";
 import {Collection} from "mongodb";
-import {Setting} from "../model/setting";
+import {Setting, SettingType, settingTypeFromString} from "../model/setting";
 
 export class SettingsStore {
     private settingsCollection: Collection;
@@ -18,15 +18,18 @@ export class SettingsStore {
         return await this.settingsCollection.updateOne(query, {$set: setting});
     }
 
-    async getByName(name: string, defaultValue: any): Promise<Setting> {
+    async getByName(name: string, defaultValue: string | number | boolean): Promise<Setting> {
         const query = {name};
         const result = await this.settingsCollection.findOne(query);
         let value;
+        let type: SettingType;
         if (result == null) {
             value = defaultValue;
+            type = settingTypeFromString(typeof defaultValue);
         } else {
             value = result.value;
+            type = settingTypeFromString(result.type);
         }
-        return new Setting(name, value);
+        return new Setting(name, value, type);
     }
 }

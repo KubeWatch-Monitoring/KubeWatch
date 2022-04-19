@@ -11,7 +11,18 @@
         {{#each settings}}
             <div class="form-group">
                 <label for="setting[{{this.name}}]">{{this.name}}</label>
-                <input type="text" name="setting[{{this.name}}]" id="setting[{{this.name}}]" class="form-control" value="{{this.value}}">
+                {{#if_eq this.type "Number" }}
+                    <input type="number" name="setting[{{this.name}}]" id="setting[{{this.name}}]" class="form-control" value="{{this.value}}">
+                {{/if_eq}}
+                {{#if_eq this.type "Boolean" }}
+                    <select name="setting[{{this.name}}]" id="setting[{{this.name}}]" class="form-control">
+                        <option {{#if_eq this.value true}}selected="selected"{{/if_eq}}>true</option>
+                        <option {{#if_eq this.value false}}selected="selected"{{/if_eq}}>false</option>
+                    </select>
+                {{/if_eq}}
+                {{#if_eq this.type "String" }}
+                    <input type="text" name="setting[{{this.name}}]" id="setting[{{this.name}}]" class="form-control" value="{{this.value}}">
+                {{/if_eq}}
             </div>
         {{/each}}
             <button type="submit" class="btn btn-primary mt-3">Update Setting</button>

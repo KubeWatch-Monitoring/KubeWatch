@@ -1,11 +1,10 @@
-import chai, { expect } from "chai";
+import {expect} from "chai";
 import sinon from "sinon";
-import { app } from "../../app";
+import {app} from "../../app";
 import {SettingsController} from "../../controller/settings-controller";
 import {SettingsStore} from "../../services/settingsStore";
 import {NotificationStore} from "../../services/notificationStore";
-import {Setting} from "../../model/setting";
-import {Request, Response} from "express";
+import {Setting, SettingType} from "../../model/setting";
 import {Helpers} from "../test-helper";
 
 
@@ -32,7 +31,7 @@ describe("SettingsController", () => {
         const URL = "/";
         it("should return a rendered html page", async () => {
             req.originalUrl = URL;
-            settingsStore.getSettings.resolves([new Setting("name", "value")]);
+            settingsStore.getSettings.resolves([new Setting("name", "value", SettingType.String)]);
             notificationStore.getAllNotifications.resolves([]);
             notificationStore.getNotSilencedNotifications.resolves([]);
 
@@ -42,7 +41,7 @@ describe("SettingsController", () => {
             expect(notificationStore.getAllNotifications.called).to.be.true;
             expect(res.render.called).to.be.true;
             expect(res.render.calledWithMatch("settings", {
-                settings: [new Setting("name", "value")],
+                settings: [new Setting("name", "value", SettingType.String)],
                 pendingNotifications: [],
                 notifications: [],
                 currentUrl: req.originalUrl,
@@ -57,14 +56,24 @@ describe("SettingsController", () => {
             req.body = {
                 setting: {
                     name: "value",
-                    other: "otherValue"
+                    other: "otherValue",
+                    someBool: "true",
                 }
             };
 
+            const s1 = new Setting("name", "value", SettingType.String);
+            const s2 = new Setting("other", "otherValue", SettingType.String)
+            const s3 = new Setting("someBool", "true", SettingType.Boolean);
+
+            settingsStore.getByName.withArgs(s1.name).resolves(s1);
+            settingsStore.getByName.withArgs(s2.name).resolves(s2);
+            settingsStore.getByName.withArgs(s3.name).resolves(s3);
+
             await controller.updateSetting(req, res);
-            expect(settingsStore.updateSetting.calledTwice).to.be.true;
-            expect(settingsStore.updateSetting.calledWith(new Setting("name", "value"))).to.be.true;
-            expect(settingsStore.updateSetting.calledWith(new Setting("other", "otherValue"))).to.be.true;
+            expect(settingsStore.updateSetting.calledThrice).to.be.true;
+            expect(settingsStore.updateSetting.calledWith(new Setting("name", "value", SettingType.String))).to.be.true;
+            expect(settingsStore.updateSetting.calledWith(new Setting("other", "otherValue", SettingType.String))).to.be.true;
+            expect(settingsStore.updateSetting.calledWith(new Setting("someBool", true, SettingType.Boolean))).to.be.true;
             expect(res.redirect.called).to.be.true;
         });
 
