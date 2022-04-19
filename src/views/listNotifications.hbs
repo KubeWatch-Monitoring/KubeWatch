@@ -7,33 +7,37 @@
 {{/section}}
 
 
-{{#each notifications}}
-<div class="row">
-    <div class="col-lg-5">
-        <div class="card pod mb-3" data-pod-id="{{this._id}}">
-            <div class="card-body">
-                <table class="table">
-                    <tr>
-                        <th scope="row">Message</th>
-                        <td>{{this.message}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Is Silenced</th>
-                        <td>{{this.isSilenced}}</td>
-                    </tr>
-                    {{#if this.isSilenced }}
-                    <tr>
-                        <th scope="row">Reason</th>
-                        <td>{{this.reason}}</td>
-                    </tr>
-                    {{/if}}
-                    <tr>
-                        <th scope="row">Date</th>
-                        <td>{{formatDate this.date "DD.MM.YY HH:mm"}}</td>
-                    </tr>
-                </table>
+{{#if notifications.length }}
+    {{#each notifications}}
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card pod mb-3" data-pod-id="{{this._id}}">
+                    <div class="card-body">
+                        <table class="table">
+                            <tr>
+                                <th scope="row">Message</th>
+                                <td>{{this.message}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Is Silenced</th>
+                                <td>{{this.isSilenced}}</td>
+                            </tr>
+                            {{#if this.isSilenced }}
+                                <tr>
+                                    <th scope="row">Reason</th>
+                                    <td>{{this.reason}}</td>
+                                </tr>
+                            {{/if}}
+                            <tr>
+                                <th scope="row">Date</th>
+                                <td>{{formatDate this.date "DD.MM.YY HH:mm"}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{{/each}}
+    {{/each}}
+{{else}}
+    <p>No notifications are here!</p>
+{{/if}}
