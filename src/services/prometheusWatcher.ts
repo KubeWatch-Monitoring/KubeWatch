@@ -2,6 +2,7 @@ import {INotificationStore} from "./notificationStore";
 import {Notification} from "../model/notification";
 import {Health} from "../model/pod";
 import {SettingsStore} from "./settingsStore";
+import {PrometheusService} from "./prometheusService";
 
 const CHECK_INTERVAL_MS = 10_000;
 
@@ -10,12 +11,12 @@ export interface INotificationHandler {
 }
 export class PrometheusWatcher {
     store: SettingsStore;
-    prometheus: any;
+    prometheus: PrometheusService;
     intervalId: NodeJS.Timer | null;
     checkIntervalMs: number;
     eventHandlers: INotificationHandler[];
 
-    constructor(store: SettingsStore, prometheus: any) {
+    constructor(store: SettingsStore, prometheus: PrometheusService) {
         this.store = store;
         this.prometheus = prometheus;
         this.intervalId = null;
@@ -29,7 +30,7 @@ export class PrometheusWatcher {
 
     watchPrometheus() {
         this.intervalId = setInterval(async() => {
-            const pods = this.prometheus.getAllPods();
+            const pods = await this.prometheus.getAllPods();
             for (const pod of pods) {
                 if (pod.health != "Running" && pod.health != "Succeeded") {
                     const message = `Pod ${pod.name} is in a bad state (${pod.health})`;
