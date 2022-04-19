@@ -1,22 +1,21 @@
-import {INotificationStore} from "./notificationStore";
 import {Notification} from "../model/notification";
-import {Health} from "../model/pod";
-import {SettingsStore} from "./settingsStore";
-import {PrometheusService} from "./prometheusService";
+import {SettingStore} from "./setting-store";
+import {PrometheusService} from "./prometheus-service";
 
 const CHECK_INTERVAL_MS = 10_000;
 
 export interface INotificationHandler {
     reactOnNotification(notification: Notification): Promise<void>;
 }
+
 export class PrometheusWatcher {
-    store: SettingsStore;
+    store: SettingStore;
     prometheus: PrometheusService;
     intervalId: NodeJS.Timer | null;
     checkIntervalMs: number;
     eventHandlers: INotificationHandler[];
 
-    constructor(store: SettingsStore, prometheus: PrometheusService) {
+    constructor(store: SettingStore, prometheus: PrometheusService) {
         this.store = store;
         this.prometheus = prometheus;
         this.intervalId = null;
@@ -29,7 +28,7 @@ export class PrometheusWatcher {
     }
 
     watchPrometheus() {
-        this.intervalId = setInterval(async() => {
+        this.intervalId = setInterval(async () => {
             const pods = await this.prometheus.getAllPods();
             for (const pod of pods) {
                 if (pod.health != "Running" && pod.health != "Succeeded") {
@@ -48,9 +47,9 @@ export class PrometheusWatcher {
         clearInterval(this.intervalId);
     }
 
-   async fireManually(notification: Notification) {
+    async fireManually(notification: Notification) {
         await this.fireOnNotification(notification);
-   }
+    }
 
     private async fireOnNotification(notification: Notification) {
         if (!await this.isNotificationEnabled()) {

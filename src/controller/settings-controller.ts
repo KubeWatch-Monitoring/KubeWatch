@@ -1,5 +1,5 @@
 import {Request, Response} from "express";
-import {castValue, Setting, settingTypeFromString} from "../model/setting";
+import {castValue} from "../model/setting";
 
 export class SettingsController {
     async getSettings(req: Request, res: Response) {

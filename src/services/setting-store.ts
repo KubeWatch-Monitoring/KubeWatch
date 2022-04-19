@@ -1,12 +1,12 @@
-import {MongoDbController} from "./mongoDbController";
+import {MongoDbService} from "./mongo-db-service";
 import {Collection} from "mongodb";
 import {Setting, SettingType, settingTypeFromString} from "../model/setting";
 
-export class SettingsStore {
+export class SettingStore {
     private settingsCollection: Collection;
 
-    constructor(dbController: MongoDbController) {
-        this.settingsCollection = dbController.db.collection("settings");
+    constructor(mongoDbService: MongoDbService) {
+        this.settingsCollection = mongoDbService.db.collection("settings");
     }
 
     async getSettings() {

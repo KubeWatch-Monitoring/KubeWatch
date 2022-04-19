@@ -1,12 +1,12 @@
-import { expect } from "chai";
-import { app } from "../../app";
+import {expect} from "chai";
+import {app} from "../../app";
 import sinon from "sinon";
 import {PodController} from "../../controller/pod-controller";
 import {Helpers} from "../test-helper";
 import {ObjectId} from "mongodb";
 import {Pod} from "../../model/pod";
 import {MetricsData} from "../../model/metrics-data";
-import {PrometheusService} from "../../services/prometheusService";
+import {PrometheusService} from "../../services/prometheus-service";
 
 describe("PodController", () => {
     let controller: PodController;
@@ -20,7 +20,6 @@ describe("PodController", () => {
     });
 
     describe("getIndex", () => {
-        const URL = "/";
         it("should return a rendered html page", async () => {
             const req: any = {
                 session: {
@@ -98,7 +97,7 @@ describe("PodController", () => {
         });
 
         it("should return a rendered html page", async () => {
-            const expectedPod = new Pod("3", "name", new MetricsData(1,2,3));
+            const expectedPod = new Pod("3", "name", new MetricsData(1, 2, 3));
             const req: any = {
                 params: {
                     id: expectedPod.id,

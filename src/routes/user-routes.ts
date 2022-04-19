@@ -1,8 +1,7 @@
 import express from "express";
-
-const router = express.Router();
 import {userController} from "../controller/user-controller";
 
+const router = express.Router();
 router.get("/", userController.getUsers.bind(userController));
 router.post("/", userController.createUser.bind(userController));
 

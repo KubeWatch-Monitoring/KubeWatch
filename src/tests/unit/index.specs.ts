@@ -1,10 +1,9 @@
-import { expect } from "chai";
+import {expect} from "chai";
 import sinon from "sinon";
-
-import { app } from "../../app";
+import {app} from "../../app";
 import {IndexController} from "../../controller/index-controller";
-import {NotificationStore} from "../../services/notificationStore";
-import {PrometheusService} from "../../services/prometheusService";
+import {PrometheusService} from "../../services/prometheus-service";
+import {NotificationStore} from "../../services/notification-store";
 
 describe("IndexController", () => {
     let controller: IndexController;

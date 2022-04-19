@@ -1,30 +1,18 @@
-import { MetricsData } from "./metrics-data";
+import {MetricsData} from "./metrics-data";
 
 export type Health = "Running" | "Pending" | "Failed" | "Succeeded" | "Unknown";
 
 export class Pod {
-  id = "";
-  name = "";
-  health = "Unknown";
-  image = ""
-  metrics: MetricsData;
+    health = "Unknown";
+    image = ""
 
-  constructor(
-      id: string,
-      name: string,
-      metrics: MetricsData
-  ) {
-    this.id = id;
-    this.name = name;
-    this.metrics = metrics;
-  }
-
-  toObject() {
-    return {
-      id: this.id,
-      name: this.name,
-      health: this.health,
-      metrics: this.metrics.toObject(),
-    };
-  }
+    constructor(
+        public id: string,
+        public name: string,
+        public metrics: MetricsData
+    ) {
+        this.id = id;
+        this.name = name;
+        this.metrics = metrics;
+    }
 }

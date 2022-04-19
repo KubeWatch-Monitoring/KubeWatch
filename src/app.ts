@@ -3,26 +3,29 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 import session from "express-session";
+
 import {indexRoutes} from "./routes/index-routes";
 import {podRoutes} from "./routes/pod-routes";
 import {userRoutes} from "./routes/user-routes";
-import {UserStore} from "./services/userStore";
-import {INotificationStore} from "./services/notificationStore";
+import {prometheusRoutes} from "./routes/prometheus-routes";
+import {notificationRoutes} from "./routes/notification-routes";
+import {settingsRoutes} from "./routes/settings-routes";
+
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
+
+import {UserStore} from "./services/user-store";
+import {INotificationStore} from "./services/notification-store";
+import {PodStore} from "./services/pod-store";
+import {PrometheusService} from "./services/prometheus-service";
+import {SettingStore} from "./services/setting-store";
+import {PrometheusWatcher} from "./services/prometheus-watcher";
 
 import {
     sessionUserSettings,
     Settings,
     Style,
 } from "./utils/session-middleware.index";
-
-import { promRoutes } from "./routes/prom-routes";
-import {notificationRoutes} from "./routes/notification-routes";
-import {PrometheusService} from "./services/prometheusService";
-import {SettingsStore} from "./services/settingsStore";
-import {settingsRoutes} from "./routes/settings-routes";
-import {PrometheusWatcher} from "./services/prometheusWatcher";
 
 declare module "express-session" {
     interface SessionData {
@@ -35,10 +38,11 @@ declare global {
     namespace Express {
         interface Application {
             userStore: UserStore;
-            settingsStore: SettingsStore;
+            settingsStore: SettingStore;
             notificationStore: INotificationStore;
             prometheusService: PrometheusService;
             prometheusWatcher: PrometheusWatcher;
+            podStore: PodStore;
         }
     }
 }
@@ -74,6 +78,6 @@ app.use(bodyParser.json());
 app.use("/", indexRoutes);
 app.use("/pods", podRoutes);
 app.use("/users", userRoutes);
-app.use("/prom-metrics", promRoutes);
+app.use("/prom-metrics", prometheusRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/settings", settingsRoutes);

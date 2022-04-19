@@ -1,12 +1,12 @@
-import {MongoDbController} from "./mongoDbController";
+import {MongoDbService} from "./mongo-db-service";
 import {Collection} from "mongodb";
 import {User} from "../model/user";
 
 export class UserStore {
     private userCollection: Collection;
 
-    constructor(dbController: MongoDbController) {
-        this.userCollection = dbController.db.collection("users");
+    constructor(mongoDbService: MongoDbService) {
+        this.userCollection = mongoDbService.db.collection("users");
     }
 
     async getUsers() {

@@ -18,7 +18,7 @@ export function settingTypeFromString(type: string) {
 export function castValue(value: any, type: SettingType): boolean | number | string {
     switch (type) {
         case SettingType.Boolean:
-            return (value === "true") ? true : false
+            return value === "true";
         case SettingType.Number:
             return parseInt(value) as number;
         default:
@@ -27,6 +27,7 @@ export function castValue(value: any, type: SettingType): boolean | number | str
 }
 
 export class Setting {
-    constructor(public name: string, public value: any, public type: SettingType) {}
+    constructor(public name: string, public value: any, public type: SettingType) {
+    }
 
 }

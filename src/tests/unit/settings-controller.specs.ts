@@ -2,8 +2,8 @@ import {expect} from "chai";
 import sinon from "sinon";
 import {app} from "../../app";
 import {SettingsController} from "../../controller/settings-controller";
-import {SettingsStore} from "../../services/settingsStore";
-import {NotificationStore} from "../../services/notificationStore";
+import {SettingStore} from "../../services/setting-store";
+import {NotificationStore} from "../../services/notification-store";
 import {Setting, SettingType} from "../../model/setting";
 import {Helpers} from "../test-helper";
 
@@ -17,7 +17,7 @@ describe("SettingsController", () => {
 
     beforeEach(() => {
         controller = new SettingsController();
-        settingsStore = sinon.createStubInstance(SettingsStore);
+        settingsStore = sinon.createStubInstance(SettingStore);
         notificationStore = sinon.createStubInstance(NotificationStore);
 
         req = {app};

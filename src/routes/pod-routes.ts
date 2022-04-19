@@ -1,8 +1,7 @@
 import express from "express";
+import {podController} from "../controller/pod-controller";
 
 const router = express.Router();
-import { podController } from "../controller/pod-controller";
-
 router.get("/", podController.getIndex.bind(podController));
 router.get("/:id", podController.getPod.bind(podController));
 
