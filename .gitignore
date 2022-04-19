@@ -121,3 +121,6 @@ src/**/*.js.map
 
 ### sonarqube
 .scannerwork
+
+### ignore code coverage reports
+src/coverage

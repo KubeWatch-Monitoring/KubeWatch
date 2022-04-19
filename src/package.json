@@ -6,7 +6,11 @@
   "scripts": {
     "start": "ts-node index.ts",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
-    "lint": "tsc --noEmit && eslint .. --ext .ts"
+    "lint": "tsc --noEmit && eslint .. --ext .ts",
+    "coverage": "nyc --reporter=lcov npm test"
+  },
+  "nyc": {
+      "exclude": ["src/tests/", "src/coverage/"]
   },
   "author": "G03-KubeWatch",
   "license": "ISC",
@@ -44,6 +48,7 @@
     "faker": "^5.5.3",
     "jsdom": "^19.0.0",
     "mocha": "^9.2.2",
+    "nyc": "^15.1.0",
     "sinon": "^13.0.1",
     "sinon-stub-promise": "^4.0.0"
   }
