@@ -64,9 +64,10 @@ export class PrometheusService {
 
     async getPodById(id: string) {
         const allPods = await this.getAllPods();
-        const pod: Pod[] = [];
-        allPods.filter((pod) => pod.id === id, pod);
-        return pod[0];
+        return allPods.find((pod) => {
+            const a = pod.id === id
+            return a;
+        });
     }
 
     async getAllDeployments() {
