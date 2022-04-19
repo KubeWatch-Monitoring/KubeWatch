@@ -17,7 +17,7 @@ export class IndexController {
     res.render("index", {
       notification: new Notification("my message"),
       style: req.session.style,
-      pods: await req.app.podStore.getAllPods(),
+      pods: await req.app.prometheusService.getAllPods(),
       pendingNotifications: await req.app.notificationStore.getNotSilencedNotifications(),
       currentUrl: req.originalUrl,
       display: req.session.display,

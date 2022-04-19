@@ -19,7 +19,7 @@ import {
 
 import { promRoutes } from "./routes/prom-routes";
 import {notificationRoutes} from "./routes/notification-routes";
-import {PodStore} from "./services/podStore";
+import {PrometheusService} from "./services/prometheusService";
 
 declare module "express-session" {
     interface SessionData {
@@ -32,8 +32,8 @@ declare global {
     namespace Express {
         interface Application {
             userStore: UserStore;
-            podStore: PodStore;
             notificationStore: INotificationStore;
+            prometheusService: PrometheusService;
         }
     }
 }

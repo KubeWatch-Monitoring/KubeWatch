@@ -4,7 +4,7 @@ import sinon from "sinon";
 import { app } from "../../app";
 import {IndexController} from "../../controller/index-controller";
 import {NotificationStore} from "../../services/notificationStore";
-import {PodStore} from "../../services/podStore";
+import {PrometheusService} from "../../services/prometheusService";
 
 describe("IndexController", () => {
     let controller: IndexController;
@@ -29,16 +29,15 @@ describe("IndexController", () => {
             notificationStore.getNotSilencedNotifications.resolves([]);
             app.notificationStore = notificationStore;
 
-            const podStore = sinon.createStubInstance(PodStore);
-            podStore.getAllPods.resolves([]);
-            app.podStore = podStore;
+            const prometheusService = sinon.createStubInstance(PrometheusService);
+            prometheusService.getAllPods.resolves([]);
+            app.prometheusService = prometheusService;
 
             await controller.getIndex(req, res);
             expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
-            expect(podStore.getAllPods.called).to.be.true;
+            expect(prometheusService.getAllPods.called).to.be.true;
             expect(res.render.called).to.be.true;
-            expect(res.render.calledWith("index", {
-                style: req.session.style,
+            expect(res.render.calledWithMatch("index", {
                 pods: [],
                 pendingNotifications: [],
                 currentUrl: req.originalUrl,

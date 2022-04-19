@@ -15,7 +15,7 @@ export class PrometheusService {
         const getPodIdentificationsQuery = `sum by (uid, pod) (kube_pod_info{namespace!~"${excludeNamespaces}"})`;
         const getPodIdentificationsResponse = await this.driver.instantQuery(getPodIdentificationsQuery);
 
-        let allPods = getPodIdentificationsResponse.result.map(vector => {
+        const allPods = getPodIdentificationsResponse.result.map(vector => {
             podNamesQueryFilter += `${vector.metric.labels.pod}|`;  // not really useful anymore
             return new Pod(vector.metric.labels.uid, vector.metric.labels.pod, new MetricsData(0, 0, 0));
         });
@@ -60,6 +60,13 @@ export class PrometheusService {
             pod.health = podHealthValue;
         }
         return allPods;
+    }
+
+    async getPodById(id: string) {
+        const allPods = await this.getAllPods();
+        const pod: Pod[] = [];
+        allPods.filter((pod) => pod.id === id, pod);
+        return pod[0];
     }
 
     async getAllDeployments() {

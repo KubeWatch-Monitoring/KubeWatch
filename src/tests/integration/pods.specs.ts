@@ -1,21 +1,21 @@
 import { expect } from "chai";
 import { app } from "../../app";
 import sinon from "sinon";
-import {PodStore} from "../../services/podStore";
 import {PodController} from "../../controller/pod-controller";
 import {Helpers} from "../test-helper";
 import {ObjectId} from "mongodb";
 import {Pod} from "../../model/pod";
 import {MetricsData} from "../../model/metrics-data";
+import {PrometheusService} from "../../services/prometheusService";
 
 describe("PodController", () => {
     let controller: PodController;
-    let podStore: any;
+    let prometheusService: any;
     let res: any;
 
     beforeEach(() => {
         controller = new PodController();
-        podStore = sinon.createStubInstance(PodStore);
+        prometheusService = sinon.createStubInstance(PrometheusService);
         res = Helpers.getMockResponse();
     });
 
@@ -30,11 +30,11 @@ describe("PodController", () => {
                 app
             };
 
-            podStore.getAllPods.resolves([]);
-            app.podStore = podStore;
+            prometheusService.getAllPods.resolves([]);
+            app.prometheusService = prometheusService;
 
             await controller.getIndex(req, res);
-            expect(podStore.getAllPods.called).to.be.true;
+            expect(prometheusService.getAllPods.called).to.be.true;
             expect(res.render.called).to.be.true;
             expect(res.render.calledWith("listPods", {
                 style: req.session.style,
@@ -70,8 +70,8 @@ describe("PodController", () => {
                 app
             };
 
-            podStore.getPodById.resolves(null);
-            app.podStore = podStore;
+            prometheusService.getPodById.resolves(null);
+            app.prometheusService = prometheusService;
 
             await controller.getPod(req, res);
             expect(res.status.called).to.be.true;
@@ -89,8 +89,8 @@ describe("PodController", () => {
                 app
             };
 
-            podStore.getPodById.throws()
-            app.podStore = podStore;
+            prometheusService.getPodById.throws()
+            app.prometheusService = prometheusService;
 
             await controller.getPod(req, res);
             expect(res.status.called).to.be.true;
@@ -110,8 +110,8 @@ describe("PodController", () => {
                 app
             };
 
-            podStore.getPodById.resolves(expectedPod)
-            app.podStore = podStore;
+            prometheusService.getPodById.resolves(expectedPod)
+            app.prometheusService = prometheusService;
 
             await controller.getPod(req, res);
             expect(res.render.called).to.be.true;

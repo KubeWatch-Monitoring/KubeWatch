@@ -5,19 +5,19 @@ import {NotificationController} from "../../controller/notification-controller";
 import {Notification} from "../../model/notification";
 import {ObjectId} from "mongodb";
 import {NotificationStore} from "../../services/notificationStore";
-import {PodStore} from "../../services/podStore";
+import {PrometheusService} from "../../services/prometheusService";
 
 
 describe("NotificationController", () => {
     let controller: NotificationController;
     let notificationStore: any;
-    let podStore: any;
+    let prometheusService: any;
     let res: any;
 
     beforeEach(() => {
         controller = new NotificationController();
         notificationStore = sinon.createStubInstance(NotificationStore);
-        podStore = sinon.createStubInstance(PodStore);
+        prometheusService = sinon.createStubInstance(PrometheusService);
 
         res = {
             status: {},
@@ -44,8 +44,8 @@ describe("NotificationController", () => {
             notificationStore.getAllNotifications.resolves([]);
             app.notificationStore = notificationStore;
 
-            podStore.getAllPods.resolves([]);
-            app.podStore = podStore;
+            prometheusService.getAllPods.resolves([]);
+            app.prometheusService = prometheusService;
 
             await controller.getIndex(req, res);
             expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
