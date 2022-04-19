@@ -32,11 +32,10 @@ To run all tests in the IDE a run configuration is provided.
 
 
 \section{Test Concept - NFR}
-Therefore we need to test also the non-functional requirements in our project. Some of the NFRs can be tested by SonarQube like the test coverage (NFR-1) the software security (NFR-9) and the code maintainability (NFR-10).
+We test our non-functional requirements (NFR) either with SonarQube or manually on a regular basis. Some of the NFRs that can be tested by SonarQube are the test coverage (NFR-1), the software security (NFR-9) and the code maintainability (NFR-10).
 
-For the other non-functional requirements we need a concept to verify that the requirements be checked regularly. Like updating the threat model and the risk management it makes sense to include this process directly in each sprint.
-
-Each NFR describe the test process for the verification and is placed directly by the NFR. So once per sprint one team member needs to check all these NFRs excluding these which are checked by \textit{Sonar Qube}.
+The rest of the NFRs that can not be checked by SonarQube are checked every sprint meeting by one of our team members.
+The process to verify each NFR is described in the \hyperref[non-functional-requirements]{NFR section}.
 
 \section{Test Concept - Security}
 To complete the test concept a section for security testing is needed. For this test concept, the \href{OWASP Top Ten}{https://owasp.org/www-project-top-ten/} are used as a guideline and build the basics of the security test concept.
