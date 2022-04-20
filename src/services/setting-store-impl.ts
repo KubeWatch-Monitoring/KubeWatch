@@ -1,8 +1,8 @@
 import {MongoDbService} from "./mongo-db-service";
 import {Collection} from "mongodb";
-import {Setting, SettingType, settingTypeFromString} from "../model/setting";
+import {Setting, SettingStore, SettingType, settingTypeFromString} from "../model/setting";
 
-export class SettingStore {
+export class SettingStoreImpl implements SettingStore {
     private settingsCollection: Collection;
 
     constructor(mongoDbService: MongoDbService) {
@@ -15,10 +15,10 @@ export class SettingStore {
 
     async updateSetting(setting: Setting) {
         const query = {name: setting.name};
-        return await this.settingsCollection.updateOne(query, {$set: setting});
+        await this.settingsCollection.updateOne(query, {$set: setting});
     }
 
-    async getByName(name: string, defaultValue: string | number | boolean): Promise<Setting> {
+    async getByName(name: string, defaultValue: string | number | boolean) {
         const query = {name};
         const result = await this.settingsCollection.findOne(query);
         let value;

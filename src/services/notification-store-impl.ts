@@ -1,21 +1,9 @@
 import {MongoDbService} from "./mongo-db-service";
-import {Collection, ObjectId, UpdateResult} from "mongodb";
-import {Notification} from "../model/notification";
-import {INotificationHandler} from "./prometheus-watcher";
+import {Collection, ObjectId} from "mongodb";
+import {Notification, NotificationStore} from "../model/notification";
+import {NotificationHandler} from "../domain/prometheus-watcher";
 
-export interface INotificationStore {
-    getById(id: ObjectId): Promise<Notification>;
-
-    updateNotification(notification: Notification): Promise<UpdateResult>;
-
-    getAllNotifications(): Promise<Notification[]>;
-
-    getNotSilencedNotifications(): Promise<Notification[]>;
-
-    createNotification(notification: Notification): Promise<Notification>;
-}
-
-export class NotificationStore implements INotificationStore, INotificationHandler {
+export class NotificationStoreImpl implements NotificationStore, NotificationHandler {
     private notificationCollection: Collection;
 
     constructor(mongoDbService: MongoDbService) {
@@ -29,7 +17,7 @@ export class NotificationStore implements INotificationStore, INotificationHandl
 
     async updateNotification(notification: Notification) {
         const query = {_id: notification._id};
-        return await this.notificationCollection.updateOne(query, {$set: notification});
+        await this.notificationCollection.updateOne(query, {$set: notification});
     }
 
     async getAllNotifications() {

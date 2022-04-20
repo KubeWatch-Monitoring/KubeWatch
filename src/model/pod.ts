@@ -1,18 +1,28 @@
 import {MetricsData} from "./metrics-data";
+import {Metric} from "prometheus-query";
 
 export type Health = "Running" | "Pending" | "Failed" | "Succeeded" | "Unknown";
 
 export class Pod {
-    health = "Unknown";
+    health: Health = "Unknown";
     image = ""
 
     constructor(
         public id: string,
         public name: string,
-        public metrics: MetricsData
+        public metrics: MetricsData,
     ) {
-        this.id = id;
-        this.name = name;
-        this.metrics = metrics;
     }
+}
+
+export interface PodStore {
+    getAllPods(): Promise<Pod[]>;
+
+    getPodById(id: string): Promise<Pod>;
+
+    testInstantQuery(): Promise<any[]>;
+
+    testRangeQuery(): Promise<any[]>;
+
+    testSeriesQuery(): Promise<Metric[]>
 }

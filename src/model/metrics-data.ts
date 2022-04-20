@@ -4,8 +4,5 @@ export class MetricsData {
         public memory: number,
         public disk: number
     ) {
-        this.cpu = cpu;
-        this.memory = memory;
-        this.disk = disk;
     }
 }

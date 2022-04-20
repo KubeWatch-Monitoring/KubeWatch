@@ -1,5 +1,5 @@
 import express from "express";
-import {podController} from "../controller/pod-controller";
+import {podController} from "../view-controllers/pod-controller";
 
 const router = express.Router();
 router.get("/", podController.getIndex.bind(podController));

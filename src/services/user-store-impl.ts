@@ -1,8 +1,8 @@
 import {MongoDbService} from "./mongo-db-service";
 import {Collection} from "mongodb";
-import {User} from "../model/user";
+import {User, UserStore} from "../model/user";
 
-export class UserStore {
+export class UserStoreImpl implements UserStore {
     private userCollection: Collection;
 
     constructor(mongoDbService: MongoDbService) {

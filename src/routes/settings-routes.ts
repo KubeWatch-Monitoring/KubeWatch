@@ -1,5 +1,5 @@
 import express from "express";
-import {settingsController, SettingsController} from "../controller/settings-controller";
+import {settingsController} from "../view-controllers/settings-controller";
 
 const router = express.Router();
 router.get("/", settingsController.getSettings.bind(settingsController));

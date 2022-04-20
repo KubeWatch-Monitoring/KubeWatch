@@ -1,35 +1,31 @@
 import {Notification} from "../model/notification";
-import {SettingStore} from "./setting-store";
-import {PrometheusService} from "./prometheus-service";
+import {SettingStore} from "../model/setting";
+import {PodStore} from "../model/pod";
 
 const CHECK_INTERVAL_MS = 10_000;
 
-export interface INotificationHandler {
+export interface NotificationHandler {
     reactOnNotification(notification: Notification): Promise<void>;
 }
 
 export class PrometheusWatcher {
-    store: SettingStore;
-    prometheus: PrometheusService;
-    intervalId: NodeJS.Timer | null;
-    checkIntervalMs: number;
-    eventHandlers: INotificationHandler[];
+    intervalId: NodeJS.Timer | null = null;
+    checkIntervalMs: number = CHECK_INTERVAL_MS;
+    eventHandlers: NotificationHandler[] = [];
 
-    constructor(store: SettingStore, prometheus: PrometheusService) {
-        this.store = store;
-        this.prometheus = prometheus;
-        this.intervalId = null;
-        this.checkIntervalMs = CHECK_INTERVAL_MS;
-        this.eventHandlers = [];
+    constructor(
+        public settingStore: SettingStore,
+        public podStore: PodStore,
+    ) {
     }
 
-    onNotification(handler: INotificationHandler) {
+    onNotification(handler: NotificationHandler) {
         this.eventHandlers.push(handler);
     }
 
     watchPrometheus() {
         this.intervalId = setInterval(async () => {
-            const pods = await this.prometheus.getAllPods();
+            const pods = await this.podStore.getAllPods();
             for (const pod of pods) {
                 if (pod.health != "Running" && pod.health != "Succeeded") {
                     const message = `Pod ${pod.name} is in a bad state (${pod.health})`;
@@ -61,7 +57,7 @@ export class PrometheusWatcher {
     }
 
     private async isNotificationEnabled(): Promise<boolean> {
-        const setting = await this.store.getByName("isNotificationEnabled", true);
+        const setting = await this.settingStore.getByName("isNotificationEnabled", true);
         return setting.value;
     }
 }

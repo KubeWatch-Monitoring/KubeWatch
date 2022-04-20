@@ -1,5 +1,5 @@
 import express from "express";
-import {notificationController} from "../controller/notification-controller";
+import {notificationController} from "../view-controllers/notification-controller";
 
 const router = express.Router();
 router.get("/", notificationController.getIndex.bind(notificationController));

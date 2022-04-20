@@ -14,18 +14,12 @@ import {settingsRoutes} from "./routes/settings-routes";
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
 
-import {UserStore} from "./services/user-store";
-import {INotificationStore} from "./services/notification-store";
-import {PodStore} from "./services/pod-store";
-import {PrometheusService} from "./services/prometheus-service";
-import {SettingStore} from "./services/setting-store";
-import {PrometheusWatcher} from "./services/prometheus-watcher";
-
-import {
-    sessionUserSettings,
-    Settings,
-    Style,
-} from "./utils/session-middleware.index";
+import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
+import {NotificationStore} from "./model/notification";
+import {SettingStore} from "./model/setting";
+import {UserStore} from "./model/user";
+import {PodStore} from "./model/pod";
+import {PrometheusWatcher} from "./domain/prometheus-watcher";
 
 declare module "express-session" {
     interface SessionData {
@@ -39,10 +33,9 @@ declare global {
         interface Application {
             userStore: UserStore;
             settingsStore: SettingStore;
-            notificationStore: INotificationStore;
-            prometheusService: PrometheusService;
-            prometheusWatcher: PrometheusWatcher;
+            notificationStore: NotificationStore;
             podStore: PodStore;
+            prometheusWatcher: PrometheusWatcher;
         }
     }
 }
@@ -61,6 +54,7 @@ app.set("view engine", "hbs");
 app.set("views", path.resolve("views"));
 
 app.use(express.static(path.resolve("public")));
+
 if (process.env.EXPRESS_SESSION_SECRET === undefined)
     throw new Error("Environment variable EXPRESS_SESSION_SECRET is missing");
 app.use(

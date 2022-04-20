@@ -1,5 +1,5 @@
 import express from "express";
-import {userController} from "../controller/user-controller";
+import {userController} from "../view-controllers/user-controller";
 
 const router = express.Router();
 router.get("/", userController.getUsers.bind(userController));

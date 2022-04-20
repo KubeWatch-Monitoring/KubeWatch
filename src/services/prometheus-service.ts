@@ -13,7 +13,6 @@ export class PrometheusService {
     }
 
     async retrieveRangeQuery() {
-
         const q = 'up';
         const start = new Date().getTime() - 24 * 60 * 60 * 1000;
         const end = new Date();
@@ -30,13 +29,11 @@ export class PrometheusService {
     }
 
     async getAllPods() {
-        let podNamesQueryFilter = '';
         const excludeNamespaces = "kube-system|monitoring|kubernetes-dashboard";
         const getPodIdentificationsQuery = `sum by (uid, pod) (kube_pod_info{namespace!~"${excludeNamespaces}"})`;
         const getPodIdentificationsResponse = await this.driver.instantQuery(getPodIdentificationsQuery);
 
         const allPods = getPodIdentificationsResponse.result.map(vector => {
-            podNamesQueryFilter += `${vector.metric.labels.pod}|`;  // not really useful anymore
             return new Pod(vector.metric.labels.uid, vector.metric.labels.pod, new MetricsData(0, 0, 0));
         });
 
@@ -84,10 +81,10 @@ export class PrometheusService {
 
     async getPodById(id: string) {
         const allPods = await this.getAllPods();
-        return allPods.find((pod) => {
-            const a = pod.id === id
-            return a;
-        });
+        const pod = allPods.find(pod => pod.id === id);
+        if (pod == undefined)
+            throw new Error(`Pod with ID ${id} does not exist`);
+        return pod;
     }
 
     async getAllDeployments() {
