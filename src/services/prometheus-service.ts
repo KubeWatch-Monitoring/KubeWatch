@@ -1,22 +1,39 @@
-import { PrometheusDriver } from 'prometheus-query';
+import {PrometheusDriver} from 'prometheus-query';
 import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
 
 export class PrometheusService {
-    readonly driver: PrometheusDriver;
+    constructor(public readonly driver: PrometheusDriver) {
+    }
 
-    constructor(driver: PrometheusDriver) {
-        this.driver = driver;
+    async retrieveInstantQuery() {
+        const instantQuery = 'prometheus_target_sync_length_seconds_count{scrape_job="kube-state-metrics"}';
+        const instantQueryResponse = await this.driver.instantQuery(instantQuery);
+        return instantQueryResponse.result.flat();
+    }
+
+    async retrieveRangeQuery() {
+        const q = 'up';
+        const start = new Date().getTime() - 24 * 60 * 60 * 1000;
+        const end = new Date();
+        const step = 60 // 1 point every 60 seconds
+        const rangeQueryResponse = await this.driver.rangeQuery(q, start, end, step);
+        return rangeQueryResponse.result;
+    }
+
+    async retrieveSeriesQuery() {
+        const match = 'up';
+        const start = new Date().getTime() - 24 * 60 * 60 * 1000;
+        const end = new Date();
+        return await this.driver.series(match, start, end);
     }
 
     async getAllPods() {
-        let podNamesQueryFilter = '';
         const excludeNamespaces = "kube-system|monitoring|kubernetes-dashboard";
         const getPodIdentificationsQuery = `sum by (uid, pod) (kube_pod_info{namespace!~"${excludeNamespaces}"})`;
         const getPodIdentificationsResponse = await this.driver.instantQuery(getPodIdentificationsQuery);
 
         const allPods = getPodIdentificationsResponse.result.map(vector => {
-            podNamesQueryFilter += `${vector.metric.labels.pod}|`;  // not really useful anymore
             return new Pod(vector.metric.labels.uid, vector.metric.labels.pod, new MetricsData(0, 0, 0));
         });
 
@@ -40,20 +57,20 @@ export class PrometheusService {
             const podMemoryValue = podMemoryResult.result.map((res) => {
                 return res.value.value;
             });
-            pod.metrics.memory = (+podMemoryValue)/(2**20);  // convert to megabytes (MiB)
+            pod.metrics.memory = (+podMemoryValue) / (2 ** 20);  // convert to megabytes (MiB)
 
             const podDiskQuery = `sum by (pod) (container_fs_usage_bytes{pod=~"${pod.name}"})`;
             const podDiskResult = await this.driver.instantQuery(podDiskQuery);
             const podDiskValue = podDiskResult.result.map((res) => {
                 return res.value.value;
             });
-            pod.metrics.disk = (+podDiskValue)/(2**10);  // convert to kilobytes (KiB)
+            pod.metrics.disk = (+podDiskValue) / (2 ** 10);  // convert to kilobytes (KiB)
 
             const podHealthQuery = `sum by (phase) (kube_pod_status_phase{pod=~"${pod.name}"})`;
             const podHealthResult = await this.driver.instantQuery(podHealthQuery);
-            let podHealthValue:Health = "Unknown";
+            let podHealthValue: Health = "Unknown";
             podHealthResult.result.forEach((res) => {
-                if(parseInt(res.value.value) === 1) {
+                if (parseInt(res.value.value) === 1) {
                     podHealthValue = res.metric.labels.phase as Health;
                 }
             });
@@ -64,10 +81,10 @@ export class PrometheusService {
 
     async getPodById(id: string) {
         const allPods = await this.getAllPods();
-        return allPods.find((pod) => {
-            const a = pod.id === id
-            return a;
-        });
+        const pod = allPods.find(pod => pod.id === id);
+        if (pod == undefined)
+            throw new Error(`Pod with ID ${id} does not exist`);
+        return pod;
     }
 
     async getAllDeployments() {
@@ -76,12 +93,3 @@ export class PrometheusService {
         return instantQueryResponse.result.flat();
     }
 }
-
-if (process.env.PROMETHEUS_CONN_STRING === undefined) {
-    throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
-}
-
-export const prometheusService = new PrometheusService(new PrometheusDriver({
-    endpoint: process.env.PROMETHEUS_CONN_STRING,
-    baseURL: "/api/v1",
-}));

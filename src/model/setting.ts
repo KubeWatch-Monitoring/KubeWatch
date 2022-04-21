@@ -1,3 +1,24 @@
+import {ObjectId} from "mongodb";
+
+export class Setting {
+    public id?: ObjectId;
+
+    constructor(
+        public name: string,
+        public value: any,
+        public type: SettingType
+    ) {
+    }
+}
+
+export interface SettingStore {
+    getSettings(): Promise<Setting[]>;
+
+    updateSetting(setting: Setting): Promise<void>;
+
+    getByName(name: string, defaultValue: string | number | boolean): Promise<Setting>
+}
+
 export enum SettingType {
     Boolean = "Boolean",
     Number = "Number",
@@ -18,15 +39,10 @@ export function settingTypeFromString(type: string) {
 export function castValue(value: any, type: SettingType): boolean | number | string {
     switch (type) {
         case SettingType.Boolean:
-            return (value === "true") ? true : false
+            return value === "true";
         case SettingType.Number:
             return parseInt(value) as number;
         default:
             return value as string;
     }
-}
-
-export class Setting {
-    constructor(public name: string, public value: any, public type: SettingType) {}
-
 }

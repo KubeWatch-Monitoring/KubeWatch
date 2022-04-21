@@ -1,12 +1,13 @@
-import { expect } from "chai";
-import { app } from "../../app";
+import {expect} from "chai";
+import {app} from "../../app";
 import sinon from "sinon";
-import {PodController} from "../../controller/pod-controller";
+import {PodController} from "../../view-controllers/pod-controller";
 import {Helpers} from "../test-helper";
 import {ObjectId} from "mongodb";
 import {Pod} from "../../model/pod";
 import {MetricsData} from "../../model/metrics-data";
-import {PrometheusService} from "../../services/prometheusService";
+import {PrometheusService} from "../../services/prometheus-service";
+import {PodStoreImpl} from "../../services/pod-store-impl";
 
 describe("PodController", () => {
     let controller: PodController;
@@ -16,11 +17,11 @@ describe("PodController", () => {
     beforeEach(() => {
         controller = new PodController();
         prometheusService = sinon.createStubInstance(PrometheusService);
+        app.podStore = new PodStoreImpl(prometheusService);
         res = Helpers.getMockResponse();
     });
 
     describe("getIndex", () => {
-        const URL = "/";
         it("should return a rendered html page", async () => {
             const req: any = {
                 session: {
@@ -31,7 +32,6 @@ describe("PodController", () => {
             };
 
             prometheusService.getAllPods.resolves([]);
-            app.prometheusService = prometheusService;
 
             await controller.getIndex(req, res);
             expect(prometheusService.getAllPods.called).to.be.true;
@@ -71,7 +71,6 @@ describe("PodController", () => {
             };
 
             prometheusService.getPodById.resolves(null);
-            app.prometheusService = prometheusService;
 
             await controller.getPod(req, res);
             expect(res.status.called).to.be.true;
@@ -89,8 +88,7 @@ describe("PodController", () => {
                 app
             };
 
-            prometheusService.getPodById.throws()
-            app.prometheusService = prometheusService;
+            prometheusService.getPodById.throws(new Error())
 
             await controller.getPod(req, res);
             expect(res.status.called).to.be.true;
@@ -98,7 +96,7 @@ describe("PodController", () => {
         });
 
         it("should return a rendered html page", async () => {
-            const expectedPod = new Pod("3", "name", new MetricsData(1,2,3));
+            const expectedPod = new Pod("3", "name", new MetricsData(1, 2, 3));
             const req: any = {
                 params: {
                     id: expectedPod.id,
@@ -111,7 +109,6 @@ describe("PodController", () => {
             };
 
             prometheusService.getPodById.resolves(expectedPod)
-            app.prometheusService = prometheusService;
 
             await controller.getPod(req, res);
             expect(res.render.called).to.be.true;

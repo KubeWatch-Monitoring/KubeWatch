@@ -3,26 +3,23 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 import session from "express-session";
+
 import {indexRoutes} from "./routes/index-routes";
 import {podRoutes} from "./routes/pod-routes";
 import {userRoutes} from "./routes/user-routes";
-import {UserStore} from "./services/userStore";
-import {INotificationStore} from "./services/notificationStore";
+import {prometheusRoutes} from "./routes/prometheus-routes";
+import {notificationRoutes} from "./routes/notification-routes";
+import {settingsRoutes} from "./routes/settings-routes";
+
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
 
-import {
-    sessionUserSettings,
-    Settings,
-    Style,
-} from "./utils/session-middleware.index";
-
-import { promRoutes } from "./routes/prom-routes";
-import {notificationRoutes} from "./routes/notification-routes";
-import {PrometheusService} from "./services/prometheusService";
-import {SettingsStore} from "./services/settingsStore";
-import {settingsRoutes} from "./routes/settings-routes";
-import {PrometheusWatcher} from "./services/prometheusWatcher";
+import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
+import {NotificationStore} from "./model/notification";
+import {SettingStore} from "./model/setting";
+import {UserStore} from "./model/user";
+import {PodStore} from "./model/pod";
+import {PrometheusWatcher} from "./domain/prometheus-watcher";
 
 declare module "express-session" {
     interface SessionData {
@@ -35,9 +32,9 @@ declare global {
     namespace Express {
         interface Application {
             userStore: UserStore;
-            settingsStore: SettingsStore;
-            notificationStore: INotificationStore;
-            prometheusService: PrometheusService;
+            settingsStore: SettingStore;
+            notificationStore: NotificationStore;
+            podStore: PodStore;
             prometheusWatcher: PrometheusWatcher;
         }
     }
@@ -57,6 +54,7 @@ app.set("view engine", "hbs");
 app.set("views", path.resolve("views"));
 
 app.use(express.static(path.resolve("public")));
+
 if (process.env.EXPRESS_SESSION_SECRET === undefined)
     throw new Error("Environment variable EXPRESS_SESSION_SECRET is missing");
 app.use(
@@ -74,6 +72,6 @@ app.use(bodyParser.json());
 app.use("/", indexRoutes);
 app.use("/pods", podRoutes);
 app.use("/users", userRoutes);
-app.use("/prom-metrics", promRoutes);
+app.use("/prom-metrics", prometheusRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/settings", settingsRoutes);

@@ -1,11 +1,11 @@
-import chai, { expect } from "chai";
+import {expect} from "chai";
 import sinon from "sinon";
-import { app } from "../../app";
-import {NotificationController} from "../../controller/notification-controller";
+import {app} from "../../app";
+import {NotificationController} from "../../view-controllers/notification-controller";
 import {Notification} from "../../model/notification";
 import {ObjectId} from "mongodb";
-import {NotificationStore} from "../../services/notificationStore";
-import {PrometheusService} from "../../services/prometheusService";
+import {PrometheusService} from "../../services/prometheus-service";
+import {NotificationStoreImpl} from "../../services/notification-store-impl";
 
 
 describe("NotificationController", () => {
@@ -16,7 +16,7 @@ describe("NotificationController", () => {
 
     beforeEach(() => {
         controller = new NotificationController();
-        notificationStore = sinon.createStubInstance(NotificationStore);
+        notificationStore = sinon.createStubInstance(NotificationStoreImpl);
         prometheusService = sinon.createStubInstance(PrometheusService);
 
         res = {
@@ -45,7 +45,6 @@ describe("NotificationController", () => {
             app.notificationStore = notificationStore;
 
             prometheusService.getAllPods.resolves([]);
-            app.prometheusService = prometheusService;
 
             await controller.getIndex(req, res);
             expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
@@ -59,7 +58,7 @@ describe("NotificationController", () => {
         });
     });
     describe("silenceNotification", () => {
-        it ("should return 400 when missing id", async () => {
+        it("should return 400 when missing id", async () => {
             const req: any = {
                 body: {
                     reason: "some reason",
@@ -71,7 +70,7 @@ describe("NotificationController", () => {
             expect(res.status.called).to.be.true;
             expect(res.status.calledWith(400)).to.be.true;
         });
-        it ("should return 400 when missing reason", async () => {
+        it("should return 400 when missing reason", async () => {
             const req: any = {
                 body: {
                     id: new ObjectId().toString(),
@@ -83,7 +82,7 @@ describe("NotificationController", () => {
             expect(res.status.called).to.be.true;
             expect(res.status.calledWith(400)).to.be.true;
         });
-        it ("should return 400 when missing url", async () => {
+        it("should return 400 when missing url", async () => {
             const req: any = {
                 body: {
                     id: new ObjectId().toString(),
@@ -95,7 +94,7 @@ describe("NotificationController", () => {
             expect(res.status.called).to.be.true;
             expect(res.status.calledWith(400)).to.be.true;
         });
-        it ("should return 400 when id is ill formatted", async () => {
+        it("should return 400 when id is ill formatted", async () => {
             const req: any = {
                 body: {
                     id: "my-wrong-formatted-id",
@@ -125,16 +124,16 @@ describe("NotificationController", () => {
                 date,
                 false,
                 "",
-                new ObjectId(req.body.id));
+            );
 
             const updatedNotification = new Notification(
                 message,
                 date,
                 true,
                 req.body.reason,
-                new ObjectId(req.body.id));
+            );
 
-            const store = sinon.createStubInstance(NotificationStore);
+            const store = sinon.createStubInstance(NotificationStoreImpl);
             store.getById.resolves(originalNotification);
             store.updateNotification.resolves({});
             app.notificationStore = store;

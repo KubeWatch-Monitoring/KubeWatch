@@ -46,6 +46,8 @@ Following all the top ten security risks are listed and on each part, there is a
 \subsection{A01 - Brocken Access Control}
 After implementing the login it is important to test our application for broken access control, like principle of least privilege, IDOR attack (modifying URL to get access without login), or login without an account (NoSQL injection).
 
+We didn't use a login, so it isn't important for us now.
+
 \subsection{A02 - Cryptographic Failures}
 These failures encompass risks like storing private keys unencrypted, using broken hash algorithms (like SHA1 or MD5), or not protecting sensitive data, like personal identifiable information (PII) accurately. For the KubeWatch project there is no private data available, and since we have not implemented any user authentication, there is no need to store sensitive data. Therefore, these risks do currently not apply.
 

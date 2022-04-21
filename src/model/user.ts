@@ -1,12 +1,17 @@
-import { ObjectId } from "mongodb";
+import {ObjectId} from "mongodb";
 
 export class User {
-  id?: ObjectId;
-  username: string;
-  email: string;
+    public id?: ObjectId;
 
-  constructor(username: string, email: string) {
-    this.username = username;
-    this.email = email;
-  }
+    constructor(
+        public username: string,
+        public email: string,
+    ) {
+    }
+}
+
+export interface UserStore {
+    getUsers(): Promise<User[]>;
+
+    createUser(user: User): Promise<User>;
 }

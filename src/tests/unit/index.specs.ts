@@ -1,10 +1,9 @@
-import { expect } from "chai";
+import {expect} from "chai";
 import sinon from "sinon";
-
-import { app } from "../../app";
-import {IndexController} from "../../controller/index-controller";
-import {NotificationStore} from "../../services/notificationStore";
-import {PrometheusService} from "../../services/prometheusService";
+import {app} from "../../app";
+import {IndexController} from "../../view-controllers/index-controller";
+import {NotificationStoreImpl} from "../../services/notification-store-impl";
+import {PodStoreImpl} from "../../services/pod-store-impl";
 
 describe("IndexController", () => {
     let controller: IndexController;
@@ -25,17 +24,17 @@ describe("IndexController", () => {
                 render: sinon.spy()
             };
 
-            const notificationStore = sinon.createStubInstance(NotificationStore);
+            const notificationStore = sinon.createStubInstance(NotificationStoreImpl);
             notificationStore.getNotSilencedNotifications.resolves([]);
             app.notificationStore = notificationStore;
 
-            const prometheusService = sinon.createStubInstance(PrometheusService);
-            prometheusService.getAllPods.resolves([]);
-            app.prometheusService = prometheusService;
+            const podStore = sinon.createStubInstance(PodStoreImpl);
+            app.podStore = podStore;
+            podStore.getAllPods.resolves([]);
 
             await controller.getIndex(req, res);
             expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
-            expect(prometheusService.getAllPods.called).to.be.true;
+            expect(podStore.getAllPods.called).to.be.true;
             expect(res.render.called).to.be.true;
             expect(res.render.calledWithMatch("index", {
                 pods: [],

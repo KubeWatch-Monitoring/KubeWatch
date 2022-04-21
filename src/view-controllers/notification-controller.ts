@@ -32,7 +32,7 @@ export class NotificationController {
         notification.reason = reason;
 
         try {
-            const a = await req.app.notificationStore.updateNotification(notification);
+            await req.app.notificationStore.updateNotification(notification);
         } catch (e) {
             res.status(500).end();
             return;

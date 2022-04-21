@@ -1,10 +1,10 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {NotificationStore} from "../../services/notificationStore";
-import {PrometheusWatcher} from "../../services/prometheusWatcher";
+import {NotificationStoreImpl} from "../../services/notification-store-impl";
+import {PrometheusWatcher} from "../../domain/prometheus-watcher";
 import {Pod} from "../../model/pod";
 import {MetricsData} from "../../model/metrics-data";
-import {SettingsStore} from "../../services/settingsStore";
+import {SettingStoreImpl} from "../../services/setting-store-impl";
 
 
 describe("PrometheusWatcher", () => {
@@ -15,8 +15,8 @@ describe("PrometheusWatcher", () => {
     let pod: Pod;
 
     beforeEach(() => {
-        notificationStore = sinon.createStubInstance(NotificationStore);
-        settingsStore = sinon.createStubInstance(SettingsStore);
+        notificationStore = sinon.createStubInstance(NotificationStoreImpl);
+        settingsStore = sinon.createStubInstance(SettingStoreImpl);
         //prometheusService = sinon.createStubInstance({});
     })
     describe("watchPrometheus", () => {
