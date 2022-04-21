@@ -22,6 +22,8 @@ The table \ref{tab:threat-review} lists all risk reviews.
     \hline
     02.04.22 & Threats reviewed. Adapted architecture.\\
     \hline
+    21.04.22 & Threats reviewed and extended.\\
+    \hline
   \end{tabular}
 \end{table}
 
@@ -57,82 +59,91 @@ The following table includes all threats that we found in our architecture and a
     \endhead
     \caption{\label{tab:threats-classification}Classification of identified threats}
     \endlastfoot
-    Frontend (inkl. User)              
+    Frontend (incl. User)              
                         & D, E & Worm & Low & Anti-virus / Anti-malware\\
-                        & & Residual risk & Low & \\
     \hline
     Frontend  \(\leftrightarrow\) KubeWatch Backend API
                         & T & Redirects Data Flow & Low & Use certificate on web server \\
-                        & I & NoSQL Injection & High & Input validation \\
+                        & I & Eavesdropping & High & Encryption \\
+                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Botnet Attack & High & CDN and redundant system \\
     \hline
     KubeWatch Backend API
                         & S & Session Hijacking & Medium & Install SSL certificate \\
                         & T & XSS & Medium & Input validation, alert system, sanitisation \\
-                        & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
+                        & T, I & NoSQL and PromQL Injection & High & Input validation \\
+                        % & R & Audit Log Deletion & Low & Backup audit log \\ % to be added once user logs are collected
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Server Defacement & Low & ACL and Filtering \\
                         & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
+                        &all& NPM Supply Chain Attack & High & Use npm audit, npm doctor, npm outdated to check for unsafe packages \\
     \hline
     KubeWatch Backend API \(\leftrightarrow\) Database
-                        & T & XSS & Medium & Input validation, alert system, sanitisation \\
-                        & I & NoSQL Injection & High & Input validation \\
+                        & T & Change Packet content & Medium & Signature, HMAC \\
+                        & I & Eavesdropping & High & Encryption \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
     \hline
-    Database            & T & XSS & Medium & Input validation, alert system, sanitisation \\
-                        & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
+    Database            & T, I & NoSQL Injection & High & Input validation \\
+                        % & R & Audit Log Deletion & Low & Backup audit log \\ % to be added once user logs are collected
+                        % & R & Insecure Backup & Low & Implement digital signature and encryption \\
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
-                        & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
+                        & D & Query Flooding & High & CPU limitation, CDN and redundant system \\
     \hline
     KubeWatch Backend API \(\leftrightarrow\) Prometheus
-                        & T & XSS & Medium & Input validation, alert system, sanitisation \\
-                        & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
+                        & T & Change Packet content & Medium & Signature, HMAC \\
+                        & I & Eavesdropping & High & Encryption \\
     \hline
-    Prometheus          & S & Session Hijacking & Medium & Install SSL certificate \\
-                        & R & Audit Log Deletion & Low & Backup audit log \\
-                        & R & Insecure Backup & Low & Implement digital signature and encryption \\
+    Prometheus          & S & Session Hijacking & Low & Install SSL certificate \\
                         & T & Metrics manipulation & Low & Use secure channel / tunnel \\
+                        % & R & Audit Log Deletion & Low & Backup audit log \\
+                        % & R & Insecure Backup & Low & Implement digital signature and encryption \\
+                        & D & Query Flooding & High & CPU limitation, CDN and redundant system \\
     \hline
 \end{longtable}
 
 
 \section{Model Assumptions and Explanations}
 
-\subsection{User}
+\subsection{Frontend (incl. User)}
 \begin{itemize}
-    \item Assumption: The user has read-only access to the web application because he just needs to look at the cluster metrics.
-    \item In the next step when the user needs to change some data the login will be required and then the threat model needs to be updated to the authentication.
+    \item Assumption: While KubeWatch currently does not feature a user login, a user has unrestricted access to the web application.
 \end{itemize}
 
 
-\subsection{Interface: User \(\leftrightarrow\) Kubernetes Master}
+\subsection{Interface: Frontend \(\leftrightarrow\) KubeWatch Backend API}
 \begin{itemize}
-    \item Assumption: the web app is only accessible from within INS.
-    \item SQL Injection between Web App and database: mainly information disclosure, potentially Tampering to misrepresent the state of the nodes which are under a denial of service attack. This could pretend that the nodes are up and healthy, while the cluster is actually going down. However, the likelihood of this type of attack is rather low as it is questionable what the benefits are for an attacker. Unless there is a critical application running that may be the target.
-    \item SSH connection between a user and K8s cluster: keep ssh service up to date, especially any TLS implementations to ensure authenticity and integrity.
-    \item Potential extension: external web app / domain reqired \(\rightarrow\) requires user authentication \(\rightarrow\) update Threat model.
+    \item Assumption: the web app can only be launched locally from a developer's IDE, provided the developer has access to the KubeWatch code on GitLab.
 \end{itemize}
 
-\subsection{API Server on Master}
+\subsection{KubeWatch Backend API}
 \begin{itemize}
-    \item A Master under DoS attack would prevent the API and the Server from running
+    \item The KubeWatch Backend under a DoS attack would prevent the API and the server from running
         \begin{itemize}
             \item This is a dependency on the Master
             \item Mitigation: CPU limitation and alert to users
         \end{itemize}
-    \item Potential extension of the threat model: if Web App is externally accessible user authentication is required to ensure only authorised users can access the monitoring and potentially the cluster data
+    \item NPM supply chain attack: a library, or a dependency, used for developing KubeWatch and for querying Prometheus could be malicious.
+        \begin{itemize}
+            \item Various attacks are possible under this scheme, most notably would be malware deployment.
+            \item To mitigate many attack vectors, npm offers features to detect outdated or vulerable packages, such as npm audit, npm outdated, npm doctor
+        \end{itemize} 
+    \item NoSQL Injection between Web App and database: mainly information disclosure, potentially Tampering to misrepresent the state of the nodes which are under a denial of service attack. This could pretend that the nodes are up and healthy, while the cluster is actually going down. However, the likelihood of this type of attack is rather low as it is questionable what the benefits are for an attacker. Unless there is a critical application running that may be the target.  
 \end{itemize}
 
-\subsection{Cluster}
+\subsection{Interface: KubeWatch Backend API \(\leftrightarrow\) Database}
+No assumptions.
+
+\subsection{Database}
 \begin{itemize}
-    \item In-Cluster communication: how does the Master communicate with the Workers and the various Nodes?
-    \item Potential extension of the threat model: depending on the protocol used the model has to take threats targeting this communication into account
+    \item We use MongoDB as a database, which implements NoSQL.
 \end{itemize}
 
-\subsection{Interface Master \(\leftrightarrow\) GitLab}
+
+\subsection{Interface: KubeWatch Backend API \(\leftrightarrow\) Prometheus}
+No assumptions.
+
+\subsection{Prometheus}
 \begin{itemize}
-    \item Tunnel between the Master / Cluster and the GitLab pipeline is assumed to be low risk due to the default secure implementation nature of a tunnel. Of course, the same security issues for any component using TLS apply here as well.
+    \item Prometheus is an external dependency, but we need to monitor the application if any vulnerabilities appear.
+    \item They implement their own query language, PromQL, which is subject to injection attacks if input is not properly escaped. Currently, only the backend submits hard-coded queries to the database.
 \end{itemize}
-
