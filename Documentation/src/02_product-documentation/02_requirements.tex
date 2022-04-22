@@ -102,13 +102,13 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-5\\ 
  \hline
- \textbf{Requirement} & The product must be scalable for availability.\\
+ \textbf{Requirement} & The product must run reliable.\\
  \hline
  \textbf{Priority} & Middle\\
  \hline
- \textbf{Measure(s)} & Software must run in a container environment.\\
+ \textbf{Measure(s)} & Software must run in a Kubernetes pod.\\
  \hline
- \textbf{Process} & Let the software run in a container.\\
+ \textbf{Process} & Let the software run in a Kubernetes deployment.\\
  \hline
 \end{tabular}
 \end{center}
@@ -199,11 +199,11 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-11\\ 
  \hline
- \textbf{Requirement} & The product supports as many pods as Prometheus because it depends on it. \\
+ \textbf{Requirement} & The product scales to show as many Kubernetes instances of the monitored Kubernetes resources as Prometheus. \\
  \hline
  \textbf{Priority} & Middle\\
  \hline
- \textbf{Measure(s)} & Software runs as expected with 10 Pods. \\
+ \textbf{Measure(s)} & Software is able to list 10 Pods. \\
  \hline
  \textbf{Process} & Let the software run with at least 10 pods.\\
  \hline
