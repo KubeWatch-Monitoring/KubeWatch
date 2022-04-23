@@ -6,6 +6,7 @@
     "esModuleInterop": true,
     "moduleResolution": "Node",
     "strict": true,
+    "types": ["cypress"],
   },
   "exclude": [
     "node_modules"

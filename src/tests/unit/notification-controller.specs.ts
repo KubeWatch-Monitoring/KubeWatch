@@ -135,7 +135,7 @@ describe("NotificationController", () => {
 
             const store = sinon.createStubInstance(NotificationStoreImpl);
             store.getById.resolves(originalNotification);
-            store.updateNotification.resolves({});
+            store.updateNotification.resolves();
             app.notificationStore = store;
 
             await controller.silenceNotification(req, res);
