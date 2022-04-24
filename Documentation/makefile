@@ -32,7 +32,7 @@ doc_diff: gitDiffDescription
 		latexmk -outdir=../../out -cd -interaction=batchmode -pdf -f diff.tex
 
 timeTrackingReport:
-	gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --milestone="M3 End of Elaboration" --report=stats --report=issues --report=records --closed --show_without_times --output=markdown --file="time-tracking/M3 End of Elaboration Time Tracking Report.md"
+	gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --milestone="M4 Quality" --report=stats --report=issues --report=records --closed --show_without_times --output=markdown --file="time-tracking/M4 Quality Time Tracking Report.md"
 #   gtt report "SEProj/2022-FS/g03-kubewatch/kubewatch" --closed --show_without_times --output=csv --file=time-tracking/bin/full_report.csv
 #	python3 time-tracking/bin/pygtt.py -i time-tracking/bin/full_report.issues.csv -r time-tracking/bin/full_report.records.csv
 
