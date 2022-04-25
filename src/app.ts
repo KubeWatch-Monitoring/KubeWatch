@@ -41,6 +41,7 @@ declare global {
 }
 
 export const app = express();
+app.disable("x-powered-by");
 const hbs = create({
     extname: ".hbs",
     defaultLayout: "main.hbs",
