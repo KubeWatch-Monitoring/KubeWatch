@@ -1,7 +1,7 @@
 import {MongoDbService} from "./mongo-db-service";
 import {Collection, ObjectId} from "mongodb";
 import {Notification, NotificationStore} from "../model/notification";
-import {NotificationHandler} from "../domain/threshold-monitor";
+import {NotificationHandler} from "../domain/notification-manager";
 
 export class NotificationStoreImpl implements NotificationStore, NotificationHandler {
     private notificationCollection: Collection;
@@ -32,7 +32,7 @@ export class NotificationStoreImpl implements NotificationStore, NotificationHan
         return await this.notificationCollection.insertOne(notification) as unknown as Notification;
     }
 
-    async reactOnNotification(notification: Notification): Promise<void> {
+    async onNotification(notification: Notification): Promise<void> {
         await this.createNotification(notification);
     }
 }

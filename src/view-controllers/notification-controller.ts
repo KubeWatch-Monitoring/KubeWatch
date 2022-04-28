@@ -42,8 +42,8 @@ export class NotificationController {
 
     async trigger(req: Request, res: Response) {
         const {message} = req.body;
-        const notification = new Notification(message, new Date(), false, "");
-        await req.app.prometheusWatcher.fireManually(notification);
+        const notification = new Notification(message, new Date(), "");
+        await req.app.notificationManager.triggerNotification(notification);
         res.redirect(303, "/");
     }
 }

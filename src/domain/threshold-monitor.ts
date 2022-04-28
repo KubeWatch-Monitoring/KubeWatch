@@ -1,63 +1,45 @@
 import {Notification} from "../model/notification";
-import {SettingStore} from "../model/setting";
 import {PodStore} from "../model/pod";
-
-const CHECK_INTERVAL_MS = 10_000;
-
-export interface NotificationHandler {
-    reactOnNotification(notification: Notification): Promise<void>;
-}
+import {NotificationManager} from "./notification-manager";
+import {SettingStore} from "../model/setting";
 
 export class ThresholdMonitor {
-    intervalId: NodeJS.Timer | null = null;
-    checkIntervalMs: number = CHECK_INTERVAL_MS;
-    eventHandlers: NotificationHandler[] = [];
+    public static readonly CHECK_INTERVAL_MS: number = 10_000;
+    intervalId?: NodeJS.Timer;
 
     constructor(
         public settingStore: SettingStore,
         public podStore: PodStore,
+        public notificationManager: NotificationManager,
     ) {
     }
 
-    onNotification(handler: NotificationHandler) {
-        this.eventHandlers.push(handler);
+    monitorPods() {
+        if (!this.intervalId) {
+            this.intervalId = setInterval(this.checkPods.bind(this), ThresholdMonitor.CHECK_INTERVAL_MS);
+        }
     }
 
-    watchPrometheus() {
-        this.intervalId = setInterval(async () => {
-            const pods = await this.podStore.getAllPods();
-            for (const pod of pods) {
-                if (pod.health != "Running" && pod.health != "Succeeded") {
-                    const message = `Pod ${pod.name} is in a bad state (${pod.health})`;
-                    const notification = new Notification(message, new Date(), false, "");
-                    await this.fireOnNotification(notification);
-                }
+    private async checkPods() {
+        const pods = await this.podStore.getAllPods();
+        for (const pod of pods) {
+            if (pod.health == "Failed" && await this.isNotificationEnabled()) {
+                const message = `Pod ${pod.name} has failed`;
+                const notification = new Notification(message, new Date(), "");
+                await this.notificationManager.triggerNotification(notification);
             }
-        }, this.checkIntervalMs);
-    }
-
-    stopWatching() {
-        if (this.intervalId == null) {
-            return;
-        }
-        clearInterval(this.intervalId);
-    }
-
-    async fireManually(notification: Notification) {
-        await this.fireOnNotification(notification);
-    }
-
-    private async fireOnNotification(notification: Notification) {
-        if (!await this.isNotificationEnabled()) {
-            return;
-        }
-        for (const handler of this.eventHandlers) {
-            await handler.reactOnNotification(notification)
         }
     }
 
     private async isNotificationEnabled(): Promise<boolean> {
         const setting = await this.settingStore.getByName("isNotificationEnabled", true);
         return setting.value;
+    }
+
+    stopMonitoringPods() {
+        if (this.intervalId) {
+            clearInterval(this.intervalId);
+            this.intervalId = undefined;
+        }
     }
 }

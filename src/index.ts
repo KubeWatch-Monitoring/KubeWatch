@@ -7,7 +7,8 @@
     const SettingsStore = (await import("./services/setting-store-impl")).SettingStoreImpl;
     const PrometheusDriver = (await import("prometheus-query")).PrometheusDriver
     const PrometheusService = (await import("./services/prometheus-service")).PrometheusService;
-    const PrometheusWatcher = (await import("./domain/threshold-monitor")).ThresholdMonitor;
+    const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
+    const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const PodStoreImpl = (await import("./services/pod-store-impl")).PodStoreImpl;
 
     if (process.env.DB_CONN_STRING === undefined)
@@ -30,10 +31,10 @@
     const prometheusService = new PrometheusService(prometheusDriver);
 
     app.podStore = new PodStoreImpl(prometheusService);
-    const prometheusWatcher = new PrometheusWatcher(app.settingsStore, app.podStore);
-    prometheusWatcher.onNotification(notificationStore);
-    prometheusWatcher.watchPrometheus();
-    app.prometheusWatcher = prometheusWatcher;
+    app.notificationManager = new NotificationManager();
+    app.notificationManager.addNotificationHandler(notificationStore);
+    const thresholdMonitor = new ThresholdMonitor(app.settingsStore, app.podStore, app.notificationManager);
+    thresholdMonitor.monitorPods();
 
     const PORT = process.env.PORT || 8082;
     app.listen(PORT, () => {

@@ -122,16 +122,15 @@ describe("NotificationController", () => {
             const originalNotification = new Notification(
                 message,
                 date,
-                false,
                 "",
             );
 
             const updatedNotification = new Notification(
                 message,
                 date,
-                true,
                 req.body.reason,
             );
+            updatedNotification.isSilenced = true;
 
             const store = sinon.createStubInstance(NotificationStoreImpl);
             store.getById.resolves(originalNotification);

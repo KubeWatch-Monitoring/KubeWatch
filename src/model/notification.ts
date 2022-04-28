@@ -1,12 +1,12 @@
 import {ObjectId} from "mongodb";
 
 export class Notification {
-    public _id?: ObjectId
+    public _id?: ObjectId;
+    public isSilenced = false;
 
     constructor(
         public message: string,
         public date: Date,
-        public isSilenced: boolean,
         public reason: string,
     ) {
     }
