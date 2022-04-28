@@ -2,18 +2,10 @@
 
 \section{Test Concept - Software}
 To develop software with good quality we need to test it.
-For this project three different types of tests are used:
-
-\begin{itemize}
-  \item Unit Tests
-  \item Integration Tests
-  \item Usability Tests
-\end{itemize}
-
-The below described frameworks were chosen because we were already familiar with them.
+For this project, three different types of software tests are used because we need to test the software on different levels and we are already familiar with the following test types.
 
 \subsection{Unit Test}
-The Unit Tests are done using the \textit{mocha} and \textit{chai} framework.
+The Unit Tests are done using the \textit{mocha} and \textit{chai} framework. The reason for this decision is that we use to make unit tests for typescript code and we do not know many test frameworks for typescript. The \textit{mocha} and \textit{chai} framework was also used in the lectures of \textit{Web Engineering and Development 2} which most of us visited. 
 
 \subsection{Integration Test}
 The Integration Tests are also done using the \textit{mocha} and \textit{chai} framework.
@@ -23,8 +15,8 @@ Using \textit{chai-http} HTTP request are simulated and \textit{chai-dom} is use
 \subsection{Usability Test}
 To test the usability of the application we demonstrate and interact with Laurent Metzger, the advisor.
 Because he is a technical user he is perfectly suited to judge the application for its usability.
-These test will be performed during our weekly meetings, where he will be asked to click through the application
-and comment out loud what he's doing and if anything confuses him.
+These tests will be performed during our weekly meetings, where he will be asked to click through the application
+and comment out loud about what he's doing and if anything confuses him.
 
 \subsection{Integration into Workflow}
 Before pushing any changes you must run all Unit and Integrations tests.
@@ -36,27 +28,27 @@ To run all tests in the IDE a run configuration is provided.
 
 
 \section{Test Concept - NFR}
-We test our non-functional requirements (NFR) either with SonarQube or manually on a regular basis. Some of the NFRs that can be tested by SonarQube are the test coverage (NFR-1), the software security (NFR-9) and the code maintainability (NFR-10).
+We test our non-functional requirements (NFR) either with \textit{SonarQube} or manually on a regular basis. Some of the NFRs that can be tested by \textit{SonarQube} are the test coverage (NFR-1), the software security (NFR-9) and the code maintainability (NFR-10).
 
-The rest of the NFRs that can not be checked by SonarQube are checked every sprint meeting by one of our team members.
+The rest of the NFRs that can not be checked by \textit{SonarQube} are checked every sprint meeting by one of our team members.
 The process to verify each NFR is described in the \hyperref[non-functional-requirements]{NFR section}.
 
 \section{Test Concept - Security}
-To complete the test concept a section for security testing is needed. For this test concept, the \href{https://owasp.org/www-project-top-ten/}{OWASP Top Ten} are used as a guideline and build the basics of the security test concept.
+To complete the test concept a section for security testing is needed. For this test concept, the \href{https://owasp.org/www-project-top-ten/}{OWASP Top 10} is used as a guideline and builds the basics of the security test concept.
 Following all the top ten security risks are listed and on each part, there is a description of how we test it.
 
 \subsection{A01 - Brocken Access Control}
-After implementing the login it is important to test our application for broken access control, like principle of least privilege, IDOR attack (modifying URL to get access without login), or login without an account (NoSQL injection).
+After implementing the login it is important to test our application for broken access control, like the principle of least privilege, IDOR attack (modifying URL to get access without login), or login without an account (NoSQL injection).
 
 We didn't use a login, so it isn't important for us now.
 
 \subsection{A02 - Cryptographic Failures}
-These failures encompass risks like storing private keys unencrypted, using broken hash algorithms (like SHA1 or MD5), or not protecting sensitive data, like personal identifiable information (PII) accurately. For the KubeWatch project there is no private data available, and since we have not implemented any user authentication, there is no need to store sensitive data. Therefore, these risks do currently not apply.
+These failures encompass risks like storing private keys unencrypted, using broken hash algorithms (like SHA1 or MD5), or not protecting sensitive data, like personal identifiable information (PII) accurately. For the \textit{KubeWatch} project, there is no private data available, and since we have not implemented any user authentication, there is no need to store sensitive data. Therefore, these risks do currently not apply.
 
 \subsection{A03 - Injection}
 Another important security risk is the injection. Some of the most common injection attacks include (No)SQL Injections, XSS (Cross-site scripting), CSRF (Cross-site Request Forgery), and ORM (Object Relation Mapping).
 
-For the KubeWatch project we mitigate these risks mainly by applying input validation, be it using appropriate html forms (like 'text' or 'email) or handlebars which convert inputs to text automatically. On the deployment side, we could implement static security application testing in the CI/CD process where an ESLint plugin performs certain checks. There are other tools like dynamic security application testing available, however, this is not available in the free tier of GitLab.
+For the \textit{KubeWatch} project, we mitigate these risks mainly by applying input validation, be it using appropriate HTML forms (like 'text' or 'email) or handlebars which convert inputs to text automatically. On the deployment side, we could implement static security application testing in the CI/CD process where an ESLint plugin performs certain checks. There are other tools like dynamic security application testing available, however, this is not available in the free tier of GitLab.
 
 \subsection{A04 - Insecure Design}
 To avoid this security risk we use the \textit{Sonar Qube} to test libraries and implementations for bugs. In addition to this mitigation, we use threat modelling to analyse our application every second week and try to find mitigation techniques to prevent the risks, which is also called a secure development lifecycle.
@@ -77,7 +69,7 @@ This security risk is not tested now in our application. The reason for this is,
 \subsection{A08 - Software and Data Integrity Failures}
 This risk describes insecure data integrity by software or CI/CD pipelines.
 
-To prevent this risk we use npm for libraries installation because it is a trusted repository. Therefore we review each process that is newly implemented or changed, this helps us to find such integrity failures.
+To prevent this risk we use npm for library installation because it is a trusted repository. Therefore we review each process that is newly implemented or changed, this helps us to find such integrity failures.
 
 \subsection{A09 - Security Logging and Monitoring Failures}
 In this security risk, the logging and monitoring failures are described. This can be no logging, no alerts, unclear log messages etc.

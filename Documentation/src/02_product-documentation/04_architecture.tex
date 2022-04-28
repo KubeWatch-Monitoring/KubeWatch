@@ -12,16 +12,16 @@
 %     \end{itemize}   
 % }
 
-The architecture of our application is modelled using the C4 model combined with Clean Architecture.
+The architecture of our application is modelled using the C4 model combined with Clean Architecture. We decide to use these models because of the lectures of SEP2 which we visit in parallel and there these models are described in detail and so we are the most familiar with these models. For our project it does not make sense to visualise all four levels of the C4 model because of the complexity we used in this project, to complete the architecture we use the Clean Architecture model to explain the dependencies.
 Our application is built to use metrics which are scraped and stored by Prometheus from a Kubernetes cluster.
 The functional requirements FR1 to FR11 that are tracked on GitLab have been reviewed and can all be satisfied with this architecture. 
 The non-functional requirements NFR-2, NFR-3, NFR-4, are possible to satisfy with the technologies shown in the section Clean Architecture.
-The application will be built inside a container to satisfies NFR-5.
+The application will be built inside a container to satisfy NFR-5.
 
 \section{Roles}
-The role of the architect is split up. We work according the architecture agent model, where we have two architects.
+The role of the architect is split up. We work according to the architecture agent model, where we have two architects.
 Jan is responsible for Kubernetes, Prometheus, CI/CD, i.e. the architecture at large
-and Pascal is responsible for the architecture of our web application, which libraries are used and how we connect the different components, i.e. the "architecture at small".
+and Pascal is responsible for the architecture of our web application, which libraries are used and how we connect the different components, i.e. the "architecture at small". We decided to choose the model with two main architects because of the two project parts we need to handle and so there is each person from each part to discuss the interfaces and the perfect architecture over all project parts.
 
 \section{System Architecture according to C4 model}
 \begin{figure}[H]
@@ -70,5 +70,5 @@ and Pascal is responsible for the architecture of our web application, which lib
 
 \section{Wireframe}
 
-The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
+To visualise the application draft we decide to use a wireframe because it makes a lot of sense with the web application \textit{KubeWatch} we programme in this project. So for a detailed overview, we can just click through the wireframe to get an impression. The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
 The HTML page is interactive.
