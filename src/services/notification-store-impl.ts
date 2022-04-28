@@ -1,7 +1,7 @@
 import {MongoDbService} from "./mongo-db-service";
 import {Collection, ObjectId} from "mongodb";
 import {Notification, NotificationStore} from "../model/notification";
-import {NotificationHandler} from "../domain/prometheus-watcher";
+import {NotificationHandler} from "../domain/threshold-monitor";
 
 export class NotificationStoreImpl implements NotificationStore, NotificationHandler {
     private notificationCollection: Collection;

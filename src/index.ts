@@ -7,7 +7,7 @@
     const SettingsStore = (await import("./services/setting-store-impl")).SettingStoreImpl;
     const PrometheusDriver = (await import("prometheus-query")).PrometheusDriver
     const PrometheusService = (await import("./services/prometheus-service")).PrometheusService;
-    const PrometheusWatcher = (await import("./domain/prometheus-watcher")).PrometheusWatcher;
+    const PrometheusWatcher = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const PodStoreImpl = (await import("./services/pod-store-impl")).PodStoreImpl;
 
     if (process.env.DB_CONN_STRING === undefined)

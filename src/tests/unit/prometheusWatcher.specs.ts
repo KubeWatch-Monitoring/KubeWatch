@@ -1,14 +1,14 @@
 import {expect} from "chai";
 import sinon from "sinon";
 import {NotificationStoreImpl} from "../../services/notification-store-impl";
-import {PrometheusWatcher} from "../../domain/prometheus-watcher";
+import {ThresholdMonitor} from "../../domain/threshold-monitor";
 import {Pod} from "../../model/pod";
 import {MetricsData} from "../../model/metrics-data";
 import {SettingStoreImpl} from "../../services/setting-store-impl";
 
 
 describe("PrometheusWatcher", () => {
-    let watcher: PrometheusWatcher;
+    let watcher: ThresholdMonitor;
     let notificationStore: any;
     let settingsStore: any;
     let prometheusService: any;
@@ -27,7 +27,7 @@ describe("PrometheusWatcher", () => {
                 getAllPods: sinon.mock().returns([pod])
             };
             settingsStore.getByName.returns({value: true});
-            watcher = new PrometheusWatcher(settingsStore, prometheusService);
+            watcher = new ThresholdMonitor(settingsStore, prometheusService);
             watcher.onNotification(notificationStore);
 
             watcher.checkIntervalMs = 2;
@@ -47,7 +47,7 @@ describe("PrometheusWatcher", () => {
                 getAllPods: sinon.mock().returns([pod])
             };
             settingsStore.getByName.returns({value: true});
-            watcher = new PrometheusWatcher(settingsStore, prometheusService);
+            watcher = new ThresholdMonitor(settingsStore, prometheusService);
             watcher.onNotification(notificationStore);
 
             watcher.checkIntervalMs = 2;
@@ -67,7 +67,7 @@ describe("PrometheusWatcher", () => {
                 getAllPods: sinon.mock().returns([pod])
             };
             settingsStore.getByName.returns({value: false});
-            watcher = new PrometheusWatcher(settingsStore, prometheusService);
+            watcher = new ThresholdMonitor(settingsStore, prometheusService);
             watcher.onNotification(notificationStore);
 
             watcher.checkIntervalMs = 2;

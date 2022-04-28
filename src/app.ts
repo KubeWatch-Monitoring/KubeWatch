@@ -19,7 +19,7 @@ import {NotificationStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
 import {UserStore} from "./model/user";
 import {PodStore} from "./model/pod";
-import {PrometheusWatcher} from "./domain/prometheus-watcher";
+import {ThresholdMonitor} from "./domain/threshold-monitor";
 
 declare module "express-session" {
     interface SessionData {
@@ -35,7 +35,7 @@ declare global {
             settingsStore: SettingStore;
             notificationStore: NotificationStore;
             podStore: PodStore;
-            prometheusWatcher: PrometheusWatcher;
+            prometheusWatcher: ThresholdMonitor;
         }
     }
 }

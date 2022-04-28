@@ -8,7 +8,7 @@ export interface NotificationHandler {
     reactOnNotification(notification: Notification): Promise<void>;
 }
 
-export class PrometheusWatcher {
+export class ThresholdMonitor {
     intervalId: NodeJS.Timer | null = null;
     checkIntervalMs: number = CHECK_INTERVAL_MS;
     eventHandlers: NotificationHandler[] = [];
