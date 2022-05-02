@@ -75,13 +75,17 @@ and Pascal is responsible for the architecture of our web application, which lib
     \textbf{Application Business Rules:}
       & This layer contains our business logic and is contained in the \textit{/domain} directory. \bigskip \\
     \textbf{Interface Adapter:}
-      & This is the place for logic to attach to our external dependecies like Prometheus and MongoDB and is contained in the \textit{/services} and \textit{/view-controllers} directories. The implementations of the model store interfaces are also stored here. \bigskip \\
+      & This is the place for logic to attach to our external dependencies like Prometheus and MongoDB and is contained in the \textit{/services} and \textit{/view-controllers} directories. The implementations of the model store interfaces are also stored here. \bigskip \\
     \textbf{Framework \& Drivers:}
       & These are the major frameworks and dependencies powering our application. \\
   \end{tabular*}
   \caption{Clean-Architecture layers explained}
   \label{tab:clean-architecture-layers-explained}
 \end{table}
+
+\subsection{Scaling}
+
+State that should persist through a web page refresh, should be stored using a interface adapter for persistence. This allows the application in combination with our \hyperref[section:non-functional-requirements]{NFR Section} to be horizontally scaleable.
 
 \section{Wireframe}
 
