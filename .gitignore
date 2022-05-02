@@ -124,3 +124,4 @@ src/**/*.js.map
 
 ### ignore code coverage reports
 src/coverage
+src/.nyc_output
