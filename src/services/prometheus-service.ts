@@ -3,11 +3,13 @@ import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
 
 export class PrometheusService {
-    constructor(public readonly driver: PrometheusDriver) {
-    }
+    driver = new PrometheusDriver({
+        endpoint: process.env.PROMETHEUS_CONN_STRING as string,
+        baseURL: "/api/v1",
+    });
 
     async retrieveInstantQuery() {
-        const instantQuery = 'prometheus_target_sync_length_seconds_count{scrape_job="kube-state-metrics"}';
+        const instantQuery = 'kube_pod_container_info{container!=""}';
         const instantQueryResponse = await this.driver.instantQuery(instantQuery);
         return instantQueryResponse.result.flat();
     }

@@ -10,16 +10,20 @@ import {userRoutes} from "./routes/user-routes";
 import {prometheusRoutes} from "./routes/prometheus-routes";
 import {notificationRoutes} from "./routes/notification-routes";
 import {settingsRoutes} from "./routes/settings-routes";
+import {clusterVisRoutes} from "./routes/cluster-vis-routes";
+import {clusterDataRoutes} from "./routes/cluster-data-routes";
 
 import {helpers} from "./utils/handlebar-util";
-import {create} from 'express-handlebars';
 
+import {create} from 'express-handlebars';
 import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
 import {NotificationStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
 import {UserStore} from "./model/user";
 import {PodStore} from "./model/pod";
+import {ThresholdMonitor} from "./domain/threshold-monitor";
 import {NotificationManager} from "./domain/notification-manager";
+import {IClusterData} from "./model/cluster-data";
 
 declare module "express-session" {
     interface SessionData {
@@ -36,6 +40,8 @@ declare global {
             notificationStore: NotificationStore;
             podStore: PodStore;
             notificationManager: NotificationManager;
+            prometheusWatcher: ThresholdMonitor;
+            clusterData: IClusterData;
         }
     }
 }
@@ -76,3 +82,6 @@ app.use("/users", userRoutes);
 app.use("/prom-metrics", prometheusRoutes);
 app.use("/notifications", notificationRoutes);
 app.use("/settings", settingsRoutes);
+app.use("/cluster-visualisation", clusterVisRoutes);
+app.use("/cluster-data", clusterDataRoutes);
+

@@ -10,6 +10,7 @@
     const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
     const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const PodStoreImpl = (await import("./services/pod-store-impl")).PodStoreImpl;
+    const ClusterDataImpl = (await import ("./services/cluster-data-impl")).ClusterDataImpl;
 
     if (process.env.DB_CONN_STRING === undefined)
         throw new Error("Environment variable DB_CONN_STRING is missing");
@@ -24,17 +25,14 @@
 
     if (process.env.PROMETHEUS_CONN_STRING === undefined)
         throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
-    const prometheusDriver = new PrometheusDriver({
-        endpoint: process.env.PROMETHEUS_CONN_STRING,
-        baseURL: "/api/v1",
-    });
-    const prometheusService = new PrometheusService(prometheusDriver);
-
+    const prometheusService = new PrometheusService();
     app.podStore = new PodStoreImpl(prometheusService);
     app.notificationManager = new NotificationManager();
     app.notificationManager.addNotificationHandler(notificationStore);
     const thresholdMonitor = new ThresholdMonitor(app.settingsStore, app.podStore, app.notificationManager);
     thresholdMonitor.monitorPods();
+
+    app.clusterData = new ClusterDataImpl();
 
     const PORT = process.env.PORT || 8082;
     app.listen(PORT, () => {

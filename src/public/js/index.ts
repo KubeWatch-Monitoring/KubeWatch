@@ -1,6 +1,7 @@
-Chart.plugins.register(ChartDatasourcePrometheusPlugin);
+// Chart.plugins.register(ChartDatasourcePrometheusPlugin);
 
-const ctxCpu = document.getElementById('cpuChart').getContext('2d');
+const cpuElement = document.getElementById('cpuChart') as HTMLCanvasElement;
+const ctxCpu = cpuElement.getContext('2d');
 const cpuChart = new Chart(ctxCpu, {
   type: 'line',
   plugins: [ChartDatasourcePrometheusPlugin],
@@ -28,7 +29,9 @@ const cpuChart = new Chart(ctxCpu, {
   },
 });
 
-const ctxMemory = document.getElementById('memoryChart').getContext('2d');
+const memoryElement = document.getElementById('memoryChart') as HTMLCanvasElement;
+const ctxMemory = memoryElement.getContext('2d');
+
 const memoryChart = new Chart(ctxMemory, {
   type: 'line',
   plugins: [ChartDatasourcePrometheusPlugin],
@@ -56,7 +59,8 @@ const memoryChart = new Chart(ctxMemory, {
   },
 });
 
-const ctxDisk = document.getElementById('diskChart').getContext('2d');
+const diskElement = document.getElementById('diskChart') as HTMLCanvasElement;
+const ctxDisk = diskElement.getContext('2d');
 const diskChart = new Chart(ctxDisk, {
   type: 'line',
   plugins: [ChartDatasourcePrometheusPlugin],
