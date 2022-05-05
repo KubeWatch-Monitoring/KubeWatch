@@ -1,5 +1,5 @@
 :root {
-    --color-light: #B4B5B6;
+    --color-light: #ccd0d3;
     --color-dark: #041e21;
     --color-decoration: #0A4D5E;
     max-width: 1080px;
@@ -24,13 +24,17 @@ body {
     background-color: var(--bg-color);
 }
 
-button {
+button .btn {
     background-color: var(--color-decoration);
     color: var(--color);
 }
 
 .nav {
     background-color: var(--color);
+    color: var(--bg-color);
+}
+
+.nav-item>a {
     color: var(--bg-color);
 }
 
@@ -43,6 +47,7 @@ button {
 }
 
 .btnDiv {
+    margin-top: 5px;
     display: flex;
     flex-wrap: wrap;
     gap: 0.5em;
@@ -50,4 +55,11 @@ button {
 
 .hidden {
     display: none;
+}
+
+.content {
+    align-self: center;
+    border: 5px solid var(--color);
+    background-color: var(--bg-color);
+    width: 100%;
 }

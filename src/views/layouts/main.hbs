@@ -46,14 +46,16 @@
                         <input type="hidden" name="url" value="{{../currentUrl}}">
                         <input type="hidden" name="id" value="{{notification._id}}">
                         <textarea required rows="5" class="form-control mb-3" type="text" name="reason" placeholder="Reason for silencing this notification."></textarea>
-                        <button class="btn btn-primary">Silence</button>
+                        <button class="btn">Silence</button>
                     </form>
                 {{/each}}
             </div>
         </div>
         {{/if}}
     </div>
-    {{{body}}}
+    <section class="content">
+        {{{body}}}
+    </section>
 </div>
 {{{section.scripts}}}
 </body>
