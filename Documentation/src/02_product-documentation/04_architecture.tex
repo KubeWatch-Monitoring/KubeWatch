@@ -12,7 +12,7 @@
 %     \end{itemize}
 % }
 
-The architecture of our application is modelled using the C4 model combined with Clean Architecture. We decide to use these models because of the lectures of SEP2 which we visit in parallel and there these models are described in detail and so we are the most familiar with these models. For our project it does not make sense to visualise all four levels of the C4 model because of the complexity we used in this project, to complete the architecture we use the Clean Architecture model to explain the dependencies.
+Our application architecture is modelled using the C4 model combined with Clean Architecture. We decided to use two levels of the C4 model, because it gives a good overview how the different components of our application talk with each other and other systems. We replaced the remaining levels of the C4 model with Clean Architecture, because it is a better representation of how our source code dependencies are structured.
 Our application is built to use metrics which are scraped and stored by Prometheus from a Kubernetes cluster.
 The functional requirements FR1 to FR11 that are tracked on GitLab have been reviewed and can all be satisfied with this architecture.
 The non-functional requirements NFR-2, NFR-3, NFR-4, are possible to satisfy with the technologies shown in the section Clean Architecture.
@@ -21,7 +21,7 @@ The application will be built inside a container to satisfy NFR-5.
 \section{Roles}
 The role of the architect is split up. We work according to the architecture agent model, where we have two architects.
 Jan is responsible for Kubernetes, Prometheus, CI/CD, i.e. the architecture at large
-and Pascal is responsible for the architecture of our web application, which libraries are used and how we connect the different components, i.e. the "architecture at small". We decided to choose the model with two main architects because of the two project parts we need to handle and so there is each person from each part to discuss the interfaces and the perfect architecture over all project parts.
+and Pascal is responsible for the architecture of our web application, which libraries are used and how we connect the different components, i.e. the "architecture in detail". We decided to use the model with two main architects, because the project can be easily split into two parts the Web application itself and interfacing systems. So there is one person from each part to discuss the interfaces between the two parts to get the perfect architecture over all.
 
 \section{System Architecture according to C4 model}
 \begin{figure}[H]
@@ -40,23 +40,27 @@ and Pascal is responsible for the architecture of our web application, which lib
 
 \pagebreak
 \section{CI/CD Pipeline Architecture}
-At each push from our project to the gitlab environment we use the CI/CD pipeline to make some checks and generating the pdf.
+At each push from our project to the gitlab environment, the CI/CD pipeline runs and starts different jobs, depending on the changed files.
 
-Our pipeline consists of three stages: \textit{build, test, deploy}. Each of these stage is described in the following section in more detail.
+Our pipeline consists of three stages: \textit{build, test, deploy}. Each of these stages is described in more detail in the following section.
 
 \subsection{Pipeline Stages}
-\textbf{Build:} This is the first pipeline stage and here the documentation pdf will be build. In addition, this stage is also used to build the docker image which is used to publish our application and is also used in the deployment stage to deploy our application to the cluster.
+\textbf{Build:} This stage is used to build the documentation pdf file. It is also used to build the docker image which is used to publish our application container image in the gitlab container registry which is needed by the deployment stage to deploy our application to the cluster.
 
 
-\textbf{Test:} This is our second pipeline stage and is used to test our application. We automated all tests we could to minimize the effort each teammember need to make for the tests. The advantage of this method is definitively that the tests never get forgotten. We can perform the \textit{Unit Tests} and the \textit{Integration Tests} within our test stage of the ci/cd pipeline.
+\textbf{Test:} This stage is used to test our application. We automated as many tests as possible to minimize the effort on the team needed for testing. The advantage of this, is that tests can not be get forgotten. We can perform all \textit{Unit Tests} and \textit{Integration Tests} within this test stage of the ci/cd pipeline.
 
 
-\textbf{Deploy:} In our last pipeline stage we deploy our docker image to the cluster which is located in the INS network.
+\textbf{Deploy:} In our last pipeline stage, we deploy the newest version of our application to the Kubernetes cluster located inside the INS network, to be able to present the current main version of the application.
 
 \subsection{Accessing Deployed Application}
-To access the Kubernetes cluster in the INS, you need first to access via VPN to the INS network. Then you will find the web application in the \textit{Deployments -> Environments} and there you can \textit{Open} the web application. \newline
-\includegraphics[height=5.5cm]{resources/web-application-INS.png}
+To access current main version of KubeWatch, you need to be connected to the INS network via VPN. Then you can find the web application deployment in Gitlab in the \href{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/environments}{Deployments / Environments} section and there you can \textit{Open} the web application.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{resources/web-application-INS.png}
+..\label{fig:deployment-environment}
+\end{figure}
 
 \section{Web App Clean Architecture}
 \begin{figure}[H]
@@ -91,6 +95,6 @@ To visualise the application draft we decide to use a wireframe because it makes
 The HTML page is interactive.
 
 \section{Class Diagram}
-The current class diagram can be easily generated using \textit{Webstorm} and is placed in the appendix folder\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/class_diagram_from_webstorm.png}}.
+The current class diagram can be easily generated with \textit{Webstorm} and is placed in the appendix folder\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/class_diagram_from_webstorm.png}}.
 For this select the relevant folders with the mouse.
 Right-click on it and select \textit{Diagrams} \textrightarrow \textit{Show Diagram}.
