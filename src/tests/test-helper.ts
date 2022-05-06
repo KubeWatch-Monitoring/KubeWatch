@@ -8,6 +8,8 @@ export class Helpers {
             end: sinon.spy(),
             redirect: sinon.spy(),
             render: sinon.spy(),
+            setHeader: sinon.spy(),
+            write: sinon.spy(),
         };
         res.status = sinon.mock().returns(res);
         return res;

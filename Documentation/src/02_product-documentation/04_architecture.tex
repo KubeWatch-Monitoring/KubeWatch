@@ -2,19 +2,19 @@
 
 % \instructions{
 %     Describe the architecture of your software as covered in the SEP2 module. The main goal of this chapter is describing the \textbf{technical implementation} in a way that a new team member can start working on the product as fast as possible.
-    
+
 %     \begin{itemize}
 %         \item Use an existing template as a starting point (\texttt{arc42}, \texttt{C4 model}, ...)
 %         \item Focus on stable, high-level concepts rather than details
 %         \item Cover different views (static, dynamic, deployment, ...)
 %         \item Prefer diagrams over text (ideally UML)
 %         \item Explain the reasons behind your actions: \textit{Why did we build it like this?}
-%     \end{itemize}   
+%     \end{itemize}
 % }
 
 The architecture of our application is modelled using the C4 model combined with Clean Architecture. We decide to use these models because of the lectures of SEP2 which we visit in parallel and there these models are described in detail and so we are the most familiar with these models. For our project it does not make sense to visualise all four levels of the C4 model because of the complexity we used in this project, to complete the architecture we use the Clean Architecture model to explain the dependencies.
 Our application is built to use metrics which are scraped and stored by Prometheus from a Kubernetes cluster.
-The functional requirements FR1 to FR11 that are tracked on GitLab have been reviewed and can all be satisfied with this architecture. 
+The functional requirements FR1 to FR11 that are tracked on GitLab have been reviewed and can all be satisfied with this architecture.
 The non-functional requirements NFR-2, NFR-3, NFR-4, are possible to satisfy with the technologies shown in the section Clean Architecture.
 The application will be built inside a container to satisfy NFR-5.
 
@@ -94,3 +94,8 @@ State that should persist through a web page refresh, should be stored using a i
 
 To visualise the application draft we decide to use a wireframe because it makes a lot of sense with the web application \textit{KubeWatch} we programme in this project. So for a detailed overview, we can just click through the wireframe to get an impression. The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
 The HTML page is interactive.
+
+\section{Class Diagram}
+The current class diagram can be easily generated using \textit{Webstorm} and is placed in the appendix folder\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/class_diagram_from_webstorm.png}}.
+For this select the relevant folders with the mouse.
+Right-click on it and select \textit{Diagrams} \textrightarrow \textit{Show Diagram}.
