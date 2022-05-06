@@ -57,29 +57,6 @@ Our pipeline consists of three stages: \textit{build, test, deploy}. Each of the
 To access the Kubernetes cluster in the INS, you need first to access via VPN to the INS network. Then you will find the web application in the \textit{Deployments -> Environments} and there you can \textit{Open} the web application. \newline
 \includegraphics[height=5.5cm]{resources/web-application-INS.png}
 
---> ab hier löschen
-\begin{figure}[H]
-  \centering
-  \includegraphics[height=7.3cm]{resources/architecture.png}
-  \caption{KubeWatch CI/CD Pipeline architecture}
-  \label{fig:architecture}
-\end{figure}
-
-\begin{table}[H]
-  \begin{tabular*}{\textwidth}{p{3.5cm} | p{9cm}}
-    \textbf{Master:}
-      & Each Kubernetes cluster contains at least one master node which runs the Kubernetes control plane. These control plane consists of an API server, scheduler, controller manager, etc. \bigskip \\
-    \textbf{Worker/Node:}
-      & Each cluster includes at least one worker node, this node runs containerized applications. Each worker node host \textit{Pods}. \bigskip \\
-    \textbf{Pod:}
-      & A pod is a component of the application workload. \\
-  \end{tabular*}
-  \caption{K8s elements explained}
-  \label{tab:k8s-elements-explained}
-\end{table}
-
---> bis hier
-
 
 \section{Web App Clean Architecture}
 \begin{figure}[H]
