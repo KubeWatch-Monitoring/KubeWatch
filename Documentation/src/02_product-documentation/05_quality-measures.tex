@@ -21,10 +21,10 @@
   \item The item has a clear business value
   \item Dependencies are identified, and no external dependencies will block the item
   \item The team is staffed appropriately to complete the item
-  \item Acceptance criteria are defined
+  \item Acceptance criteria are defined in:
     \begin{itemize}
       \item Functional Requirements (see section \ref{section:functional-requirements})
-      \item Non-Functional Requirements (see section \ref{section:non-functional-requirements})
+      \item Non-Functional Requirements (see section \ref{section:functional-requirements})
     \end{itemize}
 \end{itemize}
 
@@ -32,22 +32,21 @@
 The following \textit{Definition of Done} was taken and adjusted to our needs from scrum-events.de \cite{www.scrum-events.de_dod}.
 \begin{itemize}
   \item The code is finished and versioned by git
-  \item The code was a review or developed using pair programming
+  \item The code was reviewed or developed using pair programming
   \item The code fulfils the coding guidelines from section \ref{guidelines-web-application}
-  \item The code has unit tests (where possible) and these are green
+  \item The code has unit tests (where possible) and these are successful
   \item The documentation was updated
   \item No critical bugs are known
 \end{itemize}
 
 \section{Apply Quality Standard}
-To provide a certain code standard and quality coding guidelines were specified.
+To provide a certain code standard and quality, coding guidelines were specified.
 These guidelines can be found in section \ref{guidelines-web-application}.
 For the Kubernetes similar guidelines were specified.
 You can find them in section \ref{guidelines-kubernetes}.
-
 In addition, changes to the code must be reviewed by another team member.
 For more information, see section \ref{git-workflow}.
 
-To ensure that the code base has a certain quality \textit{SonarQube} is used because this tool checks the test coverage and in the same step it tests the software for bugs, which is important for us.
+To ensure that the code base has a certain quality \textit{SonarQube} is used, because this tool checks the source code test coverage, maintainability, security rating and helps to find code smells.
 Installation see chapter \ref{sonarqube}.
 Quality measures are defined in section \ref{section:non-functional-requirements} as Non-Functional Requirements.
