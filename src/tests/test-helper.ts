@@ -1,4 +1,5 @@
 import sinon from "sinon";
+import express from "express";
 
 export class Helpers {
     static getMockResponse() {
@@ -10,5 +11,16 @@ export class Helpers {
         };
         res.status = sinon.mock().returns(res);
         return res;
+    }
+    static getMockRequest(app: express.Express) {
+        return {
+            session: {
+                style: {},
+                display: {},
+            },
+            query: {},
+            params: {},
+            app
+        }
     }
 }

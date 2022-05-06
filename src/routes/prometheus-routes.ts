@@ -5,3 +5,4 @@ const router = express.Router();
 router.get("/", prometheusController.getMetrics.bind(prometheusController));
 
 export const prometheusRoutes = router;
+export const BASE_URL = "/prom-metrics";

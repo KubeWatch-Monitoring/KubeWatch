@@ -5,3 +5,4 @@ const router = express.Router();
 router.get("/", clusterDataController.sendClusterData.bind(clusterDataController));
 
 export const clusterDataRoutes = router;
+export const BASE_URL = "/cluster-data";

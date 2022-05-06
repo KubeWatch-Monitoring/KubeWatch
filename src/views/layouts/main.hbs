@@ -37,7 +37,15 @@
             </li>
         </ul>
     </div>
-
+    {{#unless isDatabaseAvailable}}
+        <div class="row">
+            <p>Database connection lost: </p>
+            <p>IsDatabaseAvailable: {{isDatabaseAvailable}}</p>
+            <form method="POST" action="/admin/">
+                <button class="btn btn-primary">Try reconnect</button>
+            </form>
+        </div>
+    {{/unless}}
     <div class="row justify-content-md-center">
         {{#if pendingNotifications.length }}
         <div class="card text-white bg-danger mb-3">

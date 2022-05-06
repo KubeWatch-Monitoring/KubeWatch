@@ -6,3 +6,4 @@ router.get("/", userController.getUsers.bind(userController));
 router.post("/", userController.createUser.bind(userController));
 
 export const userRoutes = router;
+export const BASE_URL = "/users";

@@ -1,13 +1,24 @@
 import {Request, Response} from "express";
 import {User} from "../model/user";
+import {controllerUtil, ControllerUtil} from "../utils/controller-util";
 
 export class UserController {
+    controllerUtil: ControllerUtil;
+
+    constructor(controllerUtil: ControllerUtil) {
+        this.controllerUtil = controllerUtil;
+    }
+
     async getUsers(req: Request, res: Response) {
-        res.render("users", {
-            style: req.session.style,
-            display: req.session.display,
-            users: await req.app.userStore.getUsers(),
-        });
+        let users: User[] = [];
+        try {
+            users = await req.app.userStore.getUsers();
+        } catch (e) {
+            this.controllerUtil.setDatabaseAvailability(false);
+        }
+        await this.controllerUtil.render("users", {
+            users,
+        }, req, res);
     }
 
     async createUser(req: Request, res: Response) {
@@ -17,4 +28,4 @@ export class UserController {
     }
 }
 
-export const userController = new UserController();
+export const userController = new UserController(controllerUtil);

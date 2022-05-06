@@ -3,10 +3,16 @@ import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
 
 export class PrometheusService {
-    driver = new PrometheusDriver({
-        endpoint: process.env.PROMETHEUS_CONN_STRING as string,
-        baseURL: "/api/v1",
-    });
+    constructor(public driver: PrometheusDriver) {
+    }
+
+    static connect(url: string) {
+        const prometheusDriver = new PrometheusDriver({
+            endpoint: url,
+            baseURL: "/api/v1",
+        });
+        return new PrometheusService(prometheusDriver);
+    }
 
     async retrieveInstantQuery() {
         const instantQuery = 'kube_pod_container_info{container!=""}';

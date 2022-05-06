@@ -6,45 +6,56 @@ import {SettingStoreImpl} from "../../services/setting-store-impl";
 import {NotificationStoreImpl} from "../../services/notification-store-impl";
 import {Setting, SettingType} from "../../model/setting";
 import {Helpers} from "../test-helper";
+import {ControllerUtil} from "../../utils/controller-util";
 
 
 describe("SettingsController", () => {
     let controller: SettingsController;
     let settingsStore: any;
     let notificationStore: any;
+    let controllerUtil: any;
     let req: any;
     let res: any;
 
     beforeEach(() => {
-        controller = new SettingsController();
+        controllerUtil = sinon.createStubInstance(ControllerUtil);
         settingsStore = sinon.createStubInstance(SettingStoreImpl);
         notificationStore = sinon.createStubInstance(NotificationStoreImpl);
+        controller = new SettingsController(controllerUtil);
 
-        req = {app};
         res = Helpers.getMockResponse();
-
-        app.settingsStore = settingsStore;
-        app.notificationStore = notificationStore;
+        req = Helpers.getMockRequest(app);
     })
 
     describe("getSettings", () => {
         const URL = "/";
         it("should return a rendered html page", async () => {
-            req.originalUrl = URL;
+            app.settingsStore = settingsStore;
+            app.notificationStore = notificationStore;
             settingsStore.getSettings.resolves([new Setting("name", "value", SettingType.String)]);
             notificationStore.getAllNotifications.resolves([]);
             notificationStore.getNotSilencedNotifications.resolves([]);
 
             await controller.getSettings(req, res);
             expect(settingsStore.getSettings.called).to.be.true;
-            expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
-            expect(notificationStore.getAllNotifications.called).to.be.true;
-            expect(res.render.called).to.be.true;
-            expect(res.render.calledWithMatch("settings", {
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("settings", {
                 settings: [new Setting("name", "value", SettingType.String)],
-                pendingNotifications: [],
-                notifications: [],
-                currentUrl: req.originalUrl,
+            })).to.be.true;
+        });
+
+        it("should return a rendered html page but database availability set to true", async () => {
+            app.settingsStore = settingsStore;
+            app.notificationStore = notificationStore;
+            req.originalUrl = URL;
+            settingsStore.getSettings.rejects();
+
+            await controller.getSettings(req, res);
+            expect(settingsStore.getSettings.called).to.be.true;
+            expect(controllerUtil.setDatabaseAvailability.calledWith(false)).to.be.true;
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("settings", {
+                settings: [],
             })).to.be.true;
         });
     });
@@ -52,15 +63,6 @@ describe("SettingsController", () => {
     describe("updateSetting", () => {
         const URL = "/";
         it("should return a rendered html page", async () => {
-            req.originalUrl = URL;
-            req.body = {
-                setting: {
-                    name: "value",
-                    other: "otherValue",
-                    someBool: "true",
-                }
-            };
-
             const s1 = new Setting("name", "value", SettingType.String);
             const s2 = new Setting("other", "otherValue", SettingType.String)
             const s3 = new Setting("someBool", "true", SettingType.Boolean);
@@ -68,6 +70,14 @@ describe("SettingsController", () => {
             settingsStore.getByName.withArgs(s1.name).resolves(s1);
             settingsStore.getByName.withArgs(s2.name).resolves(s2);
             settingsStore.getByName.withArgs(s3.name).resolves(s3);
+            req.body = {
+                setting: {
+                    name: "value",
+                    other: "otherValue",
+                    someBool: "true",
+                }
+            };
+            app.settingsStore = settingsStore;
 
             await controller.updateSetting(req, res);
             expect(settingsStore.updateSetting.calledThrice).to.be.true;

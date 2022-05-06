@@ -1,15 +1,16 @@
 import {Request, Response} from "express";
+import {controllerUtil, ControllerUtil} from "../utils/controller-util";
 
 export class IndexController {
+    controllerUtil: ControllerUtil;
+
+    constructor(controllerUtil: ControllerUtil) {
+        this.controllerUtil = controllerUtil;
+    }
+
     async getIndex(req: Request, res: Response) {
-        res.render("index", {
-            style: req.session.style,
-            pods: await req.app.podStore.getAllPods(),
-            pendingNotifications: await req.app.notificationStore.getNotSilencedNotifications(),
-            currentUrl: req.originalUrl,
-            display: req.session.display,
-        });
+        await this.controllerUtil.render("index", {}, req, res);
     }
 }
 
-export const indexController = new IndexController();
+export const indexController = new IndexController(controllerUtil);

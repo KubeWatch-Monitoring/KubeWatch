@@ -1,5 +1,5 @@
 export class ClusterData {
-    constructor (
+    constructor(
         public nodes: {
             id: number,
             label: string,
@@ -14,7 +14,8 @@ export class ClusterData {
     }
 }
 
-export interface IClusterData {
+export interface ClusterDataStore {
     getClusterData(): Promise<ClusterData>;
+
     getClusterDataFromPrometheus(): Promise<void>;
 }

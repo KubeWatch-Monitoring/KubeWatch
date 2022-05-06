@@ -7,3 +7,4 @@ router.post("/silence", notificationController.silenceNotification.bind(notifica
 router.post("/trigger", notificationController.trigger.bind(notificationController));
 
 export const notificationRoutes = router;
+export const BASE_URL = "/notifications";
