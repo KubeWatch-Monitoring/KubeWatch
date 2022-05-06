@@ -1,0 +1,66 @@
+{{#section 'title'}}
+    Edit Dashboard
+{{/section}}
+{{#section 'scripts'}}
+    <!-- Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datasource-prometheus/dist/chartjs-plugin-datasource-prometheus.umd.min.js"></script>
+
+    <!-- Own Code -->
+    <script type="module" src="js/editDashboard.js"></script>
+{{/section}}
+{{#section 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+{{/section}}
+
+<form action="/edit" method="POST">
+    <div class="form-group">
+        <label for="promql">PromQL</label>
+        <input type="text" name="promql" id="promql" class="form-control" value="{{promql}}">
+    </div>
+
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" class="form-control" value="{{title}}">
+    </div>
+
+    <div class="form-group">
+        <label for="start">Start</label>
+        <input type="number" name="start" id="start" class="form-control" value="{{start}}">
+    </div>
+
+    <div class="form-group">
+        <label for="end">End</label>
+        <input type="number" name="end" id="end" class="form-control" value="{{end}}">
+    </div>
+
+    <div class="form-group">
+        <label for="updateInterval">Update interval in ms (min 1000ms)</label>
+        <input type="number" name="updateInterval" id="updateInterval" class="form-control" value="{{updateInterval}}">
+    </div>
+
+    <div class="form-group">
+        <label for="type">Type</label>
+        <select type="" name="type" id="type" class="form-control">
+            <option>relative</option>
+        </select>
+    </div>
+    <button id="btn-preview" type="button" class="btn btn-primary mt-3">Preview</button>
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+</form>
+
+<div class="accordion-body">
+    <div class="card">
+        <div class="card-header">
+            <h5 id="chart-title">Preview Chart</h5>
+        </div>
+        <div class="card-body">
+            <div class="collapsable">
+                <div class="row">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

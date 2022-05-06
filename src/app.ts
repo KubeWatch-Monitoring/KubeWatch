@@ -15,6 +15,7 @@ import * as ClusterVisRoutes from "./routes/cluster-vis-routes";
 
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
+
 import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
 import {NotificationStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
@@ -30,6 +31,8 @@ import {SettingStoreImpl} from "./services/setting-store-impl";
 import {PrometheusService} from "./services/prometheus-service";
 import {PodStoreImpl} from "./services/pod-store-impl";
 import {ClusterDataImpl} from "./services/cluster-data-impl";
+import {ChartSettingStore} from "./model/chart-setting";
+import {ChartSettingStoreImpl} from "./services/chart-setting-store-impl";
 
 declare module "express-session" {
     interface SessionData {
@@ -45,6 +48,7 @@ declare global {
             settingsStore: SettingStore;
             notificationStore: NotificationStore;
             podStore: PodStore;
+            chartSettingStore: ChartSettingStore;
             notificationManager: NotificationManager;
             prometheusWatcher: ThresholdMonitor;
             clusterDataStore: ClusterDataStore;
@@ -100,6 +104,7 @@ export async function setupDatabaseServices() {
     app.userStore = new UserStoreImpl(mongoDbService);
     app.notificationStore = notificationStore;
     app.settingsStore = new SettingStoreImpl(mongoDbService);
+    app.chartSettingStore = new ChartSettingStoreImpl(mongoDbService);
     app.notificationManager = new NotificationManager();
     app.notificationManager.addNotificationHandler(notificationStore);
 }
