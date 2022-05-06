@@ -38,17 +38,32 @@ and Pascal is responsible for the architecture of our web application, which lib
   \label{fig:container-diagram}
 \end{figure}
 
+\pagebreak
 \section{CI/CD Pipeline Architecture}
+At each push from our project to the gitlab environment we use the CI/CD pipeline to make some checks and generating the pdf.
 
+Our pipeline consists of three stages: \textit{build, test, deploy}. Each of these stage is described in the following section in more detail.
+
+\subsection{Pipeline Stages}
+\textbf{Build:} This is the first pipeline stage and here the documentation pdf will be build. In addition, this stage is also used to build the docker image which is used to publish our application and is also used in the deployment stage to deploy our application to the cluster.
+
+
+\textbf{Test:} This is our second pipeline stage and is used to test our application. We automated all tests we could to minimize the effort each teammember need to make for the tests. The advantage of this method is definitively that the tests never get forgotten. We can perform the \textit{Unit Tests} and the \textit{Integration Tests} within our test stage of the ci/cd pipeline.
+
+
+\textbf{Deploy:} In our last pipeline stage we deploy our docker image to the cluster which is located in the INS network.
+
+\subsection{Accessing Deployed Application}
+To access the Kubernetes cluster in the INS, you need first to access via VPN to the INS network. Then you will find the web application in the \textit{Deployments -> Environments} and there you can \textit{Open} the web application. \newline
+\includegraphics[height=5.5cm]{resources/web-application-INS.png}
+
+--> ab hier löschen
 \begin{figure}[H]
   \centering
   \includegraphics[height=7.3cm]{resources/architecture.png}
   \caption{KubeWatch CI/CD Pipeline architecture}
   \label{fig:architecture}
 \end{figure}
-
-To access the Kubernetes cluster in the INS, you need first to access via VPN to the INS network. Then you will find the web application in the \textit{Deployments -> Environments} and there you can \textit{Open} the web application. \newline
-\includegraphics[height=5.5cm]{resources/web-application-INS.png}
 
 \begin{table}[H]
   \begin{tabular*}{\textwidth}{p{3.5cm} | p{9cm}}
@@ -62,6 +77,9 @@ To access the Kubernetes cluster in the INS, you need first to access via VPN to
   \caption{K8s elements explained}
   \label{tab:k8s-elements-explained}
 \end{table}
+
+--> bis hier
+
 
 \section{Web App Clean Architecture}
 \begin{figure}[H]
