@@ -1,14 +1,25 @@
 import {Request, Response} from "express";
 import {ObjectId} from "mongodb";
 import {Notification} from "../model/notification";
+import {controllerUtil, ControllerUtil} from "../utils/controller-util";
 
 export class NotificationController {
+
+    constructor(public controllerUtil: ControllerUtil) {
+    }
+
     async getIndex(req: Request, res: Response) {
-        res.render("listNotifications", {
-            pendingNotifications: await req.app.notificationStore.getNotSilencedNotifications(),
-            notifications: await req.app.notificationStore.getAllNotifications(),
-            currentUrl: req.originalUrl,
-        });
+        let notifications: Notification[] = [];
+
+        try {
+            notifications = await req.app.notificationStore.getAllNotifications();
+        } catch (e) {
+            this.controllerUtil.setDatabaseAvailability(false);
+        }
+
+        await this.controllerUtil.render("listNotifications", {
+            notifications,
+        }, req, res);
     }
 
     async silenceNotification(req: Request, res: Response) {
@@ -24,10 +35,14 @@ export class NotificationController {
             oid = new ObjectId(id);
         } catch (e) {
             res.status(400).end();
-            return
+            return;
         }
 
         const notification = await req.app.notificationStore.getById(oid);
+        if (notification === null) {
+            res.status(404).end();
+            return;
+        }
         notification.isSilenced = true;
         notification.reason = reason;
 
@@ -48,4 +63,4 @@ export class NotificationController {
     }
 }
 
-export const notificationController = new NotificationController();
+export const notificationController = new NotificationController(controllerUtil);

@@ -6,3 +6,4 @@ router.get("/", podController.getIndex.bind(podController));
 router.get("/:id", podController.getPod.bind(podController));
 
 export const podRoutes = router;
+export const BASE_URL = "/pods";

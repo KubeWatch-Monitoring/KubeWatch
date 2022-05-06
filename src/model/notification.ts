@@ -13,7 +13,7 @@ export class Notification {
 }
 
 export interface NotificationStore {
-    getById(id: ObjectId): Promise<Notification>;
+    getById(id: ObjectId): Promise<Notification|null>;
 
     updateNotification(notification: Notification): Promise<void>;
 

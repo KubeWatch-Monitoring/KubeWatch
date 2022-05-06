@@ -1,0 +1,22 @@
+{{#section 'title'}}
+    Cluster Visualisation
+{{/section}}
+{{#section 'stylesheets'}}
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <style>
+        #my-network {
+            width: 1080px;
+            height: 700px;
+            border: 1px solid lightgray;
+        }
+    </style>
+{{/section}}
+{{#section 'scripts'}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/peer/umd/vis-network.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-data@7.1.4/peer/umd/vis-data.min.js"></script>
+    <script type="module" src="js/clusterVis.js"></script>
+{{/section}}
+
+<h3>KubeWatch Cluster Visualisation Example</h3>
+<div id="my-network"></div>
+

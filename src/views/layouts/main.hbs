@@ -21,6 +21,9 @@
                 <a class="nav-link" href="/pods">List of all Pods</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/cluster-visualisation">Cluster Visualisation</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/users">Users (MongoDB Demo)</a>
             </li>
             <li class="nav-item">
@@ -30,11 +33,22 @@
                 <a class="nav-link" href="/settings">Settings</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" href="/edit">Edit Dashboard</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/prom-metrics">Cluster Metrics (raw)</a>
             </li>
         </ul>
     </div>
-
+    {{#unless isDatabaseAvailable}}
+        <div class="row">
+            <p>Database connection lost: </p>
+            <p>IsDatabaseAvailable: {{isDatabaseAvailable}}</p>
+            <form method="POST" action="/admin/">
+                <button class="btn btn-primary">Try reconnect</button>
+            </form>
+        </div>
+    {{/unless}}
     <div class="row justify-content-md-center">
         {{#if pendingNotifications.length }}
         <div class="card text-white bg-danger mb-3">

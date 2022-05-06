@@ -12,7 +12,7 @@ export class NotificationStoreImpl implements NotificationStore, NotificationHan
 
     async getById(id: ObjectId) {
         const query = {_id: id};
-        return await this.notificationCollection.findOne(query) as unknown as Notification;
+        return await this.notificationCollection.findOne(query) as unknown as Notification | null;
     }
 
     async updateNotification(notification: Notification) {
@@ -21,11 +21,11 @@ export class NotificationStoreImpl implements NotificationStore, NotificationHan
     }
 
     async getAllNotifications() {
-        return await this.notificationCollection.find().toArray() as unknown as Notification[];
+        return this.notificationCollection.find().toArray() as unknown as Notification[];
     }
 
     async getNotSilencedNotifications() {
-        return await this.notificationCollection.find({"isSilenced": false}).toArray() as unknown as Notification[];
+        return this.notificationCollection.find({"isSilenced": false}).toArray() as unknown as Notification[];
     }
 
     async createNotification(notification: Notification) {

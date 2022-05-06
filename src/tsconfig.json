@@ -1,12 +1,18 @@
 {
   "compilerOptions": {
-    "module": "commonjs", // https://github.com/wclr/ts-node-dev/issues/265
+    "module": "es2020", // https://github.com/wclr/ts-node-dev/issues/265
     "target": "es2020",
     "sourceMap": true,
     "esModuleInterop": true,
     "moduleResolution": "Node",
     "strict": true,
     "types": ["cypress"],
+    "allowJs": true
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
   },
   "exclude": [
     "node_modules"

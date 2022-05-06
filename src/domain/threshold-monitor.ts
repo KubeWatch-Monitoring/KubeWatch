@@ -21,19 +21,29 @@ export class ThresholdMonitor {
     }
 
     private async checkPods() {
-        const pods = await this.podStore.getAllPods();
-        for (const pod of pods) {
-            if (pod.health == "Failed" && await this.isNotificationEnabled()) {
-                const message = `Pod ${pod.name} has failed`;
-                const notification = new Notification(message, new Date(), "");
-                await this.notificationManager.triggerNotification(notification);
+        try {
+            const pods = await this.podStore.getAllPods();
+            for (const pod of pods) {
+                if (pod.health == "Failed" && await this.isNotificationEnabled()) {
+                    const message = `Pod ${pod.name} has failed`;
+                    const notification = new Notification(message, new Date(), "");
+                    await this.notificationManager.triggerNotification(notification);
+                }
             }
+        }
+        catch (e) {
+            // TODO: Handle absence
         }
     }
 
     private async isNotificationEnabled(): Promise<boolean> {
-        const setting = await this.settingStore.getByName("isNotificationEnabled", true);
-        return setting.value;
+        const defaultReturn = true;
+        try {
+            const setting = await this.settingStore.getByName("isNotificationEnabled", defaultReturn);
+            return setting.value;
+        } catch (e) {
+            return defaultReturn;
+        }
     }
 
     stopMonitoringPods() {

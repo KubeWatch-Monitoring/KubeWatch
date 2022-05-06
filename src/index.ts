@@ -1,41 +1,21 @@
 (async () => {
     const app = (await import("./app")).app;
-    const MongoClient = (await import("mongodb")).MongoClient;
-    const MongoDbService = (await import("./services/mongo-db-service")).MongoDbService;
-    const UserStoreImpl = (await import("./services/user-store-impl")).UserStoreImpl;
-    const NotificationStoreImpl = (await import("./services/notification-store-impl")).NotificationStoreImpl;
-    const SettingsStore = (await import("./services/setting-store-impl")).SettingStoreImpl;
-    const PrometheusDriver = (await import("prometheus-query")).PrometheusDriver
-    const PrometheusService = (await import("./services/prometheus-service")).PrometheusService;
-    const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
+    const setupDatabaseServices = (await import("./app")).setupDatabaseServices;
+    const setupPrometheusServices = (await import("./app")).setupPrometheusServices;
     const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
-    const PodStoreImpl = (await import("./services/pod-store-impl")).PodStoreImpl;
 
     if (process.env.DB_CONN_STRING === undefined)
         throw new Error("Environment variable DB_CONN_STRING is missing");
-    const mongoClient = new MongoClient(process.env.DB_CONN_STRING);
-    await mongoClient.connect();
-    const mongoDbService = new MongoDbService(mongoClient.db("kubewatch"));
 
-    app.userStore = new UserStoreImpl(mongoDbService);
-    const notificationStore = new NotificationStoreImpl(mongoDbService);
-    app.notificationStore = notificationStore;
-    app.settingsStore = new SettingsStore(mongoDbService);
+    try {
+        await setupDatabaseServices();
+    } catch (e) {
+        throw new Error(`Could not connect to the database with connection string: ${process.env.DB_CONN_STRING}`);
+    }
 
-    if (process.env.PROMETHEUS_CONN_STRING === undefined)
-        throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
-    const prometheusDriver = new PrometheusDriver({
-        endpoint: process.env.PROMETHEUS_CONN_STRING,
-        baseURL: "/api/v1",
-    });
-    const prometheusService = new PrometheusService(prometheusDriver);
-
-    app.podStore = new PodStoreImpl(prometheusService);
-    app.notificationManager = new NotificationManager();
-    app.notificationManager.addNotificationHandler(notificationStore);
+    await setupPrometheusServices();
     const thresholdMonitor = new ThresholdMonitor(app.settingsStore, app.podStore, app.notificationManager);
     thresholdMonitor.monitorPods();
-
     const PORT = process.env.PORT || 8082;
     app.listen(PORT, () => {
         console.log(`Successfully started server at: http://127.0.0.1:${PORT}`);

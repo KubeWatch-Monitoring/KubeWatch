@@ -6,3 +6,4 @@ router.get("/", settingsController.getSettings.bind(settingsController));
 router.post("/", settingsController.updateSetting.bind(settingsController));
 
 export const settingsRoutes = router;
+export const BASE_URL = "/settings";

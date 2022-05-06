@@ -1,12 +1,26 @@
 import {Request, Response} from "express";
+import {controllerUtil, ControllerUtil} from "../utils/controller-util";
+import {Pod} from "../model/pod";
 
 export class PodController {
+    controllerUtil: ControllerUtil;
+
+    constructor(controllerUtil: ControllerUtil) {
+        this.controllerUtil = controllerUtil;
+    }
+
     async getIndex(req: Request, res: Response) {
-        res.render("listPods", {
-            style: req.session.style,
-            display: req.session.display,
-            pods: await req.app.podStore.getAllPods(),
-        });
+        let pods: Pod[] = [];
+
+        try {
+            pods = await req.app.podStore.getAllPods();
+        } catch (e) {
+            this.controllerUtil.setDatabaseAvailability(false);
+        }
+
+        await this.controllerUtil.render("listPods", {
+            pods
+        }, req, res);
     }
 
     async getPod(req: Request, res: Response) {
@@ -38,4 +52,4 @@ export class PodController {
     }
 }
 
-export const podController = new PodController();
+export const podController = new PodController(controllerUtil);

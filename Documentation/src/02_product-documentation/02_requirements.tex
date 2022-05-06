@@ -1,19 +1,19 @@
 \chapter{Requirements}
 
 \section{Functional Requirements}
-\label{functional-requirements}
-The functional requirements are written as a description in the GitLab issue\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/issues/55}}.
+\label{section:functional-requirements}
+The functional requirements are documented as descriptions of user stories, which themself are GitLab issues\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/issues/55}}.
 
-We do use Scrum.
+We use Scrum.
 Therefore, all estimates and other refinements are made every two weeks in the sprint meeting.
 
 The User Stories are prioritised.
 The higher a User Story is in the Story Board\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/boards/935}} the higher is the priority.
-
+User stories are ordered into Epics. The more left an Epic is on the Storymap board the higher the priority.
 
 \section{Non-Functional Requirements}
 \label{section:non-functional-requirements}
-The process for validating Non-Functional Requirements (NFRs) is to use automation tools wherever possible. We are currently setting up SonarQube and we will add as many of the defined metrics as possible. Those NFRs which we deem critical, but cannot be tracked by SonarQube will be validated at least once every sprint and confirmed by the validator during a regular sprint meeting.
+The validate Non-Functional Requirements (NFRs), automation tools are used wherever possible. SonarQube is used as automation tool. Those NFRs which we deem critical, but cannot be tracked by SonarQube will be validated at least once every sprint and confirmed by the validator during a regular sprint meeting. NFRs, which are not met are tracked as technical debt in GitLab issues.
 
 \begin{table}[h!]
     \centering
@@ -30,6 +30,8 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
         \hline
         02.04.22 & Updated NFR 4 \\
         \hline
+        22.04.22 & Updated NFR 5, Added NFR 11 \\
+        \hline
       \end{tabular}
     \end{table}
 
@@ -38,11 +40,11 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{ID} & NFR-1\\ 
  \hline
- \textbf{Requirement} & The software must have a good quality. \\
+ \textbf{Requirement} & The software must have good quality. \\
  \hline
  \textbf{Priority} & High\\
  \hline
- \textbf{Measure(s)} & The test coverage must be minimal 75\%.\\
+ \textbf{Measure(s)} & The test coverage must be at least 75\%.\\
  \hline
  \textbf{Process} & Use \textit{SonarQube} Coverage metrics. \\
  \hline
@@ -76,7 +78,7 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{Measure(s)} & The maximal memory usage must be less than 200 MB.\\
  \hline
- \textbf{Process} & Monitor the system over a given period of time.\\
+ \textbf{Process} & Monitor the application memory usage over an hour and check if memory is not increasing beyond the limit.\\
  \hline
 \end{tabular}
 \end{center}
@@ -154,7 +156,7 @@ The process for validating Non-Functional Requirements (NFRs) is to use automati
  \hline
  \textbf{Priority} & Middle \\
  \hline
- \textbf{Measure(s)} & The software sends Notification that it is fully functional again.\\
+ \textbf{Measure(s)} & The software sends a Notification that it is fully functional again.\\
  \hline
  \textbf{Process} & Start software without connection to any API and start APIs after software.\\
  \hline

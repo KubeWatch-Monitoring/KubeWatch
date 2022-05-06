@@ -4,12 +4,14 @@ import bodyParser from "body-parser";
 import path from "path";
 import session from "express-session";
 
-import {indexRoutes} from "./routes/index-routes";
-import {podRoutes} from "./routes/pod-routes";
-import {userRoutes} from "./routes/user-routes";
-import {prometheusRoutes} from "./routes/prometheus-routes";
-import {notificationRoutes} from "./routes/notification-routes";
-import {settingsRoutes} from "./routes/settings-routes";
+import * as IndexRoutes from "./routes/index-routes";
+import * as PodRoutes from "./routes/pod-routes";
+import * as UserRoutes from "./routes/user-routes";
+import * as PrometheusRoutes from "./routes/prometheus-routes";
+import * as NotificationRoutes from "./routes/notification-routes";
+import * as SettingsRoutes from "./routes/settings-routes";
+import * as AdminRoutes from "./routes/admin-routes";
+import * as ClusterVisRoutes from "./routes/cluster-vis-routes";
 
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
@@ -19,7 +21,18 @@ import {NotificationStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
 import {UserStore} from "./model/user";
 import {PodStore} from "./model/pod";
+import {ThresholdMonitor} from "./domain/threshold-monitor";
 import {NotificationManager} from "./domain/notification-manager";
+import {ClusterDataStore} from "./model/cluster-data";
+import {NotificationStoreImpl} from "./services/notification-store-impl";
+import {UserStoreImpl} from "./services/user-store-impl";
+import {MongoDbService} from "./services/mongo-db-service";
+import {SettingStoreImpl} from "./services/setting-store-impl";
+import {PrometheusService} from "./services/prometheus-service";
+import {PodStoreImpl} from "./services/pod-store-impl";
+import {ClusterDataImpl} from "./services/cluster-data-impl";
+import {ChartSettingStore} from "./model/chart-setting";
+import {ChartSettingStoreImpl} from "./services/chart-setting-store-impl";
 
 declare module "express-session" {
     interface SessionData {
@@ -35,7 +48,10 @@ declare global {
             settingsStore: SettingStore;
             notificationStore: NotificationStore;
             podStore: PodStore;
+            chartSettingStore: ChartSettingStore;
             notificationManager: NotificationManager;
+            prometheusWatcher: ThresholdMonitor;
+            clusterDataStore: ClusterDataStore;
         }
     }
 }
@@ -70,9 +86,34 @@ app.use(sessionUserSettings);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use("/", indexRoutes);
-app.use("/pods", podRoutes);
-app.use("/users", userRoutes);
-app.use("/prom-metrics", prometheusRoutes);
-app.use("/notifications", notificationRoutes);
-app.use("/settings", settingsRoutes);
+app.use(IndexRoutes.BASE_URL, IndexRoutes.indexRoutes);
+app.use(PodRoutes.BASE_URL, PodRoutes.podRoutes);
+app.use(UserRoutes.BASE_URL, UserRoutes.userRoutes);
+app.use(PrometheusRoutes.BASE_URL, PrometheusRoutes.prometheusRoutes);
+app.use(NotificationRoutes.BASE_URL, NotificationRoutes.notificationRoutes);
+app.use(SettingsRoutes.BASE_URL, SettingsRoutes.settingsRoutes);
+app.use(AdminRoutes.BASE_URL, AdminRoutes.adminRoutes);
+app.use(ClusterVisRoutes.BASE_URL, ClusterVisRoutes.clusterVisRoutes);
+
+export async function setupDatabaseServices() {
+    if (process.env.DB_CONN_STRING === undefined)
+        throw new Error("Environment variable DB_CONN_STRING is missing");
+    const mongoDbService = await MongoDbService.connect(process.env.DB_CONN_STRING);
+    const notificationStore = new NotificationStoreImpl(mongoDbService);
+
+    app.userStore = new UserStoreImpl(mongoDbService);
+    app.notificationStore = notificationStore;
+    app.settingsStore = new SettingStoreImpl(mongoDbService);
+    app.chartSettingStore = new ChartSettingStoreImpl(mongoDbService);
+    app.notificationManager = new NotificationManager();
+    app.notificationManager.addNotificationHandler(notificationStore);
+}
+
+export async function setupPrometheusServices() {
+    if (process.env.PROMETHEUS_CONN_STRING === undefined)
+        throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
+
+    const prometheusService = PrometheusService.connect(process.env.PROMETHEUS_CONN_STRING);
+    app.podStore = new PodStoreImpl(prometheusService);
+    app.clusterDataStore = new ClusterDataImpl(prometheusService);
+}

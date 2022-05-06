@@ -2,45 +2,168 @@ import {expect} from "chai";
 import sinon from "sinon";
 import {app} from "../../app";
 import {IndexController} from "../../view-controllers/index-controller";
-import {NotificationStoreImpl} from "../../services/notification-store-impl";
-import {PodStoreImpl} from "../../services/pod-store-impl";
+import {ControllerUtil} from "../../utils/controller-util";
+import {Helpers} from "../test-helper";
+import {ChartSettingStoreImpl} from "../../services/chart-setting-store-impl";
+import {ChartSetting} from "../../model/chart-setting";
+import { ObjectId } from "mongodb";
 
 describe("IndexController", () => {
     let controller: IndexController;
-    describe("getIndex", () => {
-        beforeEach(() => {
-            controller = new IndexController();
-        });
+    let controllerUtil: any;
+    let req: any;
+    let res: any;
 
-        const URL = "/";
+    beforeEach(() => {
+        controllerUtil = sinon.createStubInstance(ControllerUtil);
+        controller = new IndexController(controllerUtil);
+        req = Helpers.getMockRequest(app);
+        res = Helpers.getMockResponse();
+    });
+
+    describe("getIndex", () => {
         it("should return a rendered html page", async () => {
+            await controller.getIndex(req, res);
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWithMatch("index", sinon.match({}))).to.be.true;
+        });
+    });
+    describe("getEditDashboard", () => {
+        it("should return a rendered html page", async () => {
+            await controller.getEditDashboard(req, res);
+
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("editDashboard", {})).to.be.true;
+        });
+        //it("should return a rendered html page with query parameters", async () => {
+        //    const req: any = {
+        //        query: {
+        //            promql: "query",
+        //            title: "title",
+        //            start: "0",
+        //            end: "0",
+        //            updateInterval: "0",
+        //            type: "relative",
+        //        },
+        //        app
+        //    };
+        //    const res: any = Helpers.getMockResponse();
+
+        //    await controller.getEditDashboard(req, res);
+
+        //    expect(res.render.called).to.be.true;
+        //    expect(res.render.calledWith("editDashboard", req.query)).to.be.true;
+        //});
+    });
+    describe("postEditDashboard", () => {
+        it("should create a new ChartSetting in the database", async () => {
+            const chart = new ChartSetting("title", "query", -1800, 0, 5000, undefined);
+            req.body = {
+                promql: chart.promql,
+                title: chart.title,
+                start: chart.start.toString(),
+                end: chart.end.toString(),
+                updateInterval: chart.updateInterval.toString(),
+                type: "relative",
+            };
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+
+            await controller.postEditDashboard(req, res);
+
+            expect(chartSettingStore.createChartSetting.called).to.be.true;
+            expect(chartSettingStore.createChartSetting.calledWith(chart)).to.be.true;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/")).to.be.true;
+        });
+        it("should redirect to edit page", async () => {
             const req: any = {
-                session: {},
-                display: {},
-                originalUrl: URL,
+                body: {},
                 app
             };
-            const res: any = {
-                render: sinon.spy()
+            const res: any = Helpers.getMockResponse();
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+
+            await controller.postEditDashboard(req, res);
+
+            expect(chartSettingStore.createChartSetting.called).to.be.false;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/edit")).to.be.true;
+        });
+        it("should redirect to edit page with the given params as query params", async () => {
+            const req: any = {
+                body: {
+                    promql: "my query"
+                },
+                app
             };
+            const res: any = Helpers.getMockResponse();
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
 
-            const notificationStore = sinon.createStubInstance(NotificationStoreImpl);
-            notificationStore.getNotSilencedNotifications.resolves([]);
-            app.notificationStore = notificationStore;
+            await controller.postEditDashboard(req, res);
 
-            const podStore = sinon.createStubInstance(PodStoreImpl);
-            app.podStore = podStore;
-            podStore.getAllPods.resolves([]);
+            expect(chartSettingStore.createChartSetting.called).to.be.false;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/edit?promql=my query")).to.be.true;
+        });
+    });
+    describe('getAllChartSettings', function () {
+        it("should return an array with ChartSettings", async () => {
+            const settings = [
+                new ChartSetting("title1", "query1", 0, 0, 0, new ObjectId()),
+                new ChartSetting("title2", "query2", 0, 0, 0, new ObjectId()),
+                new ChartSetting("title3", "query3", 0, 0, 0, new ObjectId()),
+                new ChartSetting("title4", "query4", 0, 0, 0, new ObjectId()),
+            ];
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            chartSettingStore.getAllChartSettings.resolves(settings);
+            app.chartSettingStore = chartSettingStore;
 
-            await controller.getIndex(req, res);
-            expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
-            expect(podStore.getAllPods.called).to.be.true;
-            expect(res.render.called).to.be.true;
-            expect(res.render.calledWithMatch("index", {
-                pods: [],
-                pendingNotifications: [],
-                currentUrl: req.originalUrl,
-            })).to.be.true;
+            await controller.getAllChartSettings(req, res);
+
+            expect(chartSettingStore.getAllChartSettings.called).to.be.true;
+            expect(res.end.called).to.be.true;
+            expect(res.end.calledWith(JSON.stringify(settings))).to.be.true;
+        });
+        it("should return an empty array when no settings in database", async () => {
+            const settings: ChartSetting[] = [];
+            const req: any = {
+                app
+            };
+            const res: any = Helpers.getMockResponse();
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            chartSettingStore.getAllChartSettings.resolves(settings);
+            app.chartSettingStore = chartSettingStore;
+
+            await controller.getAllChartSettings(req, res);
+
+            expect(chartSettingStore.getAllChartSettings.called).to.be.true;
+            expect(res.end.called).to.be.true;
+            expect(res.end.calledWith(JSON.stringify(settings))).to.be.true;
+        });
+        it("should return you to the edit page when parameters are invalid", async () => {
+            const chart = new ChartSetting("title", "query", 0, 0, 0, undefined);
+            req.body = {
+                promql: chart.promql,
+                title: chart.title,
+                start: chart.start.toString(),
+                end: chart.end.toString(),
+                updateInterval: chart.end.toString(),
+                type: "relative",
+            };
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+
+            await controller.postEditDashboard(req, res);
+
+            expect(chartSettingStore.createChartSetting.called).to.be.false;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWithMatch("/edit")).to.be.true;
+        });
+        it("should handle the absence of the database", async () => {
+            // TODO: Implement this test
         });
     });
 });

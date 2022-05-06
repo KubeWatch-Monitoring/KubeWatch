@@ -6,54 +6,55 @@ import {Notification} from "../../model/notification";
 import {ObjectId} from "mongodb";
 import {PrometheusService} from "../../services/prometheus-service";
 import {NotificationStoreImpl} from "../../services/notification-store-impl";
+import {ControllerUtil} from "../../utils/controller-util";
+import {Helpers} from "../test-helper";
 
 
 describe("NotificationController", () => {
     let controller: NotificationController;
     let notificationStore: any;
     let prometheusService: any;
+    let controllerUtil: any;
+    let req: any;
     let res: any;
 
     beforeEach(() => {
-        controller = new NotificationController();
+        controllerUtil = sinon.createStubInstance(ControllerUtil);
         notificationStore = sinon.createStubInstance(NotificationStoreImpl);
         prometheusService = sinon.createStubInstance(PrometheusService);
+        controller = new NotificationController(controllerUtil);
 
-        res = {
-            status: {},
-            end: sinon.spy(),
-            redirect: sinon.spy(),
-        };
-        res.status = sinon.mock().returns(res);
+        req = Helpers.getMockRequest(app);
+        res = Helpers.getMockResponse()
 
     })
     describe("index", () => {
-        const URL = "/";
         it("should return a rendered html page", async () => {
-            const req: any = {
-                pendingNotifications: [],
-                notifications: [],
-                originalUrl: URL,
-                app
-            };
-            const res: any = {
-                render: sinon.spy()
-            };
-
             notificationStore.getNotSilencedNotifications.resolves([]);
             notificationStore.getAllNotifications.resolves([]);
             app.notificationStore = notificationStore;
-
             prometheusService.getAllPods.resolves([]);
 
             await controller.getIndex(req, res);
-            expect(notificationStore.getNotSilencedNotifications.called).to.be.true;
             expect(notificationStore.getAllNotifications.called).to.be.true;
-            expect(res.render.called).to.be.true;
-            expect(res.render.calledWith("listNotifications", {
-                pendingNotifications: [],
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("listNotifications", {
                 notifications: [],
-                currentUrl: req.originalUrl,
+            })).to.be.true;
+        });
+
+        it("should return a rendered html page but database availability set to false", async () => {
+            notificationStore.getNotSilencedNotifications.rejects();
+            notificationStore.getAllNotifications.rejects();
+            app.notificationStore = notificationStore;
+            prometheusService.getAllPods.resolves([]);
+
+            await controller.getIndex(req, res);
+            expect(notificationStore.getAllNotifications.called).to.be.true;
+            expect(controllerUtil.setDatabaseAvailability.calledWith(false)).to.be.true;
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("listNotifications", {
+                notifications: [],
             })).to.be.true;
         });
     });
@@ -106,6 +107,23 @@ describe("NotificationController", () => {
 
             expect(res.status.called).to.be.true;
             expect(res.status.calledWith(400)).to.be.true;
+        });
+        it("should return 404 when notification is not found", async () => {
+            const req: any = {
+                body: {
+                    id: new ObjectId(),
+                    reason: "some reason",
+                    url: "/",
+                },
+                app
+            };
+            const store = sinon.createStubInstance(NotificationStoreImpl);
+            store.getById.resolves(null);
+            app.notificationStore = store;
+            await controller.silenceNotification(req, res);
+
+            expect(res.status.called).to.be.true;
+            expect(res.status.calledWith(404)).to.be.true;
         });
         it("should return 303 and silence the notification", async () => {
             const message = "some message";

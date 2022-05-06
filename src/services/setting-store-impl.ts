@@ -10,7 +10,7 @@ export class SettingStoreImpl implements SettingStore {
     }
 
     async getSettings() {
-        return await this.settingsCollection.find().toArray() as unknown as Setting[];
+        return this.settingsCollection.find().toArray() as unknown as Setting[];
     }
 
     async updateSetting(setting: Setting) {

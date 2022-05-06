@@ -1,14 +1,26 @@
 import {Request, Response} from "express";
-import {castValue} from "../model/setting";
+import {castValue, Setting} from "../model/setting";
+import {controllerUtil, ControllerUtil} from "../utils/controller-util";
 
 export class SettingsController {
+    controllerUtil: ControllerUtil;
+
+    constructor(controllerUtil: ControllerUtil) {
+        this.controllerUtil = controllerUtil;
+    }
+
     async getSettings(req: Request, res: Response) {
-        res.render("settings", {
-            settings: await req.app.settingsStore.getSettings(),
-            pendingNotifications: await req.app.notificationStore.getNotSilencedNotifications(),
-            notifications: await req.app.notificationStore.getAllNotifications(),
-            currentUrl: req.originalUrl,
-        });
+        let settings: Setting[] = [];
+
+        try {
+            settings = await req.app.settingsStore.getSettings();
+        } catch (e) {
+            this.controllerUtil.setDatabaseAvailability(false);
+        }
+
+        await this.controllerUtil.render("settings", {
+            settings,
+        }, req, res);
     }
 
     async updateSetting(req: Request, res: Response) {
@@ -35,4 +47,4 @@ export class SettingsController {
     }
 }
 
-export const settingsController = new SettingsController();
+export const settingsController = new SettingsController(controllerUtil);
