@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Kubewatch Minikube" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false" kubeconfigFile="{&quot;displayName&quot;:&quot;$USER_HOME$/.kube/minikube.yaml&quot;,&quot;path&quot;:&quot;$USER_HOME$/.kube/minikube.yaml&quot;}">
+  <configuration default="false" name="Kubewatch Minikube" type="google-container-tools-skaffold-run-config" factoryName="google-container-tools-skaffold-run-config-dev" show_console_on_std_err="false" show_console_on_std_out="false">
     <option name="allowRunningInParallel" value="false" />
     <option name="buildEnvironment" value="Local" />
     <option name="cleanupDeployments" value="true" />
