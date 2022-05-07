@@ -1,6 +1,6 @@
-\chapter{Security Assessment}
+\chapter{Security Assessment 21.04.2022}
 
-Based on the security test concept and the potential threats which we identified as part of the Threat Model, we performed a brief assessment of how secure the KubeWatch application is actually.
+Based on the security test concept and the potential threats which we identified as part of the Threat Model, we performed a brief assessment of how secure the KubeWatch application is currently.
 
 \section{Scope}
 
@@ -50,7 +50,4 @@ All three elements do prevent any successful attempt to either perform an inject
 
 
 \subsection{Assessment}
-As of commit \lstinline "f144aba6" from 21 April 2022, we did not find any known vulnerabilities in the KubeWatch application by testing depending on the security test concept.
-
-The input validations are done on three different levels and all are implemented correctly. There are two technologies used that help prevents the passing of inputs as arbitrary objects, namely Typescript and Handlebars. Both would theoretically allow bypassing input validation, but in the KubeWatch application, this is correctly implemented.
-
+As of commit \lstinline "f144aba6" from 21 April 2022, we did not find any known vulnerabilities in the KubeWatch application by testing based on the security test concept.
