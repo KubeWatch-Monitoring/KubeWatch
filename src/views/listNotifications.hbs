@@ -10,7 +10,7 @@
 <form action="/notifications/trigger" method="POST">
     <div class="form-group">
         <label for="message">Message</label>
-        <input type="text" name="message" id="message" class="form-control" >
+        <input type="text" name="message" id="message" class="form-control">
     </div>
     <button type="submit" class="btn btn-primary mt-3">Trigger Notification</button>
 </form>
@@ -33,7 +33,7 @@
                             {{#if this.isSilenced }}
                                 <tr>
                                     <th scope="row">Reason</th>
-                                    <td>{{this.reason}}</td>
+                                    <td>{{this.silenceReason}}</td>
                                 </tr>
                             {{/if}}
                             <tr>

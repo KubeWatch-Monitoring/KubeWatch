@@ -1,4 +1,5 @@
 import {ObjectId} from "mongodb";
+import {Reconnectable} from "../services/Reconnectable";
 
 export class User {
     public id?: ObjectId;
@@ -10,7 +11,7 @@ export class User {
     }
 }
 
-export interface UserStore {
+export interface UserStore extends Reconnectable {
     getUsers(): Promise<User[]>;
 
     createUser(user: User): Promise<User>;

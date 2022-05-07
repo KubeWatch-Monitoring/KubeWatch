@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-import {setupDatabaseServices} from "../app";
 import {controllerUtil, ControllerUtil} from "../utils/controller-util";
 import * as AdminRoutes from "../routes/admin-routes";
 
@@ -19,7 +18,9 @@ export class AdminController {
 
     async reconnect(req: Request, res: Response) {
         try {
-            await setupDatabaseServices();
+            req.app.notificationStore.reconnect();
+            req.app.userStore.reconnect();
+            req.app.userStore.reconnect();
         } catch (e) {
             res.redirect(`${AdminRoutes.BASE_URL}/?reconnect=false`);
             return;

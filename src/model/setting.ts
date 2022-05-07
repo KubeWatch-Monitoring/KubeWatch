@@ -1,4 +1,5 @@
 import {ObjectId} from "mongodb";
+import {Reconnectable} from "../services/Reconnectable";
 
 export class Setting {
     public id?: ObjectId;
@@ -11,7 +12,7 @@ export class Setting {
     }
 }
 
-export interface SettingStore {
+export interface SettingStore extends Reconnectable {
     getSettings(): Promise<Setting[]>;
 
     updateSetting(setting: Setting): Promise<void>;

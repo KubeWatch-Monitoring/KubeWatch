@@ -26,13 +26,12 @@ export class ThresholdMonitor {
             for (const pod of pods) {
                 if (pod.health == "Failed" && await this.isNotificationEnabled()) {
                     const message = `Pod ${pod.name} has failed`;
-                    const notification = new Notification(message, new Date(), "");
+                    const notification = new Notification(message, new Date());
                     await this.notificationManager.triggerNotification(notification);
                 }
             }
-        }
-        catch (e) {
-            // TODO: Handle absence
+        } catch (e) {
+            // TODO: Handle absence, maybe Logging?
         }
     }
 

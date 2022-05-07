@@ -12,7 +12,8 @@ describe("SettingsStoreImpl", () => {
 
     beforeEach(() => {
         const db = sinon.createStubInstance(Db);
-        dbService = new MongoDbService(db);
+        dbService = sinon.createStubInstance(MongoDbService);
+        dbService.db = db;
         collection = sinon.createStubInstance(Collection);
         dbService.db.collection.returns(collection);
         store = new SettingStoreImpl(dbService);

@@ -19,6 +19,7 @@
   "author": "G03-KubeWatch",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.32.0",
     "@types/body-parser": "^1.19.2",
     "@types/chai-dom": "^0.0.12",
     "@types/chart.js": "^2.9.36",

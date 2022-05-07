@@ -24,15 +24,7 @@ import {PodStore} from "./model/pod";
 import {ThresholdMonitor} from "./domain/threshold-monitor";
 import {NotificationManager} from "./domain/notification-manager";
 import {ClusterDataStore} from "./model/cluster-data";
-import {NotificationStoreImpl} from "./services/notification-store-impl";
-import {UserStoreImpl} from "./services/user-store-impl";
-import {MongoDbService} from "./services/mongo-db-service";
-import {SettingStoreImpl} from "./services/setting-store-impl";
-import {PrometheusService} from "./services/prometheus-service";
-import {PodStoreImpl} from "./services/pod-store-impl";
-import {ClusterDataImpl} from "./services/cluster-data-impl";
 import {ChartSettingStore} from "./model/chart-setting";
-import {ChartSettingStoreImpl} from "./services/chart-setting-store-impl";
 
 declare module "express-session" {
     interface SessionData {
@@ -95,25 +87,3 @@ app.use(SettingsRoutes.BASE_URL, SettingsRoutes.settingsRoutes);
 app.use(AdminRoutes.BASE_URL, AdminRoutes.adminRoutes);
 app.use(ClusterVisRoutes.BASE_URL, ClusterVisRoutes.clusterVisRoutes);
 
-export async function setupDatabaseServices() {
-    if (process.env.DB_CONN_STRING === undefined)
-        throw new Error("Environment variable DB_CONN_STRING is missing");
-    const mongoDbService = await MongoDbService.connect(process.env.DB_CONN_STRING);
-    const notificationStore = new NotificationStoreImpl(mongoDbService);
-
-    app.userStore = new UserStoreImpl(mongoDbService);
-    app.notificationStore = notificationStore;
-    app.settingsStore = new SettingStoreImpl(mongoDbService);
-    app.chartSettingStore = new ChartSettingStoreImpl(mongoDbService);
-    app.notificationManager = new NotificationManager();
-    app.notificationManager.addNotificationHandler(notificationStore);
-}
-
-export async function setupPrometheusServices() {
-    if (process.env.PROMETHEUS_CONN_STRING === undefined)
-        throw new Error("Environment variable PROMETHEUS_CONN_STRING is missing");
-
-    const prometheusService = PrometheusService.connect(process.env.PROMETHEUS_CONN_STRING);
-    app.podStore = new PodStoreImpl(prometheusService);
-    app.clusterDataStore = new ClusterDataImpl(prometheusService);
-}

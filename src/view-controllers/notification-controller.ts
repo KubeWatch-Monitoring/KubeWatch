@@ -44,7 +44,7 @@ export class NotificationController {
             return;
         }
         notification.isSilenced = true;
-        notification.reason = reason;
+        notification.silenceReason = reason;
 
         try {
             await req.app.notificationStore.updateNotification(notification);
@@ -57,7 +57,7 @@ export class NotificationController {
 
     async trigger(req: Request, res: Response) {
         const {message} = req.body;
-        const notification = new Notification(message, new Date(), "");
+        const notification = new Notification(message, new Date());
         await req.app.notificationManager.triggerNotification(notification);
         res.redirect(303, "/");
     }

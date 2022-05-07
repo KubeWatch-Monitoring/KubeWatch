@@ -1,6 +1,6 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {Collection, ObjectId, Db, FindCursor} from "mongodb";
+import {Collection, Db, FindCursor, ObjectId} from "mongodb";
 import {NotificationStoreImpl} from "../../services/notification-store-impl";
 import {MongoDbService} from "../../services/mongo-db-service";
 import {Notification} from "../../model/notification";
@@ -12,7 +12,8 @@ describe("NotificationStoreImpl", () => {
 
     beforeEach(() => {
         const db = sinon.createStubInstance(Db);
-        dbService = new MongoDbService(db);
+        dbService = sinon.createStubInstance(MongoDbService);
+        dbService.db = db;
         collection = sinon.createStubInstance(Collection);
         dbService.db.collection.returns(collection);
         store = new NotificationStoreImpl(dbService);
@@ -20,7 +21,7 @@ describe("NotificationStoreImpl", () => {
 
     describe("getById", () => {
         it("should return an Notification when found", async () => {
-            const expectedNotification = new Notification("blub", new Date(), "");
+            const expectedNotification = new Notification("blub", new Date());
             collection.findOne.resolves(expectedNotification);
 
             const notification = await store.getById(new ObjectId());
@@ -38,7 +39,7 @@ describe("NotificationStoreImpl", () => {
     });
     describe("updateNotification", () => {
         it("should update the notification", async () => {
-            const notification = new Notification("blub", new Date(), "");
+            const notification = new Notification("blub", new Date());
             notification._id = new ObjectId();
 
             await store.updateNotification(notification);
@@ -50,9 +51,9 @@ describe("NotificationStoreImpl", () => {
     describe("getAllNotifications", () => {
         it("should return an array of notification", async () => {
             const expectedNotifications = [
-                new Notification("blub", new Date(), ""),
-                new Notification("blub", new Date(), ""),
-                new Notification("blub", new Date(), ""),
+                new Notification("blub", new Date()),
+                new Notification("blub", new Date()),
+                new Notification("blub", new Date()),
             ]
             const cursor = sinon.createStubInstance(FindCursor);
             cursor.toArray.resolves(expectedNotifications);
@@ -80,9 +81,9 @@ describe("NotificationStoreImpl", () => {
     describe("getNotSilencedNotifications", () => {
         it("should return an array of notification", async () => {
             const expectedNotifications = [
-                new Notification("blub", new Date(), ""),
-                new Notification("blub", new Date(), ""),
-                new Notification("blub", new Date(), ""),
+                new Notification("blub", new Date()),
+                new Notification("blub", new Date()),
+                new Notification("blub", new Date()),
             ]
             const cursor = sinon.createStubInstance(FindCursor);
             cursor.toArray.resolves(expectedNotifications);
@@ -109,8 +110,8 @@ describe("NotificationStoreImpl", () => {
     });
     describe("createNotification", () => {
         it("should insert new notification into database", async () => {
-            const expectedNotification = new Notification("blub", new Date(), "");
-            const notification = new Notification("blub", new Date(), "");
+            const expectedNotification = new Notification("blub", new Date());
+            const notification = new Notification("blub", new Date());
             expectedNotification._id = new ObjectId();
 
             collection.insertOne.resolves(expectedNotification);
@@ -124,8 +125,8 @@ describe("NotificationStoreImpl", () => {
     });
     describe("onNotification", () => {
         it("should insert new notification into database when onNotification is called", async () => {
-            const expectedNotification = new Notification("blub", new Date(), "");
-            const notification = new Notification("blub", new Date(), "");
+            const expectedNotification = new Notification("blub", new Date());
+            const notification = new Notification("blub", new Date());
             expectedNotification._id = new ObjectId();
 
             collection.insertOne.resolves(expectedNotification);

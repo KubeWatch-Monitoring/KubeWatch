@@ -5,7 +5,7 @@ import {Setting, SettingStore, SettingType, settingTypeFromString} from "../mode
 export class SettingStoreImpl implements SettingStore {
     private settingsCollection: Collection;
 
-    constructor(mongoDbService: MongoDbService) {
+    constructor(private mongoDbService: MongoDbService) {
         this.settingsCollection = mongoDbService.db.collection("settings");
     }
 
@@ -31,5 +31,9 @@ export class SettingStoreImpl implements SettingStore {
             type = settingTypeFromString(result.type);
         }
         return new Setting(name, value, type);
+    }
+
+    async reconnect() {
+        await this.mongoDbService.reconnect();
     }
 }

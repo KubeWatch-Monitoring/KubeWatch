@@ -3,7 +3,7 @@ import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
 
 export class PrometheusService {
-    constructor(public driver: PrometheusDriver) {
+    private constructor(public driver: PrometheusDriver) {
     }
 
     static connect(url: string) {

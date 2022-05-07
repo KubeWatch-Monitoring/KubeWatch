@@ -6,7 +6,7 @@ import {NotificationHandler} from "../domain/notification-manager";
 export class NotificationStoreImpl implements NotificationStore, NotificationHandler {
     private notificationCollection: Collection;
 
-    constructor(mongoDbService: MongoDbService) {
+    constructor(private mongoDbService: MongoDbService) {
         this.notificationCollection = mongoDbService.db.collection("notifications");
     }
 
@@ -34,5 +34,9 @@ export class NotificationStoreImpl implements NotificationStore, NotificationHan
 
     async onNotification(notification: Notification): Promise<void> {
         await this.createNotification(notification);
+    }
+
+    async reconnect() {
+        await this.mongoDbService.reconnect();
     }
 }

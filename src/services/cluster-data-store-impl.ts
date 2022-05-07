@@ -1,7 +1,7 @@
 import {ClusterData, ClusterDataStore} from "../model/cluster-data";
 import {PrometheusService} from "./prometheus-service";
 
-export class ClusterDataImpl implements ClusterDataStore {
+export class ClusterDataStoreImpl implements ClusterDataStore {
     constructor(public prometheusService: PrometheusService) {
     }
 
@@ -13,8 +13,8 @@ export class ClusterDataImpl implements ClusterDataStore {
         return this.getPrometheusData();
     }
 
-    private async createNodes() {
-        const nodes = [
+    private static async createNodes() {
+        return [
             {id: 1, label: "Cluster-1", level: 1},
 
             {id: 2, label: "Node:\n Worker-2", level: 2},
@@ -36,11 +36,10 @@ export class ClusterDataImpl implements ClusterDataStore {
             {id: 14, label: "Pod:\n nodejs-kubewatch-abc-2", level: 6},
             {id: 15, label: "Pod:\n nodejs-kubewatch-abc-3", level: 6},
         ];
-        return nodes;
     }
 
-    private async createEdges() {
-        const edges = [
+    private static async createEdges() {
+        return [
             {from: 1, to: 2, arrows: "to"},
             {from: 1, to: 3, arrows: "to"},
             {from: 1, to: 4, arrows: "to"},
@@ -62,13 +61,12 @@ export class ClusterDataImpl implements ClusterDataStore {
             {from: 11, to: 14, arrows: "to"},
             {from: 11, to: 15, arrows: "to"},
         ];
-        return edges;
     }
 
     private async createNetworkData() {
         return new ClusterData(
-            await this.createNodes(),
-            await this.createEdges()
+            await ClusterDataStoreImpl.createNodes(),
+            await ClusterDataStoreImpl.createEdges()
         );
     }
 
@@ -77,7 +75,6 @@ export class ClusterDataImpl implements ClusterDataStore {
         const clusterData = await prometheusService.retrieveInstantQuery();
         clusterData.forEach((cluster) => {
             console.log(cluster.metric.labels.container);
-
         })
     }
 }

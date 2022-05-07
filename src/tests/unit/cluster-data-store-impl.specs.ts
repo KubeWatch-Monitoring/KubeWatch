@@ -1,36 +1,15 @@
 import {expect} from "chai";
 import sinon from "sinon";
 import {app} from "../../app";
-import {ClusterDataImpl} from "../../services/cluster-data-impl";
+import {ClusterDataStoreImpl} from "../../services/cluster-data-store-impl";
 import {ClusterVisController} from "../../view-controllers/cluster-vis-controller";
 import {ControllerUtil} from "../../utils/controller-util";
 
 describe("Cluster Data", () => {
-    // describe("retrieves correct data", () => {
-    //     it("should return the same data", async () => {
-    //         const mockNodes= [
-    //             { id: 1, label: "Node 1", level: 1 },
-    //             { id: 2, label: "Node 2", level: 2 },
-    //             { id: 3, label: "Node 3", level: 3 },
-    //             { id: 4, label: "Node 4", level: 4 },
-    //             { id: 5, label: "Node 5", level: 2 },
-    //         ];
-    //         const mockEdges= [
-    //             { from: 1, to: 3, arrows: "to", },
-    //             { from: 1, to: 2, arrows: "to", },
-    //             { from: 2, to: 4, arrows: "to", },
-    //             { from: 2, to: 5, arrows: "to", },
-    //             { from: 3, to: 999, arrows: "to", },
-    //         ];
-    //         const mockData = new ClusterData(mockNodes, mockEdges);
-    //         const mockClusterData = sinon.createStubInstance(ClusterDataImpl);
-    //         const data = mockClusterData.getClusterData.resolves(mockData);
-    //         expect(data.returnValues).to.equal(mockData);
-    //     })
-    // })
     const controllerUtil = sinon.createStubInstance(ControllerUtil);
     const sendMockData = new ClusterVisController(controllerUtil);
     const URL = "/cluster-data"
+
     describe("sendData", () => {
         it("should return a valid DataSet on the front-end", async () => {
             const req: any = {
@@ -56,7 +35,7 @@ describe("Cluster Data", () => {
                 {from: 2, to: 5, arrows: "to",},
                 {from: 3, to: 3, arrows: "to",},
             ];
-            const mockClusterData = sinon.createStubInstance(ClusterDataImpl);
+            const mockClusterData = sinon.createStubInstance(ClusterDataStoreImpl);
             mockClusterData.getClusterData.resolves({nodes: mockNodes, edges: mockEdges});
             app.clusterDataStore = mockClusterData;
 
