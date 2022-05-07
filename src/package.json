@@ -7,14 +7,8 @@
     "start": "ts-node index.ts",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "lint": "tsc --noEmit && eslint .. --ext .ts",
-    "coverage": "nyc --reporter=lcov --reporter=cobertura --reporter=text-summary npm test",
+    "coverage": "c8 --reporter=lcov --reporter=cobertura --reporter=text-summary npm test",
     "cypress": "$(npm bin)/cypress open"
-  },
-  "nyc": {
-    "exclude": [
-      "src/tests/",
-      "src/coverage/"
-    ]
   },
   "author": "G03-KubeWatch",
   "license": "ISC",
@@ -57,7 +51,6 @@
     "eslint": "^8.12.0",
     "jsdom": "^19.0.0",
     "mocha": "^9.2.2",
-    "nyc": "^15.1.0",
     "sinon": "^13.0.1",
     "sinon-stub-promise": "^4.0.0"
   }
