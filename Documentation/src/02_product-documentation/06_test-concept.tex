@@ -1,11 +1,11 @@
 \chapter{Test Concept}
 
 \section{Test Concept - Software}
-To develop software with good quality we need to test it.
-For this project, three different types of software tests are used because we need to test the software on different levels and we are already familiar with the following test types.
+To develop software with good quality it needs to be tested.
+For this project, three different types of software tests are used, because it's important to test the software on different levels.
 
 \subsection{Unit Test}
-The Unit Tests are done using the \textit{mocha} and \textit{chai} framework. The reason for this decision is that we use to make unit tests for typescript code and we do not know many test frameworks for typescript. The \textit{mocha} and \textit{chai} framework was also used in the lectures of \textit{Web Engineering and Development 2} which most of us visited. 
+The Unit Tests are done using the \textit{mocha} and \textit{chai} framework. We use \textit{mocha} and \textit{chai}, because it's the only testing framework we are familiar with as it was used in the lectures of \textit{Web Engineering and Development 2} which most of us visited.
 
 \subsection{Integration Test}
 The Integration Tests are also done using the \textit{mocha} and \textit{chai} framework.
@@ -15,14 +15,14 @@ Using \textit{chai-http} HTTP request are simulated and \textit{chai-dom} is use
 \subsection{Usability Test}
 To test the usability of the application we demonstrate and interact with Laurent Metzger, the advisor.
 Because he is a technical user he is perfectly suited to judge the application for its usability.
-These tests will be performed during our weekly meetings, where he will be asked to click through the application
+These tests will be performed during some of our weekly meetings, where he will be asked to click through the application
 and comment out loud about what he's doing and if anything confuses him.
 
 \subsection{Integration into Workflow}
 Before pushing any changes you must run all Unit and Integrations tests.
-If all tests are passed you can push the changes.
-On the server side, we use the GitLab CI/CD pipeline to test with the same tests.
-Only if they pass, the merge request can be merged into the master branch.
+If all tests are passed the changes can be pushed.
+On the server side, the GitLab CI/CD pipeline verifies if all test are run successful using the same tests.
+Only if CI/CD pipeline test job is successful, can the merge request be merged into the master branch.
 
 To run all tests in the IDE a run configuration is provided.
 
@@ -34,13 +34,13 @@ The rest of the NFRs that can not be checked by \textit{SonarQube} are checked e
 The process to verify each NFR is described in the \hyperref[section:non-functional-requirements]{NFR section}.
 
 \section{Test Concept - Security}
-To complete the test concept a section for security testing is needed. For this test concept, the \href{https://owasp.org/www-project-top-ten/}{OWASP Top 10} is used as a guideline and builds the basics of the security test concept.
-Following all the top ten security risks are listed and on each part, there is a description of how we test it.
+The security test concept is based on the \href{https://owasp.org/www-project-top-ten/}{OWASP Top 10}.
+Following all the top ten security risks are listed and how we test them.
 
 \subsection{A01 - Brocken Access Control}
 After implementing the login it is important to test our application for broken access control, like the principle of least privilege, IDOR attack (modifying URL to get access without login), or login without an account (NoSQL injection).
 
-We didn't use a login, so it isn't important for us now.
+We don't yet have a login, so it isn't important for us at the moment.
 
 \subsection{A02 - Cryptographic Failures}
 These failures encompass risks like storing private keys unencrypted, using broken hash algorithms (like SHA1 or MD5), or not protecting sensitive data, like personal identifiable information (PII) accurately. For the \textit{KubeWatch} project, there is no private data available, and since we have not implemented any user authentication, there is no need to store sensitive data. Therefore, these risks do currently not apply.
@@ -51,33 +51,32 @@ Another important security risk is the injection. Some of the most common inject
 For the \textit{KubeWatch} project, we mitigate these risks mainly by applying input validation, be it using appropriate HTML forms (like 'text' or 'email) or handlebars which convert inputs to text automatically. On the deployment side, we could implement static security application testing in the CI/CD process where an ESLint plugin performs certain checks. There are other tools like dynamic security application testing available, however, this is not available in the free tier of GitLab.
 
 \subsection{A04 - Insecure Design}
-To avoid this security risk we use the \textit{Sonar Qube} to test libraries and implementations for bugs. In addition to this mitigation, we use threat modelling to analyse our application every second week and try to find mitigation techniques to prevent the risks, which is also called a secure development lifecycle.
+To avoid this security risk we use \textit{Sonar Qube} to test libraries and implementations for bugs. In addition to this mitigation, we use threat modelling to analyse our application every sprint and try to find mitigation techniques to prevent the risks. Security is therefore built into our development lifecycle.
 
 \subsection{A05 - Security Misconfiguration}
 This security risk includes unnecessary features, incorrect error handling, default passwords, etc.
 
-To prevent this risk we just use minimal platforms without unnecessary features and review each implementation to check twice the usage of the feature and the correct implementation.
+To prevent this risk, we don't implement unnecessary features and review each implementation, if the feature is needed and correctly implemented.
 
 \subsection{A06 - Vulnerable and Outdated Components}
-In this section, the security risk discusses the usage of outdated and vulnerable components. Therefore not only the directly used but also the third-party components are relevant to monitor. For this check, we use the \textit{SonarQube} tool which also checks the test coverage of our code. This tool searches for bugs and vulnerable libraries which are used by our code.
+In this section, the security risk discusses the usage of outdated and vulnerable components. Therefore not only the directly used, but also third-party components used, are relevant to be monitored. For this check, we use \textit{SonarQube}. This tool searches for bugs and vulnerable libraries which are used by our code.
 
 \subsection{A07 - Identification and Authentication Failures}
-This category defined a correct authentication but with failures. This can be allowing default, weak, or well-known passwords, allowing brute force, bad hashing algorithms etc.
+Risks in this section can be allowing default, weak, or well-known passwords, allowing brute force attacks, bad hashing algorithms etc.
 
-This security risk is not tested now in our application. The reason for this is, that we did not implement an authentication til now so we can not test this future risk.
+This security risk was not tested as we did not yet implement the authentication in our application.
 
 \subsection{A08 - Software and Data Integrity Failures}
 This risk describes insecure data integrity by software or CI/CD pipelines.
 
-To prevent this risk we use npm for library installation because it is a trusted repository. Therefore we review each process that is newly implemented or changed, this helps us to find such integrity failures.
+To prevent this risk we use npm for library installation, because it is a trusted repository. We review each process that is newly implemented or changed, this helps us to find such integrity failures.
 
 \subsection{A09 - Security Logging and Monitoring Failures}
-In this security risk, the logging and monitoring failures are described. This can be no logging, no alerts, unclear log messages etc.
+In this part security risk, the logging and monitoring failures are described. This can be no logging, no alerts, unclear log messages etc.
 
-For us, this is not that relevant until now because we didn't implement logging but when we implement the logging we need to monitor each login try (failed logins and successful logins). It is important to check the monitoring and logging cycle during the review of the code implementation and discuss this topic after the implementation in the next team meeting.
+We did not yet implement logging, but when we implement the logging we need to monitor each login try (failed logins and successful logins). It is important to check the monitoring and logging cycle during the review of the code implementation and discuss this topic after the implementation in the next team meeting.
 
 \subsection{A10 - Server-Side Request Forgery}
 With SSRF, an attacker tries to manipulate a server in a way to get access to server-internal resources, like local networks or file storage.
 
 In the KubeWatch application there are only a few fields where a user can input data. Through input validation and not allowing URL input fields, this type of attack can largely be mitigated. URLs could for example be used to access local servers through localhost URLs.
-
