@@ -2,6 +2,7 @@ Chart.plugins.register(ChartDatasourcePrometheusPlugin);
 
 const chartTemplate = "<div class='accordion-body'><div class='card'><div class='card-header'>" +
     "<h5>title</h5><button class='btn btn-primary btn-collapse'>Collapse</button>" +
+    "<form action='/delete' method='post'><input type='hidden' name='id' id='chart-id'><button class='btn btn-danger float-end'>Delete</button></form>" +
     "</div><div class='card-body'><div class='collapsable'><div class='row'><canvas id='id'></canvas>" +
     "</div></div></div></div></div>";
 
@@ -149,26 +150,29 @@ function createNewChartConfigFromSetting(chartSetting: object, setting: object) 
   return config;
 }
 
-function createNewChartElement(chartSetting: object, id: string) {
+function createNewChartElement(chartSetting: object, title: string, id: string) {
   const el = document.createElement('div');
   el.innerHTML = chartTemplate;
   const canvas = el.firstElementChild.querySelector<HTMLCanvasElement>("#id");
   const h5 = el.firstElementChild.querySelector<HTMLHeadingElement>("h5");
-  canvas.id = id;
-  h5.innerText = id;
+  const hidden = el.firstElementChild.querySelector<HTMLInputElement>("#chart-id");
+  canvas.id = title;
+  h5.innerText = title;
+  hidden.value = id;
   return el.firstElementChild;
 }
 
 async function displayCharts() {
-  const result = await fetch("http://127.0.0.1:8082/all");
+  const result = await fetch("/all");
   const json = await result.json();
 
   json.forEach(setting => {
     const newChartSetting = createNewChartConfigFromSetting(chartSetting, setting);
-    const id = setting.title.replace(" ", "-");
-    const element = createNewChartElement(newChartSetting, id);
+    const title = setting.title.replace(" ", "-");
+    const id = setting._id;
+    const element = createNewChartElement(newChartSetting, title, id);
     divContainer.insertAdjacentElement("beforeend", element);
-    new Chart(divContainer.querySelector("#" + id), newChartSetting);
+    new Chart(divContainer.querySelector("#" + title), newChartSetting);
   });
 }
 

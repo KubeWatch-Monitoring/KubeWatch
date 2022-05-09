@@ -15,5 +15,6 @@ export class ChartSetting {
 
 export interface ChartSettingStore {
     createChartSetting(chart: ChartSetting): Promise<ChartSetting>;
+    deleteChartSetting(id: ObjectId): Promise<boolean>;
     getAllChartSettings(): Promise<ChartSetting[]>
 }

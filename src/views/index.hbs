@@ -14,6 +14,22 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
 {{/section}}
 
+{{#if_eq successfulDelete true}}
+<div class="card text-white bg-success mb-3">
+    <div class="card-body">
+        <h5 class="card-title">Chart was successfully delete</h5>
+    </div>
+</div>
+{{/if_eq}}
+
+{{#if_eq successfulDelete false}}
+    <div class="card text-white bg-warning mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Could not delete chart</h5>
+        </div>
+    </div>
+{{/if_eq}}
+
 <div id="chart-container">
 
 </div>

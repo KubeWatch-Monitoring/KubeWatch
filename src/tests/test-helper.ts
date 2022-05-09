@@ -22,6 +22,7 @@ export class Helpers {
             },
             query: {},
             params: {},
+            body: {},
             app
         }
     }

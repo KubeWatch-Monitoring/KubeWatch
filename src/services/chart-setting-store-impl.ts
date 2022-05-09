@@ -1,5 +1,5 @@
 import {ChartSetting, ChartSettingStore} from "../model/chart-setting";
-import {Collection} from "mongodb";
+import {Collection, ObjectId} from "mongodb";
 import {MongoDbService} from "./mongo-db-service";
 
 export class ChartSettingStoreImpl implements ChartSettingStore {
@@ -11,6 +11,12 @@ export class ChartSettingStoreImpl implements ChartSettingStore {
 
     async createChartSetting(chart: ChartSetting): Promise<ChartSetting> {
         return await this.chartSettingCollection.insertOne(chart) as unknown as ChartSetting;
+    }
+
+    async deleteChartSetting(id: ObjectId): Promise<boolean> {
+        const query = {_id: id};
+        const result = await this.chartSettingCollection.deleteOne(query);
+        return result.deletedCount == 1;
     }
 
     async getAllChartSettings() {

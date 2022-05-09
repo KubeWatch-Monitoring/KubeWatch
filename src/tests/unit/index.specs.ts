@@ -22,10 +22,30 @@ describe("IndexController", () => {
     });
 
     describe("getIndex", () => {
-        it("should return a rendered html page", async () => {
+        it("should return a rendered html page without delete message when no query params are available", async () => {
             await controller.getIndex(req, res);
             expect(controllerUtil.render.called).to.be.true;
-            expect(controllerUtil.render.calledWithMatch("index", sinon.match({}))).to.be.true;
+            expect(controllerUtil.render.calledWith("index", {})).to.be.true;
+        });
+        it("should return a rendered html page with successful delete message when query indicates it", async () => {
+            req.query = {
+                deleteAction: "",
+                success: ""
+            };
+
+            await controller.getIndex(req, res);
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("index", {successfulDelete: true})).to.be.true;
+        });
+        it("should return a rendered html page with unsuccessful delete message when query indicates it", async () => {
+            req.query = {
+                deleteAction: "",
+                failed: ""
+            };
+
+            await controller.getIndex(req, res);
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith("index", {successfulDelete: false})).to.be.true;
         });
     });
     describe("getEditDashboard", () => {
@@ -162,8 +182,32 @@ describe("IndexController", () => {
             expect(res.redirect.called).to.be.true;
             expect(res.redirect.calledWithMatch("/edit")).to.be.true;
         });
-        it("should handle the absence of the database", async () => {
-            // TODO: Implement this test
+    });
+    describe('deleteCharSetting', () => {
+        it("should delete the char setting with the given id from the database", async () => {
+            const id = new ObjectId();
+            req.body = {
+                id: id.toString(),
+            };
+
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+
+            await controller.deleteCharSetting(req, res);
+
+            expect(chartSettingStore.deleteChartSetting.called).to.be.true;
+            expect(chartSettingStore.deleteChartSetting.calledWith(id)).to.be.true;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/?deleteAction&success")).to.be.true;
+        });
+        it("should redirect with query parameters when not successful", async () => {
+            app.chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            req.body = {};
+
+            await controller.deleteCharSetting(req, res);
+
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/?deleteAction&failed")).to.be.true;
         });
     });
 });
