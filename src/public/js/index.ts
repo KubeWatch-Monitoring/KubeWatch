@@ -8,7 +8,10 @@ const chartTemplate = "<div class='accordion-body'><div class='card'><div class=
 
 
 // TODO: Remove all hard coded charts
-const divContainer = document.querySelector("#chart-container");
+const divContainer = document.querySelector<HTMLDivElement>("#chart-container");
+if (!divContainer) {
+  throw Error("Chart container not found");
+}
 
 const chartSetting = {
   type: 'line',
@@ -123,17 +126,19 @@ const diskChart = new Chart(ctxDisk, {
   },
 });
 
-document.querySelectorAll(".btn-collapse").forEach((e) => {
-  e.addEventListener("click", () => {
-    if (e.parentElement) {
-      const view = e.parentElement.parentElement.querySelector<HTMLElement>(".collapsable");
-      if (!view) {
-        throw new ReferenceError("Could not find collapsable");
+function registerCollapsableButton() {
+  document.querySelectorAll<HTMLButtonElement>(".btn-collapse").forEach((e) => {
+    e.addEventListener("click", () => {
+      if (e.parentElement && e.parentElement.parentElement) {
+        const view = e.parentElement.parentElement.querySelector<HTMLElement>(".collapsable");
+        if (!view) {
+          throw new ReferenceError("Could not find collapsable");
+        }
+        view.hidden = !view.hidden;
       }
-      view.hidden = !view.hidden;
-    }
+    });
   });
-});
+}
 
 function cloneObject(obj: object): object {
   return JSON.parse(JSON.stringify(obj));
@@ -153,16 +158,24 @@ function createNewChartConfigFromSetting(chartSetting: object, setting: object) 
 function createNewChartElement(chartSetting: object, title: string, id: string) {
   const el = document.createElement('div');
   el.innerHTML = chartTemplate;
+  if (!el.firstElementChild) {
+    throw Error("Could not create chart element");
+  }
   const canvas = el.firstElementChild.querySelector<HTMLCanvasElement>("#id");
   const h5 = el.firstElementChild.querySelector<HTMLHeadingElement>("h5");
   const hidden = el.firstElementChild.querySelector<HTMLInputElement>("#chart-id");
+
+  if (!canvas || !h5 || !hidden) {
+    throw Error("Could not create chart element");
+  }
+
   canvas.id = title;
   h5.innerText = title;
   hidden.value = id;
   return el.firstElementChild;
 }
 
-async function displayCharts() {
+async function displayCharts(container: HTMLDivElement) {
   const result = await fetch("/all");
   const json = await result.json();
 
@@ -171,9 +184,9 @@ async function displayCharts() {
     const title = setting.title.replace(" ", "-");
     const id = setting._id;
     const element = createNewChartElement(newChartSetting, title, id);
-    divContainer.insertAdjacentElement("beforeend", element);
-    new Chart(divContainer.querySelector("#" + title), newChartSetting);
+    container.insertAdjacentElement("beforeend", element);
+    new Chart(container.querySelector("#" + title), newChartSetting);
   });
 }
 
-displayCharts();
+displayCharts(divContainer).then(() => registerCollapsableButton());
