@@ -6,7 +6,7 @@ import {ControllerUtil} from "../../utils/controller-util";
 import {Helpers} from "../test-helper";
 import {ChartSettingStoreImpl} from "../../services/chart-setting-store-impl";
 import {ChartSetting} from "../../model/chart-setting";
-import { ObjectId } from "mongodb";
+import {ObjectId} from "mongodb";
 
 describe("IndexController", () => {
     let controller: IndexController;
