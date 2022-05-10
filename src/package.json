@@ -4,7 +4,7 @@
   "description": "KubeWatch is a monitoring application for Kubernetes.\nIt will keep track of multiple K8S nodes, records performance data and visualize it.\nFurthermore, it should send some kind of notification to the responsible people.",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node index.ts",
+    "start": "tsc public/js/*.ts ; ts-node index.ts",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "lint": "tsc --noEmit && eslint .. --ext .ts",
     "coverage": "c8 --reporter=lcov --reporter=cobertura --reporter=text-summary npm test",
