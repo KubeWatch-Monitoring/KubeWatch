@@ -78,3 +78,53 @@ This command set the context for your web application.
 ```
 minikube stop
 ```
+## Installation Guide SonarQube
+
+### SonarQube
+1. To install the *SonarQube* instance use the following docker command in you console:
+```
+docker run -d --name sonarqube -e
+        SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000
+        sonarqube:latest
+```
+2. If the instance is running, you can login to http://localhost:9000 and use the default credentials. After the first login you need to change them.
+```
+    login: admin
+    password: admin
+```
+3. Create a new project with the name *KubeWatch*
+4. Go to the *KubeWatch* Project and choose local analysation.
+5. Generate a token (only first time) and safe this token somewhere you'll find it again (need it in the *SonarScanner* section again).
+6. Choose continue and then choose other and your OS.
+
+### SonarScanner
+1. Download the \textit{SonarScanner} zip for your system from the following source: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/
+2. Extract the \textit{SonarScanner} zip
+3. Add the bin folder in the extracted folder to the path variable (the location from the SonnarScanner folder doesn't matter).
+4. Change in the sonarscanner/conf folder the sonar-project.properties file with the following lines:
+```
+    #----- Local
+    sonar.host.url=http://localhost:9000
+    sonar.login=<your-sonar-qube-token>
+```
+5. Start \textit{SonarScanner} (scan) with the command:
+```
+    sh /<dir-path-to-sonnar-scanner-folder>/bin/sonar-scanner
+```
+    (no error should be there)
+6. After the scan is finished, there will be a link to the actual report of the scan in the console output.
+7. If everything works fine you'll get an scan overview like this: \newline
+    ![Scna]{../Documentation/src/resources/scan.png}
+
+### Useful/Needed Docker Commands
+#### Stop Docker Container
+After using *SonarQube* stop the local server with the following command
+```
+    docker stop sonarqube
+```
+
+#### Restart Docker Container
+To use the server again use the following command to restart the docker container:
+```
+    docker restart sonarqube
+```
