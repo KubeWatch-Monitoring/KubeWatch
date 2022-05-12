@@ -112,6 +112,7 @@ sonar.login=<your-sonar-qube-token>
 sh /<dir-path-to-sonnar-scanner-folder>/bin/sonar-scanner
 ```
 (no error should be there)
+
 6. After the scan is finished, there will be a link to the actual report of the scan in the console output.
 7. If everything works fine you'll get an scan overview like this: \newline
     ![Scan]{../Documentation/src/resources/scan.png}
