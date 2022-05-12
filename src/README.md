@@ -98,8 +98,8 @@ password: admin
 6. Choose continue and then choose other and your OS.
 
 ### SonarScanner
-1. Download the \textit{SonarScanner} zip for your system from the following source: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/
-2. Extract the \textit{SonarScanner} zip
+1. Download the *SonarScanner* zip for your system from the following source: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/
+2. Extract the *SonarScanner* zip
 3. Add the bin folder in the extracted folder to the path variable (the location from the SonnarScanner folder doesn't matter).
 4. Change in the sonarscanner/conf folder the sonar-project.properties file with the following lines:
 ```
@@ -107,7 +107,7 @@ password: admin
 sonar.host.url=http://localhost:9000
 sonar.login=<your-sonar-qube-token>
 ```
-5. Start \textit{SonarScanner} (scan) with the command:
+5. Start *SonarScanner* (scan) with the command:
 ```
 sh /<dir-path-to-sonnar-scanner-folder>/bin/sonar-scanner
 ```
