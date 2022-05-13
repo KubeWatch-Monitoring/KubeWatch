@@ -4,9 +4,9 @@ It will keep track of multiple K8S nodes, records performance data and visualize
 Furthermore, it should send some kind of notification to the responsible people.
 
 ## Road map
-- [ ] Monitor K8S nodes
-- [ ] Collect data from nodes
-- [ ] Visualize the data somehow
+- [x] Monitor K8S nodes
+- [x] Collect data from nodes
+- [x] Visualize the data somehow
 - [ ] Send notification
 - [ ] Run an analysis on the aggregated data
 - [ ] Visualize the K8S pods and nodes in a graph
