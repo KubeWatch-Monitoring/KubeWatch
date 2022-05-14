@@ -1,4 +1,5 @@
 import { ObjectId } from "mongodb";
+import {Reconnectable} from "../services/Reconnectable";
 
 export enum ChartType {
     relative
@@ -13,7 +14,7 @@ export class ChartSetting {
                 public _id: ObjectId | undefined){}
 }
 
-export interface ChartSettingStore {
+export interface ChartSettingStore extends Reconnectable {
     createChartSetting(chart: ChartSetting): Promise<ChartSetting>;
     deleteChartSetting(id: ObjectId): Promise<boolean>;
     getAllChartSettings(): Promise<ChartSetting[]>

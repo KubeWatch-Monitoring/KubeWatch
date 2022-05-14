@@ -1,6 +1,5 @@
 import {MongoDbService} from "./services/mongo-db-service";
 import {NotificationStoreImpl} from "./services/notification-store-impl";
-import {UserStoreImpl} from "./services/user-store-impl";
 import {SettingStoreImpl} from "./services/setting-store-impl";
 import {ChartSettingStoreImpl} from "./services/chart-setting-store-impl";
 import {PrometheusService} from "./services/prometheus-service";
@@ -38,10 +37,7 @@ function getEnvVar(name: EnvironmentVariable): string {
 async function setupDatabaseStores(environmentVariables: EnvironmentVariables) {
     try {
         const mongoDbService = await MongoDbService.connect(environmentVariables.mongodbConnectionString);
-        const notificationStore = new NotificationStoreImpl(mongoDbService);
-
-        app.userStore = new UserStoreImpl(mongoDbService);
-        app.notificationStore = notificationStore;
+        app.notificationStore = new NotificationStoreImpl(mongoDbService);
         app.settingsStore = new SettingStoreImpl(mongoDbService);
         app.chartSettingStore = new ChartSettingStoreImpl(mongoDbService);
     } catch (e) {
