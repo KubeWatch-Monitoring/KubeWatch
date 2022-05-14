@@ -18,7 +18,7 @@ async function getJson(url: string) {
         .catch((e) => Promise.reject(e));
 }
 
-async function getClusterData(): Promise<{ nodes: vis.DataSet; edges: vis.DataSet }> {
+async function getClusterData(): Promise<{ nodes: any; edges: any }> {
     const data = await getJson(CLUSTER_DATA_URL);
     const nodes = data.nodes;
     const edges = data.edges;
@@ -40,13 +40,13 @@ async function createNetwork() {
         physics: {
             hierarchicalRepulsion: {
                 nodeDistance: 100,
-                avoidOverlap: 0.5,
+                avoidOverlap: 1,
             },
         },
     };
     const clusterNetwork = new vis.Network(container, clusterData, options);
 }
-
+console.log("why not starting");
 createNetwork();
 
 function localDevelopmentNetwork() {
