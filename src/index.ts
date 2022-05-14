@@ -19,7 +19,7 @@ interface EnvironmentVariables {
     awsSnsSessionToken: string,
 }
 
-enum EnvironmentVariable {
+export enum EnvironmentVariable {
     EXPRESS_SESSION_SECRET = "EXPRESS_SESSION_SECRET",
     DB_CONN_STRING = "DB_CONN_STRING",
     PROMETHEUS_CONN_STRING = "PROMETHEUS_CONN_STRING",
@@ -29,7 +29,7 @@ enum EnvironmentVariable {
     AWS_SNS_SESSION_TOKEN = "AWS_SNS_SESSION_TOKEN",
 }
 
-function getEnvVar(name: EnvironmentVariable): string {
+export function getEnvVar(name: EnvironmentVariable): string {
     const value = process.env[name];
     if (value === undefined)
         throw new Error(`Environment variable ${name} is missing`);
