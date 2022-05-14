@@ -27,6 +27,15 @@ export class AdminController {
         }
         res.redirect(`${AdminRoutes.BASE_URL}/?reconnect=true`);
     }
+
+    async getPrometheusUrl(req: Request, res: Response) {
+        const value = {
+            // TODO: Retrieve from env variables
+            url: "http://127.0.0.1:9090"
+        };
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify(value));
+    }
 }
 
 export const adminController = new AdminController(controllerUtil);
