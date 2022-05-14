@@ -1,11 +1,11 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {app} from "../../app";
-import {IndexController} from "../../view-controllers/index-controller";
-import {ControllerUtil} from "../../utils/controller-util";
-import {Helpers} from "../test-helper";
-import {ChartSettingStoreImpl} from "../../services/chart-setting-store-impl";
-import {ChartSetting} from "../../model/chart-setting";
+import {app} from "../../../app";
+import {IndexController} from "../../../view-controllers/index-controller";
+import {ControllerUtil} from "../../../utils/controller-util";
+import {TestHelper} from "../../test-helper";
+import {ChartSettingStoreImpl} from "../../../services/chart-setting-store-impl";
+import {ChartSetting} from "../../../model/chart-setting";
 import {ObjectId} from "mongodb";
 
 describe("IndexController", () => {
@@ -17,8 +17,8 @@ describe("IndexController", () => {
     beforeEach(() => {
         controllerUtil = sinon.createStubInstance(ControllerUtil);
         controller = new IndexController(controllerUtil);
-        req = Helpers.getMockRequest(app);
-        res = Helpers.getMockResponse();
+        req = TestHelper.getMockRequest(app);
+        res = TestHelper.getMockResponse();
     });
 
     describe("getIndex", () => {
@@ -101,7 +101,7 @@ describe("IndexController", () => {
                 body: {},
                 app
             };
-            const res: any = Helpers.getMockResponse();
+            const res: any = TestHelper.getMockResponse();
             const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
             app.chartSettingStore = chartSettingStore;
 
@@ -118,7 +118,7 @@ describe("IndexController", () => {
                 },
                 app
             };
-            const res: any = Helpers.getMockResponse();
+            const res: any = TestHelper.getMockResponse();
             const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
             app.chartSettingStore = chartSettingStore;
 
@@ -152,7 +152,7 @@ describe("IndexController", () => {
             const req: any = {
                 app
             };
-            const res: any = Helpers.getMockResponse();
+            const res: any = TestHelper.getMockResponse();
             const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
             chartSettingStore.getAllChartSettings.resolves(settings);
             app.chartSettingStore = chartSettingStore;

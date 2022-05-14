@@ -1,14 +1,14 @@
 import {expect} from "chai";
-import {app} from "../../app";
+import {app} from "../../../app";
 import sinon from "sinon";
-import {PodController} from "../../view-controllers/pod-controller";
-import {Helpers} from "../test-helper";
+import {PodController} from "../../../view-controllers/pod-controller";
+import {TestHelper} from "../../test-helper";
 import {ObjectId} from "mongodb";
-import {Pod} from "../../model/pod";
-import {MetricsData} from "../../model/metrics-data";
-import {PrometheusService} from "../../services/prometheus-service";
-import {PodStoreImpl} from "../../services/pod-store-impl";
-import {ControllerUtil} from "../../utils/controller-util";
+import {Pod} from "../../../model/pod";
+import {MetricsData} from "../../../model/metrics-data";
+import {PrometheusService} from "../../../services/prometheus-service";
+import {PodStoreImpl} from "../../../services/pod-store-impl";
+import {ControllerUtil} from "../../../utils/controller-util";
 
 describe("PodController", () => {
     let controller: PodController;
@@ -21,8 +21,8 @@ describe("PodController", () => {
         prometheusService = sinon.createStubInstance(PrometheusService);
         controllerUtil = sinon.createStubInstance(ControllerUtil);
         app.podStore = new PodStoreImpl(prometheusService);
-        res = Helpers.getMockResponse();
-        req = Helpers.getMockRequest(app);
+        res = TestHelper.getMockResponse();
+        req = TestHelper.getMockRequest(app);
         controller = new PodController(controllerUtil);
     });
 

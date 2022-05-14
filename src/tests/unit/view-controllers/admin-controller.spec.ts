@@ -1,10 +1,10 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {app} from "../../app";
-import {AdminController} from "../../view-controllers/admin-controller";
-import {Helpers} from "../test-helper";
-import {NotificationStoreImpl} from "../../services/notification-store-impl";
-import {ControllerUtil} from "../../utils/controller-util";
+import {app} from "../../../app";
+import {AdminController} from "../../../view-controllers/admin-controller";
+import {TestHelper} from "../../test-helper";
+import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {ControllerUtil} from "../../../utils/controller-util";
 
 describe("AdminController", () => {
     let controller: AdminController;
@@ -14,8 +14,8 @@ describe("AdminController", () => {
     let controllerUtil: any;
 
     beforeEach(() => {
-        res = Helpers.getMockResponse();
-        req = Helpers.getMockRequest(app);
+        res = TestHelper.getMockResponse();
+        req = TestHelper.getMockRequest(app);
         notificationStore = sinon.createStubInstance(NotificationStoreImpl);
         controllerUtil = sinon.createStubInstance(ControllerUtil);
         controller = new AdminController(controllerUtil);

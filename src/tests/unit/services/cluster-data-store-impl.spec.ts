@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {app} from "../../app";
-import {ClusterDataStoreImpl} from "../../services/cluster-data-store-impl";
-import {ClusterVisController} from "../../view-controllers/cluster-vis-controller";
-import {ControllerUtil} from "../../utils/controller-util";
+import {app} from "../../../app";
+import {ClusterDataStoreImpl} from "../../../services/cluster-data-store-impl";
+import {ClusterVisController} from "../../../view-controllers/cluster-vis-controller";
+import {ControllerUtil} from "../../../utils/controller-util";
 
 describe("Cluster Data", () => {
     const controllerUtil = sinon.createStubInstance(ControllerUtil);

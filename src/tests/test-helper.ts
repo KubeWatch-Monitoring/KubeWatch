@@ -1,7 +1,7 @@
 import sinon from "sinon";
 import express from "express";
 
-export class Helpers {
+export class TestHelper {
     static getMockResponse() {
         const res = {
             status: {},
