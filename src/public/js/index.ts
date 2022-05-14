@@ -1,18 +1,22 @@
 Chart.plugins.register(ChartDatasourcePrometheusPlugin);
 
 const chartTemplate = "<div class='accordion-body'><div class='card'><div class='card-header'>" +
-    "<h5>title</h5><button class='btn btn-primary btn-collapse'>Collapse</button>" +
-    "<form action='/delete' method='post'><input type='hidden' name='id' id='chart-id'><button class='btn btn-danger float-end'>Delete</button></form>" +
-    "</div><div class='card-body'><div class='collapsable'><div class='row'><canvas id='id'></canvas>" +
+    "<h5>title</h5>" +
+    "<form action='/delete' method='post'>" +
+    "<button type='button' class='btn btn-primary btn-collapse'>Collapse</button>" +
+    "<input type='hidden' name='id' id='chart-id'>" +
+    "<button class='btn btn-danger float-end'>Delete</button></form></div>" +
+    "<div class='card-body'><div class='collapsable'><div class='row'>" +
+    "<canvas id='id'></canvas>" +
     "</div></div></div></div></div>";
 
 
-// TODO: Remove all hard coded charts
 const divContainer = document.querySelector<HTMLDivElement>("#chart-container");
 if (!divContainer) {
   throw Error("Chart container not found");
 }
 
+// TODO: remove hard coded prometheus endpoint
 const chartSetting = {
   type: 'line',
   plugins: [ChartDatasourcePrometheusPlugin],
@@ -38,99 +42,11 @@ const chartSetting = {
   },
 };
 
-const cpuElement = document.getElementById('cpuChart') as HTMLCanvasElement;
-const ctxCpu = cpuElement.getContext('2d');
-const cpuChart = new Chart(ctxCpu, {
-  type: 'line',
-  plugins: [ChartDatasourcePrometheusPlugin],
-  options: {
-    animation: {
-      duration: 0,
-    },
-    plugins: {
-      'datasource-prometheus': {
-        prometheus: {
-          endpoint: 'http://127.0.0.1:9090',
-          baseURL: '/api/v1',   // default value
-        },
-        query: 'sum by (pod) (container_cpu_system_seconds_total{namespace!~"kube-system|monitoring|kubernetes-dashboard", pod!~""})',
-        timeRange: {
-          type: 'relative',
-
-          // from 1 hours ago to now
-          start: -1 * 60 * 60 * 1000,
-          end: 0,
-          msUpdateInterval: 5000,
-        },
-      },
-    },
-  },
-});
-
-const memoryElement = document.getElementById('memoryChart') as HTMLCanvasElement;
-const ctxMemory = memoryElement.getContext('2d');
-
-const memoryChart = new Chart(ctxMemory, {
-  type: 'line',
-  plugins: [ChartDatasourcePrometheusPlugin],
-  options: {
-    animation: {
-      duration: 0,
-    },
-    plugins: {
-      'datasource-prometheus': {
-        prometheus: {
-          endpoint: 'http://127.0.0.1:9090',
-          baseURL: '/api/v1',   // default value
-        },
-        query: 'sum by (pod) (container_memory_usage_bytes{namespace!~"kube-system|monitoring|kubernetes-dashboard", pod!~""})',
-        timeRange: {
-          type: 'relative',
-
-          // from 1 hours ago to now
-          start: -1 * 60 * 60 * 1000,
-          end: 0,
-          msUpdateInterval: 5000,
-        },
-      },
-    },
-  },
-});
-
-const diskElement = document.getElementById('diskChart') as HTMLCanvasElement;
-const ctxDisk = diskElement.getContext('2d');
-const diskChart = new Chart(ctxDisk, {
-  type: 'line',
-  plugins: [ChartDatasourcePrometheusPlugin],
-  options: {
-    animation: {
-      duration: 0,
-    },
-    plugins: {
-      'datasource-prometheus': {
-        prometheus: {
-          endpoint: 'http://127.0.0.1:9090',
-          baseURL: '/api/v1',   // default value
-        },
-        query: 'sum by (pod) (container_fs_usage_bytes{namespace!~"kube-system|monitoring|kubernetes-dashboard", pod!~""})',
-        timeRange: {
-          type: 'relative',
-
-          // from 1 hours ago to now
-          start: -1 * 60 * 60 * 1000,
-          end: 0,
-          msUpdateInterval: 5000,
-        },
-      },
-    },
-  },
-});
-
 function registerCollapsableButton() {
   document.querySelectorAll<HTMLButtonElement>(".btn-collapse").forEach((e) => {
     e.addEventListener("click", () => {
-      if (e.parentElement && e.parentElement.parentElement) {
-        const view = e.parentElement.parentElement.querySelector<HTMLElement>(".collapsable");
+      if (e.parentElement && e.parentElement.parentElement && e.parentElement.parentElement.parentElement) {
+        const view = e.parentElement.parentElement.parentElement.querySelector<HTMLElement>(".collapsable");
         if (!view) {
           throw new ReferenceError("Could not find collapsable");
         }

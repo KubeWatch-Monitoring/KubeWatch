@@ -14,40 +14,69 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
 {{/section}}
 
+<h3>Create New Chart from Prometheus Data</h3>
+<p>
+    <span>Information:</span> If all values set press the <em>Preview</em> button to get a preview of your chart.
+    It may take several seconds to update the chart.
+</p>
+
+
 <form action="/edit" method="POST">
-    <div class="form-group">
-        <label for="promql">PromQL</label>
-        <input type="text" name="promql" id="promql" class="form-control" value="{{promql}}">
+
+    <div class="row">
+        <div class="form-group">
+            <label for="promql">PromQL Query</label>
+            <input type="text" name="promql" id="promql" class="form-control" required value="{{promql}}">
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" class="form-control" value="{{title}}">
+    <div class="row">
+        <div class="form-group">
+            <label for="title">Title for chart</label>
+            <input type="text" name="title" id="title" class="form-control" required value="{{title}}">
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="start">Start</label>
-        <input type="number" name="start" id="start" class="form-control" value="{{start}}">
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="start">How old should be the oldest datapoint be in seconds? (0 = now)</label>
+                <input type="number" name="start" id="start" class="form-control" required value="{{start}}">
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-group">
+                <label for="end">How new should be the newest datapoint be in seconds? (0 = now)</label>
+                <input type="number" name="end" id="end" class="form-control" required value="{{end}}">
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="end">End</label>
-        <input type="number" name="end" id="end" class="form-control" value="{{end}}">
-    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label for="updateInterval">Update interval in seconds (min. 1s)</label>
+                <input type="number" name="updateInterval" id="updateInterval" class="form-control" min="1" required value="{{updateInterval}}">
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="updateInterval">Update interval in ms (min 1000ms)</label>
-        <input type="number" name="updateInterval" id="updateInterval" class="form-control" value="{{updateInterval}}">
+        <div class="col">
+            <div class="form-group">
+                <label for="type">Type (Currently only relative supported)</label>
+                <select type="" name="type" id="type" class="form-control">
+                    <option>relative</option>
+                </select>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label for="type">Type</label>
-        <select type="" name="type" id="type" class="form-control">
-            <option>relative</option>
-        </select>
+    <div class="row">
+        <div class="col"></div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary mt-3 float-end">Save</button>
+            <button id="btn-preview" type="button" class="btn btn-secondary mt-3 m-3 float-end">Preview</button>
+        </div>
     </div>
-    <button id="btn-preview" type="button" class="btn btn-primary mt-3">Preview</button>
-    <button type="submit" class="btn btn-primary mt-3">Save</button>
 </form>
 
 <div class="accordion-body">

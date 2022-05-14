@@ -77,13 +77,13 @@ describe("IndexController", () => {
     });
     describe("postEditDashboard", () => {
         it("should create a new ChartSetting in the database", async () => {
-            const chart = new ChartSetting("title", "query", -1800, 0, 5000, undefined);
+            const chart = new ChartSetting("title", "query", -1800, -0, 5000, undefined);
             req.body = {
                 promql: chart.promql,
                 title: chart.title,
-                start: chart.start.toString(),
-                end: chart.end.toString(),
-                updateInterval: chart.updateInterval.toString(),
+                start: (-1*(chart.start)/1000).toString(),
+                end: (-1*(chart.end)/1000).toString(),
+                updateInterval: ((chart.updateInterval)/1000).toString(),
                 type: "relative",
             };
             const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);

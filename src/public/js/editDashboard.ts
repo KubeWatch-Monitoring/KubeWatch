@@ -27,26 +27,27 @@ const config = {
   },
 };
 
-const ctx = document.querySelector<HTMLCanvasElement>('#chart')!.getContext('2d');
+const ctx = document.querySelector<HTMLCanvasElement>('#chart').getContext('2d');
 const chart = new Chart(ctx, config);
 
-const chartTitle = document.querySelector<HTMLButtonElement>("#chart-title")!;
-const btnPreview = document.querySelector<HTMLButtonElement>("#btn-preview")!;
+const chartTitle = document.querySelector<HTMLButtonElement>("#chart-title");
+const btnPreview = document.querySelector<HTMLButtonElement>("#btn-preview");
 
-const txtPromql = document.querySelector<HTMLInputElement>("#promql")!;
-const txtTitle = document.querySelector<HTMLInputElement>("#title")!;
-const txtStart = document.querySelector<HTMLInputElement>("#start")!;
-const txtEnd = document.querySelector<HTMLInputElement>("#end")!;
-const txtInterval = document.querySelector<HTMLInputElement>("#updateInterval")!;
-const txtType = document.querySelector<HTMLSelectElement>("#type")!;
+const txtPromql = document.querySelector<HTMLInputElement>("#promql");
+const txtTitle = document.querySelector<HTMLInputElement>("#title");
+const txtStart = document.querySelector<HTMLInputElement>("#start");
+const txtEnd = document.querySelector<HTMLInputElement>("#end");
+const txtInterval = document.querySelector<HTMLInputElement>("#updateInterval");
+const txtType = document.querySelector<HTMLSelectElement>("#type");
 
 btnPreview.addEventListener("click", () => {
+  const ONE_SECOND = 1000;
   const prometheusConfig = config.options.plugins['datasource-prometheus'];
   const promql = txtPromql.value;
   const title = txtTitle.value;
-  const start = parseInt(txtStart.value);
-  const end = parseInt(txtEnd.value);
-  const updateInterval = parseInt(txtInterval.value);
+  const start = Math.abs(parseFloat(txtStart.value))*-ONE_SECOND;
+  const end = Math.abs(parseInt(txtEnd.value))*-ONE_SECOND;
+  const updateInterval = Math.abs(parseInt(txtInterval.value))*ONE_SECOND;
   const type = txtType.value;
 
 
@@ -60,7 +61,7 @@ btnPreview.addEventListener("click", () => {
 
 document.querySelectorAll(".btn-collapse").forEach((e) => {
   e.addEventListener("click", () => {
-    if (e.parentElement) {
+    if (e.parentElement && e.parentElement.parentElement) {
       const view = e.parentElement.parentElement.querySelector<HTMLElement>(".collapsable");
       if (!view) {
         throw new ReferenceError("Could not find collapsable");

@@ -32,6 +32,7 @@ export class IndexController {
     }
 
     async postEditDashboard(req: Request, res: Response) {
+        const ONE_SECOND = 1000;
         const {
             promql,
             title,
@@ -52,13 +53,12 @@ export class IndexController {
         const chart = new ChartSetting(
             title,
             promql,
-            parseInt(start),
-            parseInt(end),
-            parseInt(updateInterval),
+            Math.abs(parseFloat(start)) * -ONE_SECOND,
+            Math.abs(parseFloat(end)) * -ONE_SECOND,
+            Math.abs(parseFloat(updateInterval)) * ONE_SECOND,
             undefined);
 
-        const ONE_SECOND = 1000
-        if (chart.updateInterval < ONE_SECOND) {
+        if (chart.updateInterval < ONE_SECOND || chart.start > 0 || chart.end > 0) {
             const query = this.paramsToQueryParams(params);
             res.redirect(`/edit${(query.length > 0) ? "?" + query : ""}`);
             return;
