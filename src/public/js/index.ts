@@ -85,7 +85,7 @@ function createNewChartElement(chartSetting: object, title: string, id: string) 
     throw Error("Could not create chart element");
   }
 
-  canvas.id = title;
+  canvas.id = id;
   h5.innerText = title;
   hidden.value = id;
   return el.firstElementChild;
@@ -98,10 +98,10 @@ async function displayCharts(container: HTMLDivElement) {
   json.forEach(setting => {
     const newChartSetting = createNewChartConfigFromSetting(chartSetting, setting);
     const title = setting.title.replace(" ", "-");
-    const id = setting._id;
+    const id = `chart-${setting._id}`;
     const element = createNewChartElement(newChartSetting, title, id);
     container.insertAdjacentElement("beforeend", element);
-    new Chart(container.querySelector("#" + title), newChartSetting);
+    new Chart(container.querySelector("#" + id), newChartSetting);
   });
 }
 

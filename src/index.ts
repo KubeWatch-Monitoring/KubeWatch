@@ -6,6 +6,8 @@ import {PrometheusService} from "./services/prometheus-service";
 import {PodStoreImpl} from "./services/pod-store-impl";
 import {ClusterDataStoreImpl} from "./services/cluster-data-store-impl";
 import {app} from "./app";
+import {DatabaseFillManager} from "./services/database-fill-manager";
+import {DatabasePrefillImpl} from "./model/database-prefill";
 
 interface EnvironmentVariables {
     expressSessionSecret: string,
@@ -92,6 +94,13 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
         app.notificationManager.addNotificationHandler(amazonSnsService);
     } catch (e) {
         console.log(e);
+    }
+    const mongoDbService = await MongoDbService.connect(environmentVariables.mongodbConnectionString);
+    const databaseFillManger = new DatabaseFillManager(mongoDbService);
+
+    if (!await databaseFillManger.isDatabaseFilledUp()) {
+        await databaseFillManger.fillUpDatabase(new DatabasePrefillImpl());
+        await databaseFillManger.setDatabaseFillUp(true);
     }
 
     const PORT = process.env.PORT || 8082;
