@@ -1,20 +1,34 @@
-export class ClusterData {
-    constructor(
-        public nodes: {
-            id: number,
-            label: string,
-            level: number,
-        }[],
-        public edges: {
-            from: number,
-            to: number,
-            arrows: string,
-        }[],
-    ) {
-    }
+export interface Vertex {
+    id: number,
+    label: string,
+    level: number,
 }
 
-export const kubeTypes = ([
+export interface Edge {
+    from: number,
+    to: number,
+    arrows: string,
+}
+
+export interface ClusterData {
+    vertices: Vertex[],
+    edges: Edge[],
+}
+
+export interface KubernetesElement {
+    type: string,
+    level: number,
+    query: string,
+    label: string,
+    ancestor: string,
+    ancestorType: string
+}
+
+export interface ClusterDataStore {
+    getClusterData(): Promise<ClusterData>;
+}
+
+export const kubernetesElements: KubernetesElement[] = ([
     // {type: "Cluster",       level: 1, query: "",                        label: "Cluster",       ancestor: "",           ancestorType: ""},
     {type: "Node",          level: 2, query: "kube_node_labels",        label: "node",          ancestor: "Cluster",    ancestorType: "Cluster"},
     {type: "Namespace",     level: 3, query: "kube_namespace_labels",   label: "namespace",     ancestor: "minikube",   ancestorType: "Node"},
@@ -25,15 +39,3 @@ export const kubeTypes = ([
     {type: "Pod",           level: 6, query: "kube_pod_owner",          label: "pod",           ancestor: "owner_name", ancestorType: "owner_kind"},
     {type: "Container",     level: 7, query: "kube_pod_container_info", label: "container",     ancestor: "pod",        ancestorType: "Pod"},
 ]);
-
-export interface IClusterVisParams {
-    label?: string,
-    ancestor?: string,
-    ancestorType?: string
-}
-
-export interface ClusterDataStore {
-    getClusterData(): Promise<ClusterData>;
-
-    // getClusterDataFromPrometheus(): Promise<void>;
-}

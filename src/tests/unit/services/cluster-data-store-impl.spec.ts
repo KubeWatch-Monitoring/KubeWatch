@@ -21,7 +21,7 @@ describe("Cluster Data", () => {
             const res: any = {
                 json: sinon.spy()
             };
-            const mockNodes = [
+            const mockVertices = [
                 {id: 1, label: "Node 1", level: 1},
                 {id: 2, label: "Node 2", level: 2},
                 {id: 3, label: "Node 3", level: 3},
@@ -36,13 +36,13 @@ describe("Cluster Data", () => {
                 {from: 3, to: 3, arrows: "to",},
             ];
             const mockClusterData = sinon.createStubInstance(ClusterDataStoreImpl);
-            mockClusterData.getClusterData.resolves({nodes: mockNodes, edges: mockEdges});
+            mockClusterData.getClusterData.resolves({vertices: mockVertices, edges: mockEdges});
             app.clusterDataStore = mockClusterData;
 
             await sendMockData.sendClusterData(req, res);
             expect(mockClusterData.getClusterData.called).matches;
             expect(res.json.called).to.be.true;
-            expect(res.json.calledWithMatch(mockNodes, mockEdges)).to.be.equals;
+            expect(res.json.calledWithMatch(mockVertices, mockEdges)).to.be.equals;
         });
     });
 });

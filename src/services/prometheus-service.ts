@@ -1,7 +1,13 @@
 import {PrometheusDriver} from 'prometheus-query';
 import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
-import {IClusterVisParams} from "../model/cluster-data";
+
+export interface GroupByInstantQueryParams {
+    query: string,
+    label: string,
+    ancestor: string,
+    ancestorType: string,
+}
 
 export class PrometheusService {
     private constructor(public driver: PrometheusDriver) {
@@ -21,10 +27,10 @@ export class PrometheusService {
         return instantQueryResponse.result.flat();
     }
 
-    async retrieveGroupByInstantQuery(query: string, queryParameters: IClusterVisParams) {
-        const queryParams = Object.values(queryParameters).join(",");
-        const customQuery = `group by (${queryParams}) (${query})`;
-        const customQueryResponse = await this.driver.instantQuery(customQuery);
+    async retrieveGroupByInstantQuery(params: GroupByInstantQueryParams) {
+        const queryParams = `${params.label}, ${params.ancestor}, ${params.ancestorType}`;
+        const query = `group by (${queryParams}) (${params.query})`;
+        const customQueryResponse = await this.driver.instantQuery(query);
         return customQueryResponse.result.flat();
     }
 
@@ -101,11 +107,5 @@ export class PrometheusService {
         if (pod == undefined)
             throw new Error(`Pod with ID ${id} does not exist`);
         return pod;
-    }
-
-    async getAllDeployments() {
-        const instantQuery = 'kube_deployment_created';
-        const instantQueryResponse = await this.driver.instantQuery(instantQuery);
-        return instantQueryResponse.result.flat();
     }
 }
