@@ -13,6 +13,7 @@ export class ClusterVisController {
     }
 
     async sendClusterData(req: Request, res: Response) {
+        // await req.app.clusterDataStore.getClusterDataFromPrometheus();
         res.json(await req.app.clusterDataStore.getClusterData());
     }
 }
