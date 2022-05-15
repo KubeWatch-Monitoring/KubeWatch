@@ -1,5 +1,5 @@
 import {Db, MongoClient} from "mongodb";
-import {Reconnectable} from "./Reconnectable";
+import {Reconnectable} from "./reconnectable";
 
 export class MongoDbService implements Reconnectable {
     db: Db;

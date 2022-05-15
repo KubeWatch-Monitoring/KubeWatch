@@ -6,7 +6,6 @@ import session from "express-session";
 
 import * as IndexRoutes from "./routes/index-routes";
 import * as PodRoutes from "./routes/pod-routes";
-import * as PrometheusRoutes from "./routes/prometheus-routes";
 import * as NotificationRoutes from "./routes/notification-routes";
 import * as SettingsRoutes from "./routes/settings-routes";
 import * as AdminRoutes from "./routes/admin-routes";
@@ -77,7 +76,6 @@ app.use(bodyParser.json());
 
 app.use(IndexRoutes.BASE_URL, IndexRoutes.indexRoutes);
 app.use(PodRoutes.BASE_URL, PodRoutes.podRoutes);
-app.use(PrometheusRoutes.BASE_URL, PrometheusRoutes.prometheusRoutes);
 app.use(NotificationRoutes.BASE_URL, NotificationRoutes.notificationRoutes);
 app.use(SettingsRoutes.BASE_URL, SettingsRoutes.settingsRoutes);
 app.use(AdminRoutes.BASE_URL, AdminRoutes.adminRoutes);

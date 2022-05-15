@@ -20,22 +20,6 @@ export class PrometheusService {
         return instantQueryResponse.result.flat();
     }
 
-    async retrieveRangeQuery() {
-        const q = 'up';
-        const start = new Date().getTime() - 24 * 60 * 60 * 1000;
-        const end = new Date();
-        const step = 60 // 1 point every 60 seconds
-        const rangeQueryResponse = await this.driver.rangeQuery(q, start, end, step);
-        return rangeQueryResponse.result;
-    }
-
-    async retrieveSeriesQuery() {
-        const match = 'up';
-        const start = new Date().getTime() - 24 * 60 * 60 * 1000;
-        const end = new Date();
-        return await this.driver.series(match, start, end);
-    }
-
     async getAllPods() {
         const excludeNamespaces = "kube-system|monitoring|kubernetes-dashboard";
         const getPodIdentificationsQuery = `sum by (uid, pod) (kube_pod_info{namespace!~"${excludeNamespaces}"})`;
@@ -93,11 +77,5 @@ export class PrometheusService {
         if (pod == undefined)
             throw new Error(`Pod with ID ${id} does not exist`);
         return pod;
-    }
-
-    async getAllDeployments() {
-        const instantQuery = 'kube_deployment_created';
-        const instantQueryResponse = await this.driver.instantQuery(instantQuery);
-        return instantQueryResponse.result.flat();
     }
 }
