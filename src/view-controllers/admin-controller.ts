@@ -18,9 +18,9 @@ export class AdminController {
 
     async reconnect(req: Request, res: Response) {
         try {
-            req.app.notificationStore.reconnect();
-            req.app.settingsStore.reconnect();
-            req.app.chartSettingStore.reconnect();
+            await req.app.notificationStore.reconnect();
+            await req.app.settingsStore.reconnect();
+            await req.app.chartSettingStore.reconnect();
         } catch (e) {
             res.redirect(`${AdminRoutes.BASE_URL}/?reconnect=false`);
             return;
