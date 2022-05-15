@@ -34,8 +34,8 @@ export const kubernetesElements: KubernetesElement[] = ([
     {type: "Namespace",     level: 3, query: "kube_namespace_labels",   label: "namespace",     ancestor: "minikube",   ancestorType: "Node"},
     {type: "Deployment",    level: 4, query: "kube_deployment_labels",  label: "deployment",    ancestor: "namespace",  ancestorType: "Namespace"},
     {type: "Statefulset",   level: 4, query: "kube_statefulset_labels", label: "statefulset",   ancestor: "namespace",  ancestorType: "Namespace"},
+    {type: "DaemonSet",     level: 4, query: "kube_daemonset_labels",   label: "daemonset",     ancestor: "namespace",        ancestorType: "Namespace"},
     {type: "Replicaset",    level: 5, query: "kube_replicaset_owner",   label: "replicaset",    ancestor: "owner_name", ancestorType: "owner_kind"},
-    {type: "DaemonSet",     level: 5, query: "kube_daemonset_labels",   label: "daemonset",     ancestor: "job",        ancestorType: "Deployment"},
     {type: "Pod",           level: 6, query: "kube_pod_owner",          label: "pod",           ancestor: "owner_name", ancestorType: "owner_kind"},
     {type: "Container",     level: 7, query: "kube_pod_container_info", label: "container",     ancestor: "pod",        ancestorType: "Pod"},
 ]);
