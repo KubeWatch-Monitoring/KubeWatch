@@ -187,11 +187,12 @@ describe("IndexController", () => {
         it("should delete the char setting with the given id from the database", async () => {
             const id = new ObjectId();
             req.body = {
-                id: id.toString(),
+                id: `chart-${id.toString()}`,
             };
 
             const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
             app.chartSettingStore = chartSettingStore;
+            chartSettingStore.deleteChartSetting.resolves(true);
 
             await controller.deleteCharSetting(req, res);
 
@@ -199,6 +200,57 @@ describe("IndexController", () => {
             expect(chartSettingStore.deleteChartSetting.calledWith(id)).to.be.true;
             expect(res.redirect.called).to.be.true;
             expect(res.redirect.calledWith("/?deleteAction&success")).to.be.true;
+        });
+        it("should redirect with query parameters when chart id has wrong format", async () => {
+            const id = new ObjectId();
+            req.body = {
+                id: `${id.toString()}`,
+            };
+
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+            chartSettingStore.deleteChartSetting.resolves(false);
+
+            await controller.deleteCharSetting(req, res);
+
+            expect(chartSettingStore.deleteChartSetting.called).to.be.false;
+            expect(chartSettingStore.deleteChartSetting.calledWith(id)).to.be.false;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/?deleteAction&failed")).to.be.true;
+        });
+        it("should redirect with query parameters when mongodb id has wrong format", async () => {
+            const id = new ObjectId();
+            req.body = {
+                id: `chart-asdfasdf`,
+            };
+
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+            chartSettingStore.deleteChartSetting.resolves(false);
+
+            await controller.deleteCharSetting(req, res);
+
+            expect(chartSettingStore.deleteChartSetting.called).to.be.false;
+            expect(chartSettingStore.deleteChartSetting.calledWith(id)).to.be.false;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/?deleteAction&failed")).to.be.true;
+        });
+        it("should redirect with query parameters when db deletion was not successful", async () => {
+            const id = new ObjectId();
+            req.body = {
+                id: `chart-${id.toString()}`,
+            };
+
+            const chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);
+            app.chartSettingStore = chartSettingStore;
+            chartSettingStore.deleteChartSetting.resolves(false);
+
+            await controller.deleteCharSetting(req, res);
+
+            expect(chartSettingStore.deleteChartSetting.called).to.be.true;
+            expect(chartSettingStore.deleteChartSetting.calledWith(id)).to.be.true;
+            expect(res.redirect.called).to.be.true;
+            expect(res.redirect.calledWith("/?deleteAction&failed")).to.be.true;
         });
         it("should redirect with query parameters when not successful", async () => {
             app.chartSettingStore = sinon.createStubInstance(ChartSettingStoreImpl);

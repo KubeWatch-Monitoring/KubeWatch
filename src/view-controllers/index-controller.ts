@@ -80,15 +80,19 @@ export class IndexController {
     async deleteCharSetting(req: Request, res: Response) {
         const URL_FAILED = `${IndexRoutes.BASE_URL}?deleteAction&failed`;
         const URL_SUCCESS = `${IndexRoutes.BASE_URL}?deleteAction&success`;
-        const {id} = req.body;
-        let objectId;
-        let deleteSuccessful;
 
-        if (id === undefined) {
+        if (req.body.id === undefined) {
             res.redirect(URL_FAILED);
             return;
         }
 
+        const idParts = req.body.id.toString().split("-");
+        if (idParts.length !=2) {
+            res.redirect(URL_FAILED);
+            return;
+        }
+        const id = idParts[1];
+        let objectId;
         try {
             objectId = new ObjectId(id);
         } catch (e) {
@@ -96,6 +100,7 @@ export class IndexController {
             return;
         }
 
+        let deleteSuccessful;
         try {
             deleteSuccessful = await req.app.chartSettingStore.deleteChartSetting(objectId);
         } catch(e) {
@@ -104,8 +109,8 @@ export class IndexController {
             return;
         }
 
-        if (deleteSuccessful) {
-            res.redirect(URL_SUCCESS);
+        if (!deleteSuccessful) {
+            res.redirect(URL_FAILED);
             return;
         }
 
