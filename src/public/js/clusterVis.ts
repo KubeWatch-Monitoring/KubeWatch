@@ -23,33 +23,34 @@ async function getClusterData(): Promise<{ nodes: any; edges: any }> {
 async function createNetwork() {
     const clusterData = await getClusterData();
     const container = document.getElementById("my-network") as HTMLElement;
+    const boxDist = 100;
     const options = {
-        manipulation: false,
-        edges: {
-            smooth: {
-                type: "cubicBezier",
-                forceDirection: "vertical",
-                roundness: 0.8
-            }
-        },
         layout: {
             hierarchical: {
                 enabled: true,
+                nodeSpacing: boxDist * 1.2,
+                levelSeparation: boxDist * 2,
+                sortMethod: "directed",
+                parentCentralization: false,
+                blockShifting: false,
+                edgeMinimization: false,
+                shakeTowards: "leaves",
             },
         },
         interaction: {
             multiselect: true,
         },
         physics: {
-            enabled: true,
-            hierarchicalRepulsion: {
-                avoidOverlap: 0.5
-            }
+            enabled: false,
         },
         nodes: {
             shape: "box",
             widthConstraint: {
-                maximum: 100
+                minimum: boxDist,
+                maximum: boxDist,
+            },
+            heightConstraint: {
+                minimum: boxDist * (2/3),
             }
         }
     };
