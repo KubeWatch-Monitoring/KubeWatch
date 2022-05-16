@@ -20,7 +20,7 @@ export class NotificationStoreImpl implements NotificationStore, NotificationHan
         await this.notificationCollection.updateOne(query, {$set: notification});
     }
 
-    async getAllNotifications() {
+    async getRecentNotifications() {
         return this.notificationCollection.find().toArray() as unknown as Notification[];
     }
 

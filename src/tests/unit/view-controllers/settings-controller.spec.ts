@@ -33,7 +33,7 @@ describe("SettingsController", () => {
             app.settingsStore = settingsStore;
             app.notificationStore = notificationStore;
             settingsStore.getSettings.resolves([new Setting("name", "value", SettingType.String)]);
-            notificationStore.getAllNotifications.resolves([]);
+            notificationStore.getRecentNotifications.resolves([]);
             notificationStore.getNotSilencedNotifications.resolves([]);
 
             await controller.getSettings(req, res);

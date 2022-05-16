@@ -38,6 +38,7 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
     const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
     const AmazonSnsService = (await import("./services/amazon-sns-service")).AmazonSnsService;
+    const AmazonSnsServiceProxy = (await import("./services/amazon-sns-service")).AmazonSnsServiceProxy;
     const EnvStore = (await import("./services/env-store-impl")).EnvStoreImpl;
     const envStore = new EnvStore();
     const environmentVariables: EnvironmentVariables = {
@@ -61,12 +62,13 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
     app.notificationManager.addNotificationHandler(app.notificationStore);
 
     try {
-        const amazonSnsService = await AmazonSnsService.connect(
+        const amazonSnsService = await AmazonSnsServiceProxy.connect(
             environmentVariables.awsSnsRegion,
             environmentVariables.awsSnsAccessKeyId,
             environmentVariables.awsSnsSecretAccessKey,
             environmentVariables.awsSnsSessionToken,
         );
+        app.notificationSubscriberStore = amazonSnsService;
         app.notificationManager.addNotificationHandler(amazonSnsService);
     } catch (e) {
         console.log(e);

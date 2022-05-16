@@ -6,6 +6,7 @@ import {Notification} from "../../../model/notification";
 import {ObjectId} from "mongodb";
 import {PrometheusService} from "../../../services/prometheus-service";
 import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {AmazonSnsServiceProxy} from "../../../services/amazon-sns-service";
 import {ControllerUtil} from "../../../utils/controller-util";
 import {TestHelper} from "../../test-helper";
 
@@ -13,6 +14,7 @@ import {TestHelper} from "../../test-helper";
 describe("NotificationController", () => {
     let controller: NotificationController;
     let notificationStore: any;
+    let notificationSubscriberStore: any;
     let prometheusService: any;
     let controllerUtil: any;
     let req: any;
@@ -21,6 +23,7 @@ describe("NotificationController", () => {
     beforeEach(() => {
         controllerUtil = sinon.createStubInstance(ControllerUtil);
         notificationStore = sinon.createStubInstance(NotificationStoreImpl);
+        notificationSubscriberStore = sinon.createStubInstance(AmazonSnsServiceProxy);
         prometheusService = sinon.createStubInstance(PrometheusService);
         controller = new NotificationController(controllerUtil);
 
@@ -31,31 +34,26 @@ describe("NotificationController", () => {
     describe("index", () => {
         it("should return a rendered html page", async () => {
             notificationStore.getNotSilencedNotifications.resolves([]);
-            notificationStore.getAllNotifications.resolves([]);
+            notificationStore.getRecentNotifications.resolves([]);
             app.notificationStore = notificationStore;
+            app.notificationSubscriberStore = notificationSubscriberStore;
             prometheusService.getAllPods.resolves([]);
 
             await controller.getIndex(req, res);
-            expect(notificationStore.getAllNotifications.called).to.be.true;
+            expect(notificationStore.getRecentNotifications.called).to.be.true;
             expect(controllerUtil.render.called).to.be.true;
-            expect(controllerUtil.render.calledWith("listNotifications", {
-                notifications: [],
-            })).to.be.true;
         });
 
         it("should return a rendered html page but database availability set to false", async () => {
             notificationStore.getNotSilencedNotifications.rejects();
-            notificationStore.getAllNotifications.rejects();
+            notificationStore.getRecentNotifications.rejects();
             app.notificationStore = notificationStore;
             prometheusService.getAllPods.resolves([]);
 
             await controller.getIndex(req, res);
-            expect(notificationStore.getAllNotifications.called).to.be.true;
+            expect(notificationStore.getRecentNotifications.called).to.be.true;
             expect(controllerUtil.setDatabaseAvailability.calledWith(false)).to.be.true;
             expect(controllerUtil.render.called).to.be.true;
-            expect(controllerUtil.render.calledWith("listNotifications", {
-                notifications: [],
-            })).to.be.true;
         });
     });
     describe("silenceNotification", () => {

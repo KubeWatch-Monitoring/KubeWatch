@@ -16,7 +16,7 @@ import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
 
 import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
-import {NotificationStore} from "./model/notification";
+import {NotificationStore, NotificationSubscriberStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
 import {PodStore} from "./model/pod";
 import {ThresholdMonitor} from "./domain/threshold-monitor";
@@ -43,6 +43,7 @@ declare global {
             notificationManager: NotificationManager;
             prometheusWatcher: ThresholdMonitor;
             clusterDataStore: ClusterDataStore;
+            notificationSubscriberStore: NotificationSubscriberStore;
         }
     }
 }

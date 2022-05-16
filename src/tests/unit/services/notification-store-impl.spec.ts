@@ -59,7 +59,7 @@ describe("NotificationStoreImpl", () => {
             cursor.toArray.resolves(expectedNotifications);
             collection.find.returns(cursor);
 
-            const notifications = await store.getAllNotifications();
+            const notifications = await store.getRecentNotifications();
 
             expect(collection.find.called).to.be.true;
             expect(collection.find.calledWith()).to.be.true;
@@ -71,7 +71,7 @@ describe("NotificationStoreImpl", () => {
             cursor.toArray.resolves(expectedNotifications);
             collection.find.returns(cursor);
 
-            const notifications = await store.getAllNotifications();
+            const notifications = await store.getRecentNotifications();
 
             expect(collection.find.called).to.be.true;
             expect(collection.find.calledWith()).to.be.true;

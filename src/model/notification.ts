@@ -20,9 +20,19 @@ export interface NotificationStore extends NotificationHandler, Reconnectable {
 
     updateNotification(notification: Notification): Promise<void>;
 
-    getAllNotifications(): Promise<Notification[]>;
+    getRecentNotifications(): Promise<Notification[]>;
 
     getNotSilencedNotifications(): Promise<Notification[]>;
 
     createNotification(notification: Notification): Promise<Notification>;
+}
+
+export interface NotificationSubscriberStore {
+    listEmailSubscribers(): Promise<string[]>;
+
+    addEmailSubscriber(email: string): Promise<void>;
+
+    removeEmailSubscriber(email: string): Promise<void>;
+
+    isAvailable(): boolean;
 }

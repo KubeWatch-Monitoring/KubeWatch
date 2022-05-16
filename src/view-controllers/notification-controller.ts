@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import {ObjectId} from "mongodb";
 import {Notification} from "../model/notification";
 import {controllerUtil, ControllerUtil} from "../utils/controller-util";
+import {BASE_URL} from "../routes/notification-routes";
 
 export class NotificationController {
 
@@ -12,13 +13,14 @@ export class NotificationController {
         let notifications: Notification[] = [];
 
         try {
-            notifications = await req.app.notificationStore.getAllNotifications();
+            notifications = await req.app.notificationStore.getRecentNotifications();
         } catch (e) {
             this.controllerUtil.setDatabaseAvailability(false);
         }
+        const emailSubscribers = await req.app.notificationSubscriberStore.listEmailSubscribers();
 
-        await this.controllerUtil.render("listNotifications", {
-            notifications,
+        await this.controllerUtil.render("notifications", {
+            notifications, emailSubscribers,
         }, req, res);
     }
 
@@ -59,7 +61,27 @@ export class NotificationController {
         const {message} = req.body;
         const notification = new Notification(message, new Date());
         await req.app.notificationManager.triggerNotification(notification);
-        res.redirect(303, "/");
+        res.redirect("/");
+    }
+
+    async subscribe(req: Request, res: Response) {
+        const email = req.body.email;
+        try {
+            await req.app.notificationSubscriberStore.addEmailSubscriber(email);
+        } catch(e) {
+            //
+        }
+        res.redirect(BASE_URL);
+    }
+
+    async unsubscribe(req: Request, res: Response) {
+        const email = req.body.email;
+        try {
+            await req.app.notificationSubscriberStore.removeEmailSubscriber(email);
+        } catch(e) {
+            //
+        }
+        res.redirect(BASE_URL);
     }
 }
 

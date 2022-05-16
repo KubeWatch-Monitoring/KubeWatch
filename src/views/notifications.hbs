@@ -6,15 +6,7 @@
 {{#section 'scripts'}}
 {{/section}}
 
-
-<form action="/notifications/trigger" method="POST">
-    <div class="form-group">
-        <label for="message">Message</label>
-        <input type="text" name="message" id="message" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary mt-3">Trigger Notification</button>
-</form>
-
+<h1>Notifications</h1>
 {{#if notifications.length }}
     {{#each notifications}}
         <div class="row">
@@ -47,5 +39,33 @@
         </div>
     {{/each}}
 {{else}}
-    <p>No notifications are here!</p>
+    <div class="mb-3">
+        <p>No notifications are here!</p>
+    </div>
 {{/if}}
+
+<h2>Trigger Notification</h2>
+<form action="/notifications/trigger" method="POST">
+    <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <input type="text" name="message" id="message" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Trigger Notification</button>
+</form>
+
+<h2>Notification Receivers</h2>
+{{#each emailSubscribers}}
+    <form action="/notifications/unsubscribe" method="POST">
+        <div class="input-group mb-3">
+            <input readonly type="text" name="email" value="{{this}}" class="form-control" placeholder="Email"
+                   aria-label="Email">
+            <button type="submit" class="btn btn-outline-danger">Unsubscribe</button>
+        </div>
+    </form>
+{{/each}}
+<form action="/notifications/subscribe" method="POST">
+    <div class="input-group mb-3">
+        <input type="text" name="email" placeholder="Email" aria-label="Email" class="form-control">
+        <button type="submit" class="btn btn-outline-secondary">Subscribe</button>
+    </div>
+</form>
