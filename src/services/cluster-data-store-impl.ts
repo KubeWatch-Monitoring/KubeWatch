@@ -21,15 +21,15 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
     }
 
     private async getClusterDataFromPrometheus() {
+        let id = 0;
         const elements: (KubernetesElement & Vertex)[] = [
-            {id: 0, type: "Cluster", level: 1, label: "Cluster", ancestor: "", ancestorType: "", query: "",}
+            {id: id++, type: "Cluster", level: 1, label: "Cluster", ancestor: "", ancestorType: "", query: "",}
         ];
-        let uuid = 1; // sooo ugly, change to proper mongodb entry
         for (const element of kubernetesElements) {
             const result = await this.prometheusService.retrieveGroupByInstantQuery(element);
             result.forEach((r: any) => {
                 elements.push({
-                    id: uuid++,
+                    id: id++,
                     type: element.type,
                     level: element.level,
                     label: r.metric.labels[element.label] ?? element.label,
@@ -52,7 +52,6 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
             });
         });
         return nodes;
-
     }
 
     private async createEdges(elements: (KubernetesElement & Vertex)[], nodes: Vertex[]) {

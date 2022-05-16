@@ -39,6 +39,9 @@ async function createNetwork() {
         physics: {
             enabled: false,
         },
+        nodes: {
+            shape: "box",
+        }
     };
     new vis.Network(container, clusterData, options);
 }
