@@ -7,7 +7,6 @@ export interface Vertex {
 export interface Edge {
     from: number,
     to: number,
-    arrows: string,
 }
 
 export interface ClusterData {
@@ -16,7 +15,7 @@ export interface ClusterData {
 }
 
 export interface KubernetesElement {
-    type: string,
+    type: ClusterType,
     level: number,
     query: string,
     label: string,
@@ -28,8 +27,11 @@ export interface ClusterDataStore {
     getClusterData(): Promise<ClusterData>;
 }
 
+export type ClusterType = | "Cluster" | "<none>" | "Node" | "Namespace" | "Deployment" | "Statefulset" | "DaemonSet" | "ReplicaSet" | "Pod" | "Container";
+
 export const kubernetesElements: KubernetesElement[] = ([
-    // {type: "Cluster",       level: 1, query: "",                        label: "Cluster",       ancestor: "",           ancestorType: ""},
+    {type: "Cluster",       level: 1, query: "",                        label: "Cluster",       ancestor: "",           ancestorType: ""},
+    {type: "<none>",        level: 1, query: "",                        label: "<none>",        ancestor: "",           ancestorType: ""},
     {type: "Node",          level: 2, query: "kube_node_labels",        label: "node",          ancestor: "Cluster",    ancestorType: "Cluster"},
     {type: "Namespace",     level: 3, query: "kube_namespace_labels",   label: "namespace",     ancestor: "minikube",   ancestorType: "Node"},
     {type: "Deployment",    level: 4, query: "kube_deployment_labels",  label: "deployment",    ancestor: "namespace",  ancestorType: "Namespace"},

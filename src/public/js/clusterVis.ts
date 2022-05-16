@@ -24,23 +24,33 @@ async function createNetwork() {
     const clusterData = await getClusterData();
     const container = document.getElementById("my-network") as HTMLElement;
     const options = {
+        manipulation: false,
+        edges: {
+            smooth: {
+                type: "cubicBezier",
+                forceDirection: "vertical",
+                roundness: 0.8
+            }
+        },
         layout: {
             hierarchical: {
                 enabled: true,
-                treeSpacing: 300,
-                levelSeparation: 100,
-                nodeSpacing: 300,
             },
         },
         interaction: {
             multiselect: true,
-            navigationButtons: true,
         },
         physics: {
-            enabled: false,
+            enabled: true,
+            hierarchicalRepulsion: {
+                avoidOverlap: 0.5
+            }
         },
         nodes: {
             shape: "box",
+            widthConstraint: {
+                maximum: 100
+            }
         }
     };
     new vis.Network(container, clusterData, options);

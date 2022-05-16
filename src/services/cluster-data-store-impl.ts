@@ -22,11 +22,14 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
 
     private async getClusterDataFromPrometheus() {
         let id = 0;
-        const elements: (KubernetesElement & Vertex)[] = [
-            {id: id++, type: "Cluster", level: 1, label: "Cluster", ancestor: "", ancestorType: "", query: "",}
-        ];
+        const elements: (KubernetesElement & Vertex)[] = [];
         for (const element of kubernetesElements) {
-            const result = await this.prometheusService.retrieveGroupByInstantQuery(element);
+            let result;
+            try {
+                result = await this.prometheusService.retrieveGroupByInstantQuery(element);
+            } catch (err) {
+                result = [{ metric: { labels: { } }}];
+            }
             result.forEach((r: any) => {
                 elements.push({
                     id: id++,
@@ -56,11 +59,11 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
 
     private async createEdges(elements: (KubernetesElement & Vertex)[], nodes: Vertex[]) {
         const edges: Edge[] = [];
-        for (const element of elements.reverse()) {
+        for (const element of elements) {
             const indexTarget = nodes.find(node => node.label === `${element.ancestorType}:\n${element.ancestor}`);
             if (indexTarget) {
                 edges.push(
-                    {from: element.id, to: nodes[indexTarget.id].id, arrows: "from"}
+                    {from: element.id, to: nodes[indexTarget.id].id}
                 );
             }
         }
