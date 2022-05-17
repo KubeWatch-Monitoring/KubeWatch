@@ -101,7 +101,7 @@ async function displayCharts(container: HTMLDivElement) {
     const id = `chart-${setting._id}`;
     const element = createNewChartElement(newChartSetting, title, id);
     container.insertAdjacentElement("beforeend", element);
-    new Chart(container.querySelector("#" + id), newChartSetting);
+    const chart = new Chart(container.querySelector("#" + id), newChartSetting);
   });
 }
 
