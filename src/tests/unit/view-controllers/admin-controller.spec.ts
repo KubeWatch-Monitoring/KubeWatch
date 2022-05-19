@@ -5,6 +5,7 @@ import {AdminController} from "../../../view-controllers/admin-controller";
 import {TestHelper} from "../../test-helper";
 import {NotificationStoreImpl} from "../../../services/notification-store-impl";
 import {ControllerUtil} from "../../../utils/controller-util";
+import {EnvironmentVariables} from "../../../services/env-store-impl";
 
 describe("AdminController", () => {
     let controller: AdminController;
@@ -40,6 +41,30 @@ describe("AdminController", () => {
             expect(controllerUtil.setDatabaseAvailability.calledWith(true)).to.be.true;
             expect(controllerUtil.render.called).to.be.true;
             expect(controllerUtil.render.calledWithMatch("admin", {}, req, res)).to.be.true;
+        });
+    });
+
+    describe("getPrometheusUrl", () => {
+        it("should return configured prometheus url", async () => {
+            app.environmentVariables = {
+                expressSessionSecret: "",
+                mongodbConnectionString: "",
+                prometheusConnectionString: "blubblub",
+                awsSnsRegion: "",
+                awsSnsAccessKeyId: "",
+                awsSnsSecretAccessKey: "",
+                awsSnsSessionToken: "",
+            };
+            const expectedValue = {
+                url: app.environmentVariables.prometheusConnectionString,
+            };
+            req.app = app;
+
+            await controller.getPrometheusUrl(req, res);
+            expect(res.setHeader.called).to.be.true;
+            expect(res.setHeader.calledWith("Content-Type", "application/json")).to.be.true;
+            expect(res.end.called).to.be.true;
+            expect(res.end.calledWith(JSON.stringify(expectedValue))).to.be.true;
         });
     });
 });

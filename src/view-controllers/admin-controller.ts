@@ -30,8 +30,7 @@ export class AdminController {
 
     async getPrometheusUrl(req: Request, res: Response) {
         const value = {
-            // TODO: Retrieve from env variables
-            url: "http://127.0.0.1:9090"
+            url:  req.app.environmentVariables.prometheusConnectionString
         };
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(value));

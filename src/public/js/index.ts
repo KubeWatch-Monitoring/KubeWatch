@@ -1,5 +1,4 @@
 Chart.plugins.register(ChartDatasourcePrometheusPlugin);
-
 const chartTemplate = "<div class='accordion-body'><div class='card'><div class='card-header'>" +
     "<h5>title</h5>" +
     "<form action='/delete' method='post'>" +
@@ -10,37 +9,47 @@ const chartTemplate = "<div class='accordion-body'><div class='card'><div class=
     "<canvas id='id'></canvas>" +
     "</div></div></div></div></div>";
 
+(async () => {
+  const divContainer = document.querySelector<HTMLDivElement>("#chart-container");
+  if (!divContainer) {
+    throw Error("Chart container not found");
+  }
 
-const divContainer = document.querySelector<HTMLDivElement>("#chart-container");
-if (!divContainer) {
-  throw Error("Chart container not found");
-}
-
-// TODO: remove hard coded prometheus endpoint
-const chartSetting = {
-  type: 'line',
-  plugins: [ChartDatasourcePrometheusPlugin],
-  options: {
-    animation: {
-      duration: 0,
-    },
-    plugins: {
-      'datasource-prometheus': {
-        prometheus: {
-          endpoint: 'http://127.0.0.1:9090',
-          baseURL: '/api/v1',   // default value
-        },
-        query: '',
-        timeRange: {
-          type: 'relative',
-          start: 0,
-          end: 0,
-          msUpdateInterval: 0,
+  const prometheusEndpoint = await getPrometheusEndpoint();
+  const chartSetting = {
+    type: 'line',
+    plugins: [ChartDatasourcePrometheusPlugin],
+    options: {
+      animation: {
+        duration: 0,
+      },
+      plugins: {
+        'datasource-prometheus': {
+          prometheus: {
+            endpoint: prometheusEndpoint,
+            baseURL: '/api/v1',   // default value
+          },
+          query: '',
+          timeRange: {
+            type: 'relative',
+            start: 0,
+            end: 0,
+            msUpdateInterval: 0,
+          },
         },
       },
     },
-  },
-};
+  };
+
+  await displayCharts(divContainer, chartSetting)
+  registerCollapsableButton();
+})();
+
+async function getPrometheusEndpoint() {
+  const response = await fetch("/admin/prometheusEndpoint");
+  const json = await response.json();
+  return json.url;
+}
 
 function registerCollapsableButton() {
   document.querySelectorAll<HTMLButtonElement>(".btn-collapse").forEach((e) => {
@@ -91,7 +100,7 @@ function createNewChartElement(chartSetting: object, title: string, id: string) 
   return el.firstElementChild;
 }
 
-async function displayCharts(container: HTMLDivElement) {
+async function displayCharts(container: HTMLDivElement, chartSetting: object) {
   const result = await fetch("/all");
   const json = await result.json();
 
@@ -105,4 +114,3 @@ async function displayCharts(container: HTMLDivElement) {
   });
 }
 
-displayCharts(divContainer).then(() => registerCollapsableButton());

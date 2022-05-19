@@ -22,6 +22,7 @@ import {ThresholdMonitor} from "./domain/threshold-monitor";
 import {NotificationManager} from "./domain/notification-manager";
 import {ClusterDataStore} from "./model/cluster-data";
 import {ChartSettingStore} from "./model/chart-setting";
+import {EnvironmentVariables} from "./services/env-store-impl";
 
 declare module "express-session" {
     interface SessionData {
@@ -33,6 +34,7 @@ declare module "express-session" {
 declare global {
     namespace Express {
         interface Application {
+            environmentVariables: EnvironmentVariables;
             settingsStore: SettingStore;
             notificationStore: NotificationStore;
             podStore: PodStore;

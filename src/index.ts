@@ -8,33 +8,7 @@ import {ClusterDataStoreImpl} from "./services/cluster-data-store-impl";
 import {app} from "./app";
 import {DatabaseFillManager} from "./services/database-fill-manager";
 import {DatabasePrefillImpl} from "./model/database-prefill";
-
-interface EnvironmentVariables {
-    expressSessionSecret: string,
-    mongodbConnectionString: string,
-    prometheusConnectionString: string,
-    awsSnsRegion: string,
-    awsSnsAccessKeyId: string,
-    awsSnsSecretAccessKey: string,
-    awsSnsSessionToken: string,
-}
-
-export enum EnvironmentVariable {
-    EXPRESS_SESSION_SECRET = "EXPRESS_SESSION_SECRET",
-    DB_CONN_STRING = "DB_CONN_STRING",
-    PROMETHEUS_CONN_STRING = "PROMETHEUS_CONN_STRING",
-    AWS_SNS_REGION = "AWS_SNS_REGION",
-    AWS_SNS_ACCESS_KEY_ID = "AWS_SNS_ACCESS_KEY_ID",
-    AWS_SNS_SECRET_ACCESS_KEY = "AWS_SNS_SECRET_ACCESS_KEY",
-    AWS_SNS_SESSION_TOKEN = "AWS_SNS_SESSION_TOKEN",
-}
-
-export function getEnvVar(name: EnvironmentVariable): string {
-    const value = process.env[name];
-    if (value === undefined)
-        throw new Error(`Environment variable ${name} is missing`);
-    return value;
-}
+import {EnvironmentVariable, EnvironmentVariables} from "./services/env-store-impl";
 
 async function setupDatabaseStores(environmentVariables: EnvironmentVariables) {
     try {
@@ -64,15 +38,18 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
     const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
     const AmazonSnsService = (await import("./services/amazon-sns-service")).AmazonSnsService;
+    const EnvStore = (await import("./services/env-store-impl")).EnvStoreImpl;
+
+    const envStore = new EnvStore();
 
     const environmentVariables: EnvironmentVariables = {
-        expressSessionSecret: getEnvVar(EnvironmentVariable.EXPRESS_SESSION_SECRET),
-        mongodbConnectionString: getEnvVar(EnvironmentVariable.DB_CONN_STRING),
-        prometheusConnectionString: getEnvVar(EnvironmentVariable.PROMETHEUS_CONN_STRING),
-        awsSnsRegion: getEnvVar(EnvironmentVariable.AWS_SNS_REGION),
-        awsSnsAccessKeyId: getEnvVar(EnvironmentVariable.AWS_SNS_ACCESS_KEY_ID),
-        awsSnsSecretAccessKey: getEnvVar(EnvironmentVariable.AWS_SNS_SECRET_ACCESS_KEY),
-        awsSnsSessionToken: getEnvVar(EnvironmentVariable.AWS_SNS_SESSION_TOKEN),
+        expressSessionSecret: envStore.getEnvVar(EnvironmentVariable.EXPRESS_SESSION_SECRET),
+        mongodbConnectionString: envStore.getEnvVar(EnvironmentVariable.DB_CONN_STRING),
+        prometheusConnectionString: envStore.getEnvVar(EnvironmentVariable.PROMETHEUS_CONN_STRING),
+        awsSnsRegion: envStore.getEnvVar(EnvironmentVariable.AWS_SNS_REGION),
+        awsSnsAccessKeyId: envStore.getEnvVar(EnvironmentVariable.AWS_SNS_ACCESS_KEY_ID),
+        awsSnsSecretAccessKey: envStore.getEnvVar(EnvironmentVariable.AWS_SNS_SECRET_ACCESS_KEY),
+        awsSnsSessionToken: envStore.getEnvVar(EnvironmentVariable.AWS_SNS_SESSION_TOKEN),
     };
 
     await setupDatabaseStores(environmentVariables);
@@ -81,6 +58,7 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
     const thresholdMonitor = new ThresholdMonitor(app.settingsStore, app.podStore, app.notificationManager);
     thresholdMonitor.monitorPods();
 
+    app.environmentVariables = environmentVariables;
     app.notificationManager = new NotificationManager();
     app.notificationManager.addNotificationHandler(app.notificationStore);
 
