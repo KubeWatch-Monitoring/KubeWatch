@@ -1,4 +1,5 @@
 import {Request, Response} from "express";
+import http from "http"
 import {controllerUtil, ControllerUtil} from "../utils/controller-util";
 
 export class PrometheusController {
@@ -21,8 +22,12 @@ export class PrometheusController {
             res.end("");
             return;
         }
-        const response = await fetch(`${req.app.environmentVariables.prometheusConnectionString}/api/v1/${queryType}?${query}`);
-        res.end(await response.text());
+
+        http.get(`${req.app.environmentVariables.prometheusConnectionString}/api/v1/${queryType}?${query}`, r => {
+            r.on('data', d => {
+                res.end(d);
+            })
+        });
     }
 
     private queryToString(query: any): string {
