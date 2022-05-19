@@ -1,7 +1,6 @@
 Chart.plugins.register(ChartDatasourcePrometheusPlugin);
 
 (async () => {
-  const prometheusEndpoint = await getPrometheusEndpoint();
   const config = {
     type: 'line',
     plugins: [ChartDatasourcePrometheusPlugin],
@@ -12,8 +11,8 @@ Chart.plugins.register(ChartDatasourcePrometheusPlugin);
       plugins: {
         'datasource-prometheus': {
           prometheus: {
-            endpoint: prometheusEndpoint,
-            baseURL: '/api/v1',   // default value
+            endpoint: window.location.origin,
+            baseURL: '/prometheus/endpoint',
           },
           query: 'sum by (pod) (container_cpu_system_seconds_total{namespace!~"kube-system|monitoring|kubernetes-dashboard", pod!~""})',
           timeRange: {
@@ -73,9 +72,3 @@ Chart.plugins.register(ChartDatasourcePrometheusPlugin);
   });
 
 })();
-
-async function getPrometheusEndpoint() {
-  const response = await fetch("/admin/prometheusEndpoint");
-  const json = await response.json();
-  return json.url;
-}

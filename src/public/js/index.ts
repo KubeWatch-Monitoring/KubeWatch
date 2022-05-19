@@ -15,7 +15,6 @@ const chartTemplate = "<div class='accordion-body'><div class='card'><div class=
     throw Error("Chart container not found");
   }
 
-  const prometheusEndpoint = await getPrometheusEndpoint();
   const chartSetting = {
     type: 'line',
     plugins: [ChartDatasourcePrometheusPlugin],
@@ -26,8 +25,8 @@ const chartTemplate = "<div class='accordion-body'><div class='card'><div class=
       plugins: {
         'datasource-prometheus': {
           prometheus: {
-            endpoint: prometheusEndpoint,
-            baseURL: '/api/v1',   // default value
+            endpoint: window.location.origin,
+            baseURL: '/prometheus/endpoint',
           },
           query: '',
           timeRange: {
@@ -44,12 +43,6 @@ const chartTemplate = "<div class='accordion-body'><div class='card'><div class=
   await displayCharts(divContainer, chartSetting)
   registerCollapsableButton();
 })();
-
-async function getPrometheusEndpoint() {
-  const response = await fetch("/admin/prometheusEndpoint");
-  const json = await response.json();
-  return json.url;
-}
 
 function registerCollapsableButton() {
   document.querySelectorAll<HTMLButtonElement>(".btn-collapse").forEach((e) => {
