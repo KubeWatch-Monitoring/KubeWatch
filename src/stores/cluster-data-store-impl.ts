@@ -36,13 +36,32 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
                     type: element.type,
                     level: element.level,
                     label: r.metric.labels[element.label] ?? element.label,
-                    ancestor: r.metric.labels[element.ancestor] ?? element.ancestor,
-                    ancestorType: r.metric.labels[element.ancestorType] ?? element.ancestorType,
+                    ancestor: this.evaluateAncestor(r, element),
+                    ancestorType: this.evaluateAncestorType(r, element),
+                    alternativeAncestor: "",
+                    alternativeAncestorType: "",
                     query: "",
                 });
             })
         }
+        console.log(elements);
         return elements;
+    }
+
+    private evaluateAncestor(promResult: any, element: KubernetesElement) {
+        const promAncestor = promResult.metric.labels[element.ancestor] ?? element.ancestor;
+        if(promAncestor === "<none>") {
+            return promResult.metric.labels[element.alternativeAncestor] ?? element.alternativeAncestor;
+        }
+        return promAncestor;
+    }
+
+    private evaluateAncestorType(promResult: any, element: KubernetesElement) {
+        const promAncestorType = promResult.metric.labels[element.ancestorType] ?? element.ancestorType;
+        if(promAncestorType === "<none>") {
+            return promResult.metric.labels[element.alternativeAncestorType] ?? element.alternativeAncestorType;
+        }
+        return promAncestorType ;
     }
 
     private async createNodes(elements: (KubernetesElement & Vertex)[]) {

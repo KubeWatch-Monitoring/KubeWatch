@@ -7,6 +7,8 @@ export interface GroupByInstantQueryParams {
     label: string,
     ancestor: string,
     ancestorType: string,
+    alternativeAncestor?: string,
+    alternativeAncestorType?: string,
 }
 
 export class PrometheusService {
@@ -28,7 +30,10 @@ export class PrometheusService {
     }
 
     async retrieveGroupByInstantQuery(params: GroupByInstantQueryParams) {
-        const queryParams = `${params.label}, ${params.ancestor}, ${params.ancestorType}`;
+        const queryParams = `${params.label}, ${params.ancestor}, ${params.ancestorType}, ${params.alternativeAncestor}, ${params.alternativeAncestorType}`
+            .split(",")
+            .filter((e) => e !== " ")
+            .toString();
         const query = `group by (${queryParams}) (${params.query})`;
         const customQueryResponse = await this.driver.instantQuery(query);
         return customQueryResponse.result.flat();
