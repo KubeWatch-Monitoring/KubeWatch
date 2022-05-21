@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
+import http from "http"
 import {controllerUtil, ControllerUtil} from "../utils/controller-util";
-import {Metric} from "prometheus-query";
 
 export class PrometheusController {
     controllerUtil: ControllerUtil;
@@ -9,23 +9,33 @@ export class PrometheusController {
         this.controllerUtil = controllerUtil;
     }
 
-    async getMetrics(req: Request, res: Response) {
-        let rangeMetrics = [];
-        let instantMetrics = [];
-        let seriesMetrics: Metric[] = [];
-        try {
-            rangeMetrics = await req.app.podStore.testRangeQuery();
-            instantMetrics = await req.app.podStore.testInstantQuery();
-            seriesMetrics = await req.app.podStore.testSeriesQuery();
+    async prometheusEndpoint(req: Request, res: Response) {
+        const query = this.queryToString(req.query);
+        const queryType = req.params.queryType;
+        if (queryType === undefined) {
+            res.status(400);
+            res.end("");
+            return;
         }
-        catch (e) {
-            this.controllerUtil.setDatabaseAvailability(false);
+        if (query.length === 0) {
+            res.status(400);
+            res.end("");
+            return;
         }
-        await this.controllerUtil.render("promView", {
-            rangeMetrics,
-            instantMetrics,
-            seriesMetrics,
-        }, req, res);
+
+        http.get(`${req.app.environmentVariables.prometheusConnectionString}/api/v1/${queryType}?${query}`, r => {
+            r.on('data', d => {
+                res.end(d);
+            })
+        });
+    }
+
+    private queryToString(query: any): string {
+        const queryString = Object.entries(query).reduce((previous, current) => {
+            if (current[1] === undefined) return previous;
+            return `${previous}${current[0]}=${current[1]}&`;
+        }, "");
+        return queryString.substring(0, queryString.length-1);
     }
 }
 

@@ -2,6 +2,13 @@ import {PrometheusDriver} from 'prometheus-query';
 import {Health, Pod} from "../model/pod";
 import {MetricsData} from "../model/metrics-data";
 
+export interface GroupByInstantQueryParams {
+    query: string,
+    label: string,
+    ancestor: string,
+    ancestorType: string,
+}
+
 export class PrometheusService {
     private constructor(public driver: PrometheusDriver) {
     }
@@ -18,6 +25,13 @@ export class PrometheusService {
         const instantQuery = 'kube_pod_container_info{container!=""}';
         const instantQueryResponse = await this.driver.instantQuery(instantQuery);
         return instantQueryResponse.result.flat();
+    }
+
+    async retrieveGroupByInstantQuery(params: GroupByInstantQueryParams) {
+        const queryParams = `${params.label}, ${params.ancestor}, ${params.ancestorType}`;
+        const query = `group by (${queryParams}) (${params.query})`;
+        const customQueryResponse = await this.driver.instantQuery(query);
+        return customQueryResponse.result.flat();
     }
 
     async retrieveRangeQuery() {
@@ -93,11 +107,5 @@ export class PrometheusService {
         if (pod == undefined)
             throw new Error(`Pod with ID ${id} does not exist`);
         return pod;
-    }
-
-    async getAllDeployments() {
-        const instantQuery = 'kube_deployment_created';
-        const instantQueryResponse = await this.driver.instantQuery(instantQuery);
-        return instantQueryResponse.result.flat();
     }
 }

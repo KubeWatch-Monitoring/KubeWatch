@@ -12,16 +12,4 @@ export class PodStoreImpl implements PodStore {
     async getPodById(id: string) {
         return this.prometheusService.getPodById(id);
     }
-
-    async testInstantQuery() {
-        return this.prometheusService.retrieveInstantQuery()
-    }
-
-    async testRangeQuery() {
-        return this.prometheusService.retrieveRangeQuery();
-    }
-
-    async testSeriesQuery() {
-        return this.prometheusService.retrieveSeriesQuery()
-    }
 }

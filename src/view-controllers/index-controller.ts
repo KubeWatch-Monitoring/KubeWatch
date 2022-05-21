@@ -32,6 +32,7 @@ export class IndexController {
     }
 
     async postEditDashboard(req: Request, res: Response) {
+        const ONE_SECOND = 1000;
         const {
             promql,
             title,
@@ -52,13 +53,12 @@ export class IndexController {
         const chart = new ChartSetting(
             title,
             promql,
-            parseInt(start),
-            parseInt(end),
-            parseInt(updateInterval),
+            Math.abs(parseFloat(start)) * -ONE_SECOND,
+            Math.abs(parseFloat(end)) * -ONE_SECOND,
+            Math.abs(parseFloat(updateInterval)) * ONE_SECOND,
             undefined);
 
-        const ONE_SECOND = 1000
-        if (chart.updateInterval < ONE_SECOND) {
+        if (chart.updateInterval < ONE_SECOND || chart.start > 0 || chart.end > 0) {
             const query = this.paramsToQueryParams(params);
             res.redirect(`/edit${(query.length > 0) ? "?" + query : ""}`);
             return;
@@ -80,32 +80,31 @@ export class IndexController {
     async deleteCharSetting(req: Request, res: Response) {
         const URL_FAILED = `${IndexRoutes.BASE_URL}?deleteAction&failed`;
         const URL_SUCCESS = `${IndexRoutes.BASE_URL}?deleteAction&success`;
-        const {id} = req.body;
-        let objectId;
-        let deleteSuccessful;
 
-        if (id === undefined) {
+        if (!this.areAllParamsAvailable({id: req.body.id})) {
             res.redirect(URL_FAILED);
             return;
         }
 
+        let id;
         try {
-            objectId = new ObjectId(id);
+            id = IndexController.extractMongodbId(req.body.id);
         } catch (e) {
             res.redirect(URL_FAILED);
             return;
         }
 
+        let deleteSuccessful;
         try {
-            deleteSuccessful = await req.app.chartSettingStore.deleteChartSetting(objectId);
+            deleteSuccessful = await req.app.chartSettingStore.deleteChartSetting(id);
         } catch(e) {
             this.controllerUtil.setDatabaseAvailability(false);
             res.redirect(URL_FAILED);
             return;
         }
 
-        if (deleteSuccessful) {
-            res.redirect(URL_SUCCESS);
+        if (!deleteSuccessful) {
+            res.redirect(URL_FAILED);
             return;
         }
 
@@ -124,6 +123,14 @@ export class IndexController {
             return `${previous}${current[0]}=${current[1]}&`;
         }, "");
         return query.substring(0, query.length-1);
+    }
+
+    private static extractMongodbId(id: string) {
+        const idParts = id.toString().split("-");
+        if (idParts.length != 2) {
+            throw new Error("chart id is not correctly formatted")
+        }
+        return new ObjectId(idParts[1]);
     }
 }
 

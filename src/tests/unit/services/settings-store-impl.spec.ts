@@ -1,9 +1,9 @@
 import {expect} from "chai";
 import sinon from "sinon";
 import {Collection, Db, FindCursor} from "mongodb";
-import {MongoDbService} from "../../services/mongo-db-service";
-import {SettingStoreImpl} from "../../services/setting-store-impl";
-import {Setting, SettingType} from "../../model/setting";
+import {MongoDbService} from "../../../services/mongo-db-service";
+import {SettingStoreImpl} from "../../../services/setting-store-impl";
+import {Setting, SettingType} from "../../../model/setting";
 
 describe("SettingsStoreImpl", () => {
     let store: SettingStoreImpl;

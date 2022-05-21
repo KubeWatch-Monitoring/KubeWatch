@@ -5,7 +5,7 @@ import {MongoDbService} from "./mongo-db-service";
 export class ChartSettingStoreImpl implements ChartSettingStore {
     private chartSettingCollection: Collection;
 
-    constructor(mongoDbService: MongoDbService) {
+    constructor(private mongoDbService: MongoDbService) {
         this.chartSettingCollection = mongoDbService.db.collection("chartSettings");
     }
 
@@ -21,5 +21,9 @@ export class ChartSettingStoreImpl implements ChartSettingStore {
 
     async getAllChartSettings() {
         return this.chartSettingCollection.find().toArray() as unknown as ChartSetting[];
+    }
+
+    async reconnect() {
+        await this.mongoDbService.reconnect();
     }
 }

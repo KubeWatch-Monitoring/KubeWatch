@@ -6,12 +6,11 @@ import session from "express-session";
 
 import * as IndexRoutes from "./routes/index-routes";
 import * as PodRoutes from "./routes/pod-routes";
-import * as UserRoutes from "./routes/user-routes";
-import * as PrometheusRoutes from "./routes/prometheus-routes";
 import * as NotificationRoutes from "./routes/notification-routes";
 import * as SettingsRoutes from "./routes/settings-routes";
 import * as AdminRoutes from "./routes/admin-routes";
 import * as ClusterVisRoutes from "./routes/cluster-vis-routes";
+import * as PrometheusRoutes from "./routes/prometheus-routes";
 
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
@@ -19,12 +18,12 @@ import {create} from 'express-handlebars';
 import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
 import {NotificationStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
-import {UserStore} from "./model/user";
 import {PodStore} from "./model/pod";
 import {ThresholdMonitor} from "./domain/threshold-monitor";
 import {NotificationManager} from "./domain/notification-manager";
 import {ClusterDataStore} from "./model/cluster-data";
 import {ChartSettingStore} from "./model/chart-setting";
+import {EnvironmentVariables} from "./services/env-store-impl";
 
 declare module "express-session" {
     interface SessionData {
@@ -36,7 +35,7 @@ declare module "express-session" {
 declare global {
     namespace Express {
         interface Application {
-            userStore: UserStore;
+            environmentVariables: EnvironmentVariables;
             settingsStore: SettingStore;
             notificationStore: NotificationStore;
             podStore: PodStore;
@@ -80,10 +79,8 @@ app.use(bodyParser.json());
 
 app.use(IndexRoutes.BASE_URL, IndexRoutes.indexRoutes);
 app.use(PodRoutes.BASE_URL, PodRoutes.podRoutes);
-app.use(UserRoutes.BASE_URL, UserRoutes.userRoutes);
-app.use(PrometheusRoutes.BASE_URL, PrometheusRoutes.prometheusRoutes);
 app.use(NotificationRoutes.BASE_URL, NotificationRoutes.notificationRoutes);
 app.use(SettingsRoutes.BASE_URL, SettingsRoutes.settingsRoutes);
 app.use(AdminRoutes.BASE_URL, AdminRoutes.adminRoutes);
 app.use(ClusterVisRoutes.BASE_URL, ClusterVisRoutes.clusterVisRoutes);
-
+app.use(PrometheusRoutes.BASE_URL, PrometheusRoutes.prometheusRoutes);

@@ -26,6 +26,8 @@ The table \ref{tab:threat-review} lists all risk reviews.
     \hline
     05.05.22 & Threats reviewed. Nothing changed. \\
     \hline
+    19.05.22 & Threats reviewed. Update DoS attacks. Update assumptions. \\
+    \hline
   \end{tabular}
 \end{table}
 
@@ -77,7 +79,8 @@ The following table includes all threats that we found in our architecture, cate
                         % & R & Audit Log Deletion & Low & Backup audit log \\ % to be added once user logs are collected
                         & I & Verbose Exception & Medium & Correct exception handling, no critical information disclosure \\
                         & D & Server Defacement & Low & ACL and Filtering \\
-                        & D & Botnet Attack & High & CPU limitation, CDN and redundant system \\
+                        & D & Botnet Attack (DDoS) & High & CPU limitation, CDN and redundant system \\
+                        & D & DoS & High & CPU limitation, CDN and redundant system \\
                         &all& NPM Supply Chain Attack & High & Use npm audit, npm doctor, npm outdated to check for unsafe packages \\
     \hline
     KubeWatch Backend API \(\leftrightarrow\) Database
@@ -114,7 +117,7 @@ The following table includes all threats that we found in our architecture, cate
 
 \subsection{Interface: Frontend \(\leftrightarrow\) KubeWatch Backend API}
 \begin{itemize}
-    \item Assumption: the web app can only be launched locally from a developer's IDE, provided the developer has access to the KubeWatch code on GitLab.
+    \item Assumption: the web app can only be launched locally from a developer's IDE, provided the developer has access to the KubeWatch code on GitLab or directly from GitLab but only with VPN access to the cluster which is located in the INS.
 \end{itemize}
 
 \subsection{KubeWatch Backend API}

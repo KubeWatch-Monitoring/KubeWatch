@@ -1,13 +1,13 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {app} from "../../app";
-import {NotificationController} from "../../view-controllers/notification-controller";
-import {Notification} from "../../model/notification";
+import {app} from "../../../app";
+import {NotificationController} from "../../../view-controllers/notification-controller";
+import {Notification} from "../../../model/notification";
 import {ObjectId} from "mongodb";
-import {PrometheusService} from "../../services/prometheus-service";
-import {NotificationStoreImpl} from "../../services/notification-store-impl";
-import {ControllerUtil} from "../../utils/controller-util";
-import {Helpers} from "../test-helper";
+import {PrometheusService} from "../../../services/prometheus-service";
+import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {ControllerUtil} from "../../../utils/controller-util";
+import {TestHelper} from "../../test-helper";
 
 
 describe("NotificationController", () => {
@@ -24,8 +24,8 @@ describe("NotificationController", () => {
         prometheusService = sinon.createStubInstance(PrometheusService);
         controller = new NotificationController(controllerUtil);
 
-        req = Helpers.getMockRequest(app);
-        res = Helpers.getMockResponse()
+        req = TestHelper.getMockRequest(app);
+        res = TestHelper.getMockResponse()
 
     })
     describe("index", () => {
