@@ -17,7 +17,6 @@ const chartTemplate = "<div class='accordion-body'><div class='card'><div class=
 
   const chartSetting = {
     type: 'line',
-    plugins: [ChartDatasourcePrometheusPlugin],
     options: {
       animation: {
         duration: 0,
@@ -62,8 +61,8 @@ function cloneObject(obj: object): object {
   return JSON.parse(JSON.stringify(obj));
 }
 
-function createNewChartConfigFromSetting(chartSetting: object, setting: object) {
-  const config = cloneObject(chartSetting);
+function createNewChartConfigFromSetting(chartSetting: any, setting: any) {
+  const config = cloneObject(chartSetting) as any;
   const prometheusConfig = config.options.plugins['datasource-prometheus'];
   prometheusConfig.query = setting.promql;
   prometheusConfig.timeRange.start = setting.start;
@@ -95,12 +94,12 @@ function createNewChartElement(chartSetting: object, title: string, id: string) 
 
 async function displayCharts(container: HTMLDivElement, chartSetting: object) {
   const result = await fetch("/all");
-  const json = await result.json();
+  const dashboardCharts = await result.json();
 
-  json.forEach(setting => {
-    const newChartSetting = createNewChartConfigFromSetting(chartSetting, setting);
-    const title = setting.title.replace(" ", "-");
-    const id = `chart-${setting._id}`;
+  dashboardCharts.forEach((dbChart: any) => {
+    const newChartSetting = createNewChartConfigFromSetting(chartSetting, dbChart);
+    const title = dbChart.title.replace(" ", "-");
+    const id = `chart-${dbChart._id}`;
     const element = createNewChartElement(newChartSetting, title, id);
     container.insertAdjacentElement("beforeend", element);
     const chart = new Chart(container.querySelector("#" + id), newChartSetting);

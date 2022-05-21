@@ -3,7 +3,6 @@ Chart.plugins.register(ChartDatasourcePrometheusPlugin);
 (async () => {
   const config = {
     type: 'line',
-    plugins: [ChartDatasourcePrometheusPlugin],
     options: {
       animation: {
         duration: 0,
@@ -14,10 +13,9 @@ Chart.plugins.register(ChartDatasourcePrometheusPlugin);
             endpoint: window.location.origin,
             baseURL: '/prometheus/endpoint',
           },
-          query: 'sum by (pod) (container_cpu_system_seconds_total{namespace!~"kube-system|monitoring|kubernetes-dashboard", pod!~""})',
+          query: "sum by (pod) (container_cpu_system_seconds_total{namespace!~\"kube-system|monitoring|kubernetes-dashboard\", pod!~\"\"})",
           timeRange: {
-            type: 'relative',
-
+            type: "relative",
             // from 1 hours ago to now
             start: -1 * 60 * 60 * 1000,
             end: 0,
@@ -28,18 +26,19 @@ Chart.plugins.register(ChartDatasourcePrometheusPlugin);
     },
   };
 
-  const ctx = document.querySelector<HTMLCanvasElement>('#chart').getContext('2d');
+  const canvasElement = document.querySelector<HTMLCanvasElement>('#chart') as HTMLCanvasElement;
+  const ctx = canvasElement.getContext('2d') as CanvasRenderingContext2D;
   const chart = new Chart(ctx, config);
 
-  const chartTitle = document.querySelector<HTMLButtonElement>("#chart-title");
-  const btnPreview = document.querySelector<HTMLButtonElement>("#btn-preview");
+  const chartTitle = document.querySelector<HTMLButtonElement>("#chart-title") as HTMLButtonElement;
+  const btnPreview = document.querySelector<HTMLButtonElement>("#btn-preview") as HTMLButtonElement;
 
-  const txtPromql = document.querySelector<HTMLInputElement>("#promql");
-  const txtTitle = document.querySelector<HTMLInputElement>("#title");
-  const txtStart = document.querySelector<HTMLInputElement>("#start");
-  const txtEnd = document.querySelector<HTMLInputElement>("#end");
-  const txtInterval = document.querySelector<HTMLInputElement>("#updateInterval");
-  const txtType = document.querySelector<HTMLSelectElement>("#type");
+  const txtPromql = document.querySelector<HTMLInputElement>("#promql") as HTMLInputElement;
+  const txtTitle = document.querySelector<HTMLInputElement>("#title") as HTMLInputElement;
+  const txtStart = document.querySelector<HTMLInputElement>("#start") as HTMLInputElement;
+  const txtEnd = document.querySelector<HTMLInputElement>("#end") as HTMLInputElement;
+  const txtInterval = document.querySelector<HTMLInputElement>("#updateInterval") as HTMLInputElement;
+  const txtType = document.querySelector<HTMLSelectElement>("#type") as HTMLSelectElement;
 
   btnPreview.addEventListener("click", () => {
     const ONE_SECOND = 1000;
