@@ -44,7 +44,6 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
                 });
             })
         }
-        console.log(elements);
         return elements;
     }
 
@@ -79,11 +78,18 @@ export class ClusterDataStoreImpl implements ClusterDataStore {
     private async createEdges(elements: (KubernetesElement & Vertex)[], nodes: Vertex[]) {
         const edges: Edge[] = [];
         for (const element of elements) {
-            const indexTarget = nodes.find(node => node.label === `${element.ancestorType}:\n${element.ancestor}`);
+            let indexTarget: Vertex[] | undefined;
+            if (element.ancestorType === "Node") {
+                indexTarget = nodes.filter(node => node.label.startsWith("Node"));
+            } else {
+                indexTarget = nodes.filter(node => node.label === `${element.ancestorType}:\n${element.ancestor}`);
+            }
             if (indexTarget) {
-                edges.push(
-                    {from: element.id, to: nodes[indexTarget.id].id}
-                );
+                indexTarget.forEach((t) => {
+                    edges.push(
+                        {from: element.id, to: nodes[t.id].id}
+                    );
+                })
             }
         }
         return edges;
