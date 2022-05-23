@@ -1,13 +1,13 @@
 import {expect} from "chai";
 import sinon from "sinon";
 import {app} from "../../../app";
-import {AdminController} from "../../../view-controllers/admin-controller";
+import {DbAvailabilityController} from "../../../view-controllers/db-availability-controller";
 import {TestHelper} from "../../test-helper";
 import {NotificationStoreImpl} from "../../../services/notification-store-impl";
 import {ControllerUtil} from "../../../utils/controller-util";
 
 describe("AdminController", () => {
-    let controller: AdminController;
+    let controller: DbAvailabilityController;
     let req: any;
     let res: any;
     let notificationStore: any;
@@ -18,7 +18,7 @@ describe("AdminController", () => {
         req = TestHelper.getMockRequest(app);
         notificationStore = sinon.createStubInstance(NotificationStoreImpl);
         controllerUtil = sinon.createStubInstance(ControllerUtil);
-        controller = new AdminController(controllerUtil);
+        controller = new DbAvailabilityController(controllerUtil);
     })
 
     describe("getIndex", () => {

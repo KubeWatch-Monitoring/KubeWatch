@@ -8,7 +8,7 @@ import * as IndexRoutes from "./routes/index-routes";
 import * as PodRoutes from "./routes/pod-routes";
 import * as NotificationRoutes from "./routes/notification-routes";
 import * as SettingsRoutes from "./routes/settings-routes";
-import * as AdminRoutes from "./routes/admin-routes";
+import * as DbAvailabilityRoutes from "./routes/db-availability-routes";
 import * as ClusterVisRoutes from "./routes/cluster-vis-routes";
 import * as PrometheusRoutes from "./routes/prometheus-routes";
 
@@ -81,6 +81,6 @@ app.use(IndexRoutes.BASE_URL, IndexRoutes.indexRoutes);
 app.use(PodRoutes.BASE_URL, PodRoutes.podRoutes);
 app.use(NotificationRoutes.BASE_URL, NotificationRoutes.notificationRoutes);
 app.use(SettingsRoutes.BASE_URL, SettingsRoutes.settingsRoutes);
-app.use(AdminRoutes.BASE_URL, AdminRoutes.adminRoutes);
+app.use(DbAvailabilityRoutes.BASE_URL, DbAvailabilityRoutes.dbAvailabilityRoutes);
 app.use(ClusterVisRoutes.BASE_URL, ClusterVisRoutes.clusterVisRoutes);
 app.use(PrometheusRoutes.BASE_URL, PrometheusRoutes.prometheusRoutes);

@@ -73,12 +73,10 @@ describe("PodController", () => {
             prometheusService.getPodById.resolves(expectedPod)
 
             await controller.getPod(req, res);
-            expect(res.render.called).to.be.true;
-            expect(res.render.calledWith("podView", {
-                style: req.session.style,
-                display: req.session.display,
-                pod: expectedPod,
-            })).to.be.true;
+            expect(controllerUtil.render.called).to.be.true;
+            expect(controllerUtil.render.calledWith(
+                "podView", {pod: expectedPod}, req, res
+            ));
         });
     });
 });
