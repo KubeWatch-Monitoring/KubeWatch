@@ -15,5 +15,6 @@
     <orderEntry type="library" name="moment.js" level="application" />
     <orderEntry type="library" name="chart.js" level="application" />
     <orderEntry type="library" name="chartjs-plugin-datasource-prometheus" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
   </component>
 </module>
