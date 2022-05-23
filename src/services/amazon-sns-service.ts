@@ -31,7 +31,6 @@ export class AmazonSnsService implements NotificationSubscriberStore, Notificati
     }
 
     async onNotification(notification: Notification): Promise<void> {
-        // TODO Add subject to notification
         const input: SNS.PublishCommandInput = {
             TopicArn: this.topicArn,
             Message: notification.message,
@@ -67,8 +66,10 @@ export class AmazonSnsService implements NotificationSubscriberStore, Notificati
         const response: SNS.ListSubscriptionsByTopicResponse = await this.client.send(command);
         const subscribers = response.Subscriptions?.filter(s => s.Endpoint == email) ?? [];
         if (subscribers.length == 0) throw new Error("There is no subscriber with the email " + email);
-
         for (const subscriber of subscribers) {
+            if(subscriber.SubscriptionArn === "PendingConfirmation") {
+                throw new Error(`The subscriber with email ${email} cannot be unsubscribed because he hasn't confirmed his email yet.`);
+            }
             const input2: SNS.UnsubscribeInput = {
                 SubscriptionArn: subscriber.SubscriptionArn,
             }
@@ -99,26 +100,26 @@ export class AmazonSnsServiceProxy implements NotificationSubscriberStore, Notif
 
     async onNotification(notification: Notification) {
         if(this.isConnected) {
-            this.service?.onNotification(notification);
+            await this.service?.onNotification(notification);
         }
     }
 
     async addEmailSubscriber(email: string): Promise<void> {
         if(this.isConnected) {
-            this.service?.addEmailSubscriber(email);
+            await this.service?.addEmailSubscriber(email);
         }
     }
 
     async listEmailSubscribers(): Promise<string[]> {
         if(this.isConnected) {
-            return this.service?.listEmailSubscribers() ?? [];
+            return await this.service?.listEmailSubscribers() ?? [];
         } else {
             return [];
         }
     }
     async removeEmailSubscriber(email: string): Promise<void> {
         if(this.isConnected) {
-            this.service?.removeEmailSubscriber(email);
+            await this.service?.removeEmailSubscriber(email);
         }
     }
 

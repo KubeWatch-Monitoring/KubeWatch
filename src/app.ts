@@ -29,6 +29,8 @@ declare module "express-session" {
     interface SessionData {
         style: Style;
         display: Settings;
+        message: string;
+        messageType: "info" | "error";
     }
 }
 

@@ -29,12 +29,10 @@ describe("NotificationStoreImpl", () => {
             expect(notification).to.be.eql(expectedNotification);
         });
 
-        it("should return undefined when not found", async () => {
+        it("should throw an error when not found", async () => {
             collection.findOne.resolves(null);
 
-            const notification = await store.getById(new ObjectId());
-
-            expect(notification).to.be.eql(null);
+            expect(async () => await store.getById(new ObjectId())).to.throw;
         });
     });
     describe("updateNotification", () => {

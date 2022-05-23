@@ -15,8 +15,7 @@ export class Notification {
 }
 
 export interface NotificationStore extends NotificationHandler, Reconnectable {
-    // TODO Instead of possibly returning null it might make more sense to throw an error if not notification was found
-    getById(id: ObjectId): Promise<Notification | null>;
+    getById(id: ObjectId): Promise<Notification>;
 
     updateNotification(notification: Notification): Promise<void>;
 

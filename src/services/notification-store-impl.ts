@@ -12,7 +12,10 @@ export class NotificationStoreImpl implements NotificationStore, NotificationHan
 
     async getById(id: ObjectId) {
         const query = {_id: id};
-        return await this.notificationCollection.findOne(query) as unknown as Notification | null;
+        const result = await this.notificationCollection.findOne(query);
+        if(result == null)
+            throw new Error("There is no notification with the ID " + id.toString())
+        return result as unknown as Notification;
     }
 
     async updateNotification(notification: Notification) {

@@ -6,42 +6,48 @@
 {{#section 'scripts'}}
 {{/section}}
 
+{{#if message}}
+<div class="alert alert-{{#if_eq "error" messageType}}danger{{else}}primary{{/if_eq}}" role="alert">
+    {{message}}
+</div>
+{{/if}}
+
 <h1>Notifications</h1>
 {{#if notifications.length }}
     {{#each notifications}}
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="card pod mb-3" data-pod-id="{{this._id}}">
-                    <div class="card-body">
-                        <table class="table">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card pod mb-3" data-pod-id="{{this._id}}">
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th scope="row">Message</th>
+                            <td>{{this.message}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Is Silenced</th>
+                            <td>{{this.isSilenced}}</td>
+                        </tr>
+                        {{#if this.isSilenced }}
                             <tr>
-                                <th scope="row">Message</th>
-                                <td>{{this.message}}</td>
+                                <th scope="row">Reason</th>
+                                <td>{{this.silenceReason}}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Is Silenced</th>
-                                <td>{{this.isSilenced}}</td>
-                            </tr>
-                            {{#if this.isSilenced }}
-                                <tr>
-                                    <th scope="row">Reason</th>
-                                    <td>{{this.silenceReason}}</td>
-                                </tr>
-                            {{/if}}
-                            <tr>
-                                <th scope="row">Date</th>
-                                <td>{{formatDate this.date "DD.MM.YY HH:mm"}}</td>
-                            </tr>
-                        </table>
-                    </div>
+                        {{/if}}
+                        <tr>
+                            <th scope="row">Date</th>
+                            <td>{{formatDate this.date "DD.MM.YY HH:mm"}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
     {{/each}}
 {{else}}
-    <div class="mb-3">
-        <p>No notifications are here!</p>
-    </div>
+<div class="mb-3">
+    <p>There are no notifications.</p>
+</div>
 {{/if}}
 
 <h2>Trigger Notification</h2>
@@ -54,18 +60,21 @@
 </form>
 
 <h2>Notification Receivers</h2>
+<span class="badge text-bg-{{#if isServiceConnected}}success{{else}}danger{{/if}} mb-3">
+    Notification Service: {{#if isServiceConnected}}Connected{{else}}Disconnected{{/if}}
+</span>
 {{#each emailSubscribers}}
-    <form action="/notifications/unsubscribe" method="POST">
-        <div class="input-group mb-3">
-            <input readonly type="text" name="email" value="{{this}}" class="form-control" placeholder="Email"
-                   aria-label="Email">
-            <button type="submit" class="btn btn-outline-danger">Unsubscribe</button>
-        </div>
-    </form>
+<form action="/notifications/unsubscribe" method="POST">
+    <div class="input-group mb-3">
+        <input readonly type="email" name="email" value="{{this}}" class="form-control" placeholder="Email"
+               aria-label="Email">
+        <button type="submit" class="btn btn-outline-danger">Unsubscribe</button>
+    </div>
+</form>
 {{/each}}
 <form action="/notifications/subscribe" method="POST">
     <div class="input-group mb-3">
-        <input type="text" name="email" placeholder="Email" aria-label="Email" class="form-control">
-        <button type="submit" class="btn btn-outline-secondary">Subscribe</button>
+        <input type="email" required name="email" placeholder="Email" aria-label="Email" class="form-control"{{#unless isServiceConnected}} disabled{{/unless}}>
+        <button type="submit" class="btn btn-outline-secondary"{{#unless isServiceConnected}} disabled{{/unless}}>Subscribe</button>
     </div>
 </form>
