@@ -7,7 +7,7 @@
     "start": "tsc public/js/*.ts ; ts-node index.ts",
     "test": "mocha -r ts-node/register 'tests/**/*.ts'",
     "lint": "tsc --noEmit && eslint .. --ext .ts",
-    "coverage": "c8 --reporter=lcov --reporter=cobertura --reporter=text-summary npm test",
+    "coverage": "c8 --reporter=lcov --reporter=cobertura --exclude=/services/** --reporter=text-summary npm test",
     "cypress": "$(npm bin)/cypress open"
   },
   "author": "G03-KubeWatch",
