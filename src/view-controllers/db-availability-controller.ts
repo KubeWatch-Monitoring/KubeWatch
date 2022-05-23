@@ -1,8 +1,8 @@
 import {Request, Response} from "express";
 import {controllerUtil, ControllerUtil} from "../utils/controller-util";
-import * as AdminRoutes from "../routes/admin-routes";
+import * as DbAvailabilityRoutes from "../routes/db-availability-routes";
 
-export class AdminController {
+export class DbAvailabilityController {
     controllerUtil: ControllerUtil;
 
     constructor(controllerUtil: ControllerUtil) {
@@ -22,20 +22,11 @@ export class AdminController {
             await req.app.settingsStore.reconnect();
             await req.app.chartSettingStore.reconnect();
         } catch (e) {
-            res.redirect(`${AdminRoutes.BASE_URL}/?reconnect=false`);
+            res.redirect(`${DbAvailabilityRoutes.BASE_URL}/?reconnect=false`);
             return;
         }
-        res.redirect(`${AdminRoutes.BASE_URL}/?reconnect=true`);
-    }
-
-    async getPrometheusUrl(req: Request, res: Response) {
-        const value = {
-            // TODO: Retrieve from env variables
-            url: "http://127.0.0.1:9090"
-        };
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify(value));
+        res.redirect(`${DbAvailabilityRoutes.BASE_URL}/?reconnect=true`);
     }
 }
 
-export const adminController = new AdminController(controllerUtil);
+export const dbAvailabilityController = new DbAvailabilityController(controllerUtil);
