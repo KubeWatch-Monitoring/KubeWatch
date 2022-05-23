@@ -44,11 +44,7 @@ export class PodController {
             return;
         }
 
-        res.render("podView", {
-            style: req.session.style,
-            display: req.session.display,
-            pod: pod,
-        });
+        await controllerUtil.render("podView", {pod: pod}, req, res);
     }
 }
 
