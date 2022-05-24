@@ -70,8 +70,8 @@ This will test the application by enter a host address.
 
 #### Result
 
-![image](resources/security_assessment_2_nikto.png){height="4.15cm"}
-![image](resources/IDOR-attack.png){height="5.15cm"}
+![image](resources/security_assessment_2_nikto.png)
+![image](resources/IDOR-attack.png)
 
 In the screenshot above there are some possible behaviour and header
 options listed that should be changed to be secure and avoid unexpected
@@ -116,16 +116,16 @@ dashboard.
 
 First I enter a valid PromQL query because I need a reference chart
 which is valid and withour any tampering attack.
-![image](resources/tampering-without-attack.png){height="6.5cm"}
+![image](resources/tampering-without-attack.png)
 
 And then I entered another chart which I stop with the Burp Proxy tool.
-![image](resources/tampering-attack.png){height="6.5cm"}
+![image](resources/tampering-attack.png)
 
 In the next step I activate the intercept mode in the Burp Proxy tool to
 catch the new chart request. There I changed the time period from
 \"-300\" to \"-500\". After that I forward the tampered request and
 check loading request and response for the dashboard again.
-![image](resources/tampering-successful-2.png){height="5cm"} Both charts
+![image](resources/tampering-successful-2.png)
 should be the same because I entered both time the same chart input. But
 you will see the time period is changed now.
 
