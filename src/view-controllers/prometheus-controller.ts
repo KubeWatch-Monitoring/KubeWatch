@@ -23,10 +23,15 @@ export class PrometheusController {
             return;
         }
 
+        // TODO: inject object to perform request
         http.get(`${req.app.environmentVariables.prometheusConnectionString}/api/v1/${queryType}?${query}`, r => {
             r.on('data', d => {
-                res.end(d);
-            })
+                res.write(d);
+            });
+
+            r.on('end', () => {
+                res.end();
+            });
         });
     }
 
