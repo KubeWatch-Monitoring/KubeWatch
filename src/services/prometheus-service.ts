@@ -51,8 +51,7 @@ export class PrometheusService {
     }
 
     async getAllPods() {
-        const excludeNamespaces = "kube-system|monitoring|kubernetes-dashboard";
-        const getPodIdentificationsQuery = `sum by (uid, pod) (kube_pod_info{namespace!~"${excludeNamespaces}"})`;
+        const getPodIdentificationsQuery = `sum by (uid, pod) (kube_pod_info{})`;
         const getPodIdentificationsResponse = await this.driver.instantQuery(getPodIdentificationsQuery);
 
         const allPods = getPodIdentificationsResponse.result.map(vector => {
