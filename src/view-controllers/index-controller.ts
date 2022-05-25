@@ -26,7 +26,6 @@ export class IndexController {
     }
 
     async getEditDashboard(req: Request, res: Response) {
-        // TODO: Use query parameters
         const data = {};
         await this.controllerUtil.render("editDashboard", data, req, res);
     }
@@ -70,7 +69,6 @@ export class IndexController {
     }
 
     async getAllChartSettings(req: Request, res: Response) {
-        // TODO: Handle absence of db (Wait for ControllerUtil merge)
         const chartSettings = await req.app.chartSettingStore.getAllChartSettings();
 
         res.setHeader("Content-Type", "application/json");

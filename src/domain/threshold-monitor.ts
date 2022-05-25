@@ -31,7 +31,7 @@ export class ThresholdMonitor {
                 }
             }
         } catch (e) {
-            // TODO: Handle absence, maybe Logging?
+            //
         }
     }
 

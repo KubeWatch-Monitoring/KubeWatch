@@ -32,8 +32,6 @@ spec:
       - name: read-du
         image: giantswarm/tiny-tools
         imagePullPolicy: Always
-        # FIXME threshold via env var
-        # The
         command:
         - fish
         - --command
