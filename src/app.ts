@@ -15,7 +15,6 @@ import * as PrometheusRoutes from "./routes/prometheus-routes";
 import {helpers} from "./utils/handlebar-util";
 import {create} from 'express-handlebars';
 
-import {sessionUserSettings, Settings, Style,} from "./utils/session-middleware.index";
 import {NotificationStore, NotificationSubscriberStore} from "./model/notification";
 import {SettingStore} from "./model/setting";
 import {PodStore} from "./model/pod";
@@ -27,8 +26,6 @@ import {EnvironmentVariables} from "./stores/env-store-impl";
 
 declare module "express-session" {
     interface SessionData {
-        style: Style;
-        display: Settings;
         message: string;
         messageType: "info" | "error";
     }
@@ -76,7 +73,6 @@ app.use(
     })
 );
 
-app.use(sessionUserSettings);
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 

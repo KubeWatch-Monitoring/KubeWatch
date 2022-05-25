@@ -13,9 +13,7 @@ export class ControllerUtil {
         }
 
         const generalData = {
-            style: req.session.style,
             currentUrl: req.originalUrl,
-            display: req.session.display,
             isDatabaseAvailable: this.isDatabaseAvailable,
             pendingNotifications,
         };

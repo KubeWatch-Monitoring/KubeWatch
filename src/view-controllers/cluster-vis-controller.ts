@@ -6,10 +6,7 @@ export class ClusterVisController {
     }
 
     async getGraphs(req: Request, res: Response) {
-        await this.controllerUtil.render("clusterVisualisation", {
-            style: req.session.style,
-            display: req.session.display,
-        }, req, res);
+        await this.controllerUtil.render("clusterVisualisation", {}, req, res);
     }
 
     async sendClusterData(req: Request, res: Response) {
