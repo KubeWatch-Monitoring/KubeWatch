@@ -1,5 +1,5 @@
 import {ObjectId} from "mongodb";
-import {Reconnectable} from "../services/mongo-db-service";
+import {Reconnectable} from "./reconnectable";
 
 export class Setting {
     public id?: ObjectId;

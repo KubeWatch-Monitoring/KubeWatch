@@ -1,6 +1,6 @@
 import {ObjectId} from "mongodb";
 import {NotificationHandler} from "../domain/notification-manager";
-import {Reconnectable} from "../services/mongo-db-service";
+import {Reconnectable} from "./reconnectable";
 
 export class Notification {
     public _id?: ObjectId;
