@@ -1,13 +1,13 @@
 import {expect} from "chai";
 import sinon from "sinon";
-import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {NotificationStoreImpl} from "../../../stores/notification-store-impl";
 import {ThresholdMonitor} from "../../../domain/threshold-monitor";
 import {Pod} from "../../../model/pod";
 import {MetricsData} from "../../../model/metrics-data";
-import {SettingStoreImpl} from "../../../services/setting-store-impl";
+import {SettingStoreImpl} from "../../../stores/setting-store-impl";
 import {NotificationManager} from "../../../domain/notification-manager";
 import {before} from "mocha";
-import {PodStoreImpl} from "../../../services/pod-store-impl";
+import {PodStoreImpl} from "../../../stores/pod-store-impl";
 
 
 describe("ThresholdMonitor", () => {

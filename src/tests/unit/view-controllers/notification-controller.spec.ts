@@ -5,7 +5,7 @@ import {NotificationController} from "../../../view-controllers/notification-con
 import {Notification} from "../../../model/notification";
 import {ObjectId} from "mongodb";
 import {PrometheusService} from "../../../services/prometheus-service";
-import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {NotificationStoreImpl} from "../../../stores/notification-store-impl";
 import {AmazonSnsServiceProxy} from "../../../services/amazon-sns-service";
 import {ControllerUtil} from "../../../utils/controller-util";
 import {TestHelper} from "../../test-helper";

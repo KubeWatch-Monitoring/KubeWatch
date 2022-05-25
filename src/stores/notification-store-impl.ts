@@ -1,4 +1,4 @@
-import {MongoDbService} from "./mongo-db-service";
+import {MongoDbService} from "../services/mongo-db-service";
 import {Collection, ObjectId} from "mongodb";
 import {Notification, NotificationStore} from "../model/notification";
 import {NotificationHandler} from "../domain/notification-manager";

@@ -6,7 +6,7 @@ import {
     kubernetesElements,
     Vertex
 } from "../model/cluster-data";
-import {PrometheusService} from "./prometheus-service";
+import {PrometheusService} from "../services/prometheus-service";
 
 
 export class ClusterDataStoreImpl implements ClusterDataStore {

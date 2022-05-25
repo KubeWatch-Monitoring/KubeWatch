@@ -1,4 +1,4 @@
-import {MongoDbService} from "./mongo-db-service";
+import {MongoDbService} from "../services/mongo-db-service";
 import {Collection} from "mongodb";
 import {Setting, SettingStore, SettingType, settingTypeFromString} from "../model/setting";
 

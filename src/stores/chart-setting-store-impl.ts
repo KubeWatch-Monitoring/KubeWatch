@@ -1,6 +1,6 @@
 import {ChartSetting, ChartSettingStore} from "../model/chart-setting";
 import {Collection, ObjectId} from "mongodb";
-import {MongoDbService} from "./mongo-db-service";
+import {MongoDbService} from "../services/mongo-db-service";
 
 export class ChartSettingStoreImpl implements ChartSettingStore {
     private chartSettingCollection: Collection;

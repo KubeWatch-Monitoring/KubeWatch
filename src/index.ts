@@ -1,14 +1,14 @@
 import {MongoDbService} from "./services/mongo-db-service";
-import {NotificationStoreImpl} from "./services/notification-store-impl";
-import {SettingStoreImpl} from "./services/setting-store-impl";
-import {ChartSettingStoreImpl} from "./services/chart-setting-store-impl";
+import {NotificationStoreImpl} from "./stores/notification-store-impl";
+import {SettingStoreImpl} from "./stores/setting-store-impl";
+import {ChartSettingStoreImpl} from "./stores/chart-setting-store-impl";
 import {PrometheusService} from "./services/prometheus-service";
-import {PodStoreImpl} from "./services/pod-store-impl";
-import {ClusterDataStoreImpl} from "./services/cluster-data-store-impl";
+import {PodStoreImpl} from "./stores/pod-store-impl";
+import {ClusterDataStoreImpl} from "./stores/cluster-data-store-impl";
 import {app} from "./app";
 import {DatabaseFillManager} from "./services/database-fill-manager";
 import {DatabasePrefillImpl} from "./model/database-prefill";
-import {EnvironmentVariable, EnvironmentVariables} from "./services/env-store-impl";
+import {EnvironmentVariable, EnvironmentVariables} from "./stores/env-store-impl";
 
 async function setupDatabaseStores(environmentVariables: EnvironmentVariables) {
     try {
@@ -36,7 +36,7 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
     const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
     const AmazonSnsServiceProxy = (await import("./services/amazon-sns-service")).AmazonSnsServiceProxy;
-    const EnvStore = (await import("./services/env-store-impl")).EnvStoreImpl;
+    const EnvStore = (await import("./stores/env-store-impl")).EnvStoreImpl;
     const envStore = new EnvStore();
     const environmentVariables: EnvironmentVariables = {
         expressSessionSecret: envStore.getEnvVar(EnvironmentVariable.EXPRESS_SESSION_SECRET),

@@ -7,7 +7,7 @@ import {ObjectId} from "mongodb";
 import {Pod} from "../../../model/pod";
 import {MetricsData} from "../../../model/metrics-data";
 import {PrometheusService} from "../../../services/prometheus-service";
-import {PodStoreImpl} from "../../../services/pod-store-impl";
+import {PodStoreImpl} from "../../../stores/pod-store-impl";
 import {ControllerUtil} from "../../../utils/controller-util";
 
 describe("PodController", () => {

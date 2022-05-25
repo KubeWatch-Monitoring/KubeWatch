@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import sinon from "sinon";
 import {Collection, Db, FindCursor, ObjectId} from "mongodb";
-import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {NotificationStoreImpl} from "../../../stores/notification-store-impl";
 import {MongoDbService} from "../../../services/mongo-db-service";
 import {Notification} from "../../../model/notification";
 

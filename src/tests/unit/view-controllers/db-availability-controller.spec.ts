@@ -3,7 +3,7 @@ import sinon from "sinon";
 import {app} from "../../../app";
 import {DbAvailabilityController} from "../../../view-controllers/db-availability-controller";
 import {TestHelper} from "../../test-helper";
-import {NotificationStoreImpl} from "../../../services/notification-store-impl";
+import {NotificationStoreImpl} from "../../../stores/notification-store-impl";
 import {ControllerUtil} from "../../../utils/controller-util";
 
 describe("AdminController", () => {

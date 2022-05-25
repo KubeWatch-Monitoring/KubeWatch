@@ -1,7 +1,7 @@
 import {expect} from "chai";
 import sinon from "sinon";
 import {Collection, Db, FindCursor, ObjectId} from "mongodb";
-import {ChartSettingStoreImpl} from "../../../services/chart-setting-store-impl";
+import {ChartSettingStoreImpl} from "../../../stores/chart-setting-store-impl";
 import {MongoDbService} from "../../../services/mongo-db-service";
 import {ChartSetting} from "../../../model/chart-setting";
 

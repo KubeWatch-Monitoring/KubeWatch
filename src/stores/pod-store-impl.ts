@@ -1,5 +1,5 @@
 import {PodStore} from "../model/pod";
-import {PrometheusService} from "./prometheus-service";
+import {PrometheusService} from "../services/prometheus-service";
 
 export class PodStoreImpl implements PodStore {
     constructor(public prometheusService: PrometheusService) {
