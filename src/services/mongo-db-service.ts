@@ -1,5 +1,8 @@
 import {Db, MongoClient} from "mongodb";
-import {Reconnectable} from "./reconnectable";
+
+export interface Reconnectable {
+    reconnect(): Promise<void>;
+}
 
 export class MongoDbService implements Reconnectable {
     db: Db;
