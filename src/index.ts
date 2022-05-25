@@ -17,7 +17,6 @@ async function setupDatabaseStores(environmentVariables: EnvironmentVariables) {
         app.settingsStore = new SettingStoreImpl(mongoDbService);
         app.chartSettingStore = new ChartSettingStoreImpl(mongoDbService);
     } catch (e) {
-        // TODO: Log message of e?
         throw new Error(`Could not connect to the database with connection string: ${environmentVariables.mongodbConnectionString}`);
     }
 }
@@ -28,7 +27,6 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
         app.podStore = new PodStoreImpl(prometheusService);
         app.clusterDataStore = new ClusterDataStoreImpl(prometheusService);
     } catch (e) {
-        // TODO: Log message of e?
         throw new Error(`Could not connect to prometheus with connection string: ${environmentVariables.mongodbConnectionString}`);
     }
 }
@@ -37,7 +35,6 @@ async function setupPrometheusStores(environmentVariables: EnvironmentVariables)
     const app = (await import("./app")).app
     const ThresholdMonitor = (await import("./domain/threshold-monitor")).ThresholdMonitor;
     const NotificationManager = (await import("./domain/notification-manager")).NotificationManager;
-    const AmazonSnsService = (await import("./services/amazon-sns-service")).AmazonSnsService;
     const AmazonSnsServiceProxy = (await import("./services/amazon-sns-service")).AmazonSnsServiceProxy;
     const EnvStore = (await import("./services/env-store-impl")).EnvStoreImpl;
     const envStore = new EnvStore();
