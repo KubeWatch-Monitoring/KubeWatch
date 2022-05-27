@@ -72,14 +72,23 @@ To access current main version of KubeWatch, you need to be connected to the INS
 
 \begin{table}[H]
   \begin{tabular*}{\textwidth}{p{3cm} | p{11cm}}
-    \textbf{Entities:}
-      & These are components shared by the whole system and are contained in the \textit{/model} directory. This includes the classes from the domain model as well as exception handling. Additionally the model store interfaces are contained here, allowing implementation from the Interface Adapter layer. \bigskip \\
-    \textbf{Application Business Rules:}
-      & This layer contains our business logic and is contained in the \textit{/domain} directory. \bigskip \\
-    \textbf{Interface Adapter:}
-      & This is the place for logic to attach to our external dependencies like Prometheus and MongoDB and is contained in the \textit{/services} and \textit{/view-controllers} directories. The implementations of the model store interfaces are also stored here. \bigskip \\
-    \textbf{Framework \& Drivers:}
-      & These are the major frameworks and dependencies powering our application. \\
+    \textbf{Entities:} &
+      These are components shared by the whole system and are contained
+      in the \textit{/model} directory.
+      This includes the classes from the domain model and the model store interfaces,
+      allowing implementation from the Interface Adapter layer. \bigskip \\
+    \textbf{Application Business Rules:} &
+      This layer contains our business logic and is contained in
+      the \textit{/domain} directory. \bigskip \\
+    \textbf{Interface Adapter:} &
+      This is the place for logic to attach to our external dependencies
+      like Prometheus and MongoDB and is contained in the \textit{/services} directory.
+      The \textit{/view-controllers} directory contains the code
+      that prepares the data to be displayed on the website.
+      And the implementations of the model store interfaces are stored
+      in the \textit{/stores} directory. \bigskip \\
+    \textbf{Framework \& Drivers:} &
+      These are the major frameworks and dependencies powering our application. \\
   \end{tabular*}
   \caption{Clean-Architecture layers explained}
   \label{tab:clean-architecture-layers-explained}
