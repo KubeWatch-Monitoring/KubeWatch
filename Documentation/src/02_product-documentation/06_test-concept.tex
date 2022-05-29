@@ -1,5 +1,6 @@
 \chapter{Test Concept}
 
+% TODO not happy with the Test follwing two sentences
 \section{Test Concept - Software}
 To develop software with good quality it needs to be tested.
 For this project, three different types of software tests are used, because it's important to test the software on different levels.
@@ -9,25 +10,26 @@ The Unit Tests are done using the \textit{mocha} and \textit{chai} framework. We
 
 \subsection{Integration Test}
 The Integration Tests are also done using the \textit{mocha} and \textit{chai} framework.
-But \textit{chai} is extended using the \textit{chai-http} and \textit{chai-dom} framework.
+\textit{chai} is extended using the \textit{chai-http} and \textit{chai-dom} framework.
 Using \textit{chai-http} HTTP request are simulated and \textit{chai-dom} is used to make assertion about the delivered HTML page.
 
 \subsection{Usability Test}
-To test the usability of the application we demonstrate and interact with some students from the CldOp Module.
-They are familiar with prometheus monitoring of Kubernetes clusters and are therefore perfectly perfectly suited to judge the application for its usability for technical users.
-During these tests they, will be asked to click through the application
+The usability tests are done by some students from the CldOp Module.
+They are familiar with prometheus monitoring of Kubernetes clusters and are therefore perfectly suited to judge the application on technical usability.
+During these tests they will be asked to click through the application
 and give feedback about anything they think is bad, good or could be improved.
 The usability tests are then summarised and stored in gitlab\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/tree/main/Documentation/usability-test}}.
 
+% TODO maybe improve follwing paragraph
 \subsection{Integration into Workflow}
-Before pushing any changes you must run all Unit and Integrations tests.
-If all tests are passed the changes can be pushed.
+Before pushing any changes to the git repository all Unit and Integrations tests must be run successfully.
 On the server side, the GitLab CI/CD pipeline verifies if all test are run successful using the same tests.
 Only if CI/CD pipeline test job is successful, can the merge request be merged into the master branch.
 
 To run all tests in the IDE a run configuration is provided.
 
 
+% TODO verify that we DRY in follwing paragraph with section 2.2 Non-Functional Requirements
 \section{Test Concept - NFR}
 We test our non-functional requirements (NFR) either with \textit{SonarQube} or manually on a regular basis. Some of the NFRs that can be tested by \textit{SonarQube} are the test coverage (NFR-1), the software security (NFR-9) and the code maintainability (NFR-10).
 
@@ -41,6 +43,7 @@ Following all the top ten security risks are listed and how we test them.
 \subsection{A01 - Brocken Access Control}
 After implementing the login it is important to test our application for broken access control, like the principle of least privilege, IDOR attack (modifying URL to get access without login), or login without an account (NoSQL injection).
 
+% TODO should we keep infos like the follwing sentence in the documentation inside the Test Concept security chapter? or is it maybe already shown in the security assessments/threat model
 We don't yet have a login, so it isn't important for us at the moment.
 
 \subsection{A02 - Cryptographic Failures}

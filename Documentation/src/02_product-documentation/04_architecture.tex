@@ -53,6 +53,7 @@ Our pipeline consists of three stages: \textit{build, test, deploy}. Each of the
 
 \textbf{Deploy:} In our last pipeline stage, we deploy the newest version of our application to the Kubernetes cluster located inside the INS network, to be able to present the current main version of the application.
 
+% TODO should we keep the accessing deployed applciation section? maybe move it
 \subsection{Accessing Deployed Application}
 To access current main version of KubeWatch, you need to be connected to the INS network via VPN. Then you can find the web application deployment in Gitlab in the \href{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/environments}{Deployments / Environments} section and there you can \textit{Open} the web application.
 
@@ -99,8 +100,9 @@ To access current main version of KubeWatch, you need to be connected to the INS
 State that should persist through a web page refresh, should be stored using a interface adapter for persistence. This allows the application in combination with our \hyperref[section:non-functional-requirements]{NFR Section} to be horizontally scaleable.
 
 \section{Wireframe}
-
-To visualise the application draft we decide to use a wireframe because it makes a lot of sense with the web application \textit{KubeWatch} we programme in this project. So for a detailed overview, we can just click through the wireframe to get an impression. The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
+% TODO change the follwing sentence
+To visualise the application draft we decide to use a wireframe, because it makes a lot of sense with the web application \textit{KubeWatch} we programme in this project. So for a detailed overview, we can just click through the wireframe to get an impression.
+The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
 The HTML page is interactive.
 
 \section{Class Diagram}
