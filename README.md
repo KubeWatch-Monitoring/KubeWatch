@@ -22,6 +22,22 @@ and be able to use it easily.
 - Documentation: this folder contains the documentation
 - Organisation: this folder contains files to help us with our work
 
+## Deploying KubeWatch in your own Kubernetes cluster
+
+Prerequisites:
+
+- Access to a running Kubernetes cluster via `kubectl`
+- Access to this Gitlab container registry
+### Quick setup
+
+Run the following commands:
+```bash
+git clone https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch.git
+cd kubewatch
+kubectl apply -f src/kubernetes-manifests/Database
+kubectl apply -f src/kubernetes-manifests/prometheus
+kubectl apply -f deployment/kubernetes-manifests
+```
 
 ## Development Setup
 Requirements: WebStorm, NodeJS and npm
