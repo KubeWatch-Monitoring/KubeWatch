@@ -2,23 +2,25 @@
 [![pipeline status](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/badges/main/pipeline.svg)](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/commits/main)
 [![coverage report](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/badges/main/coverage.svg)](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/commits/main)
 
-KubeWatch is (will be) a monitoring application for Kubernetes.
-It will keep track of multiple K8S nodes, records performance data and visualize it.
-Furthermore, it should send some kind of notification to the responsible people.
+KubeWatch is a web application that can be used to monitor and visualize a Kubernetes cluster.
+Additionally, notifications are triggered if a pod goes down, which are displayed on the website
+and delivered to the right people via email or SMS.
+This allows an optimal usage for Kubernetes cluster administrators.
+KubeWatch is targeted to technical users who have some experience with Kubernetes.
+However, even non-technical users can find their way around our application
+and be able to use it easily.
 
+**Authors:**
+- Benjamin Plattner
+- Jan Untersander
+- Olivier Lischer
+- Pascal Lehmann
+- Petra Heeb
 
 ## Directories
 - src: this folder contains the entire application
 - Documentation: this folder contains the documentation
 - Organisation: this folder contains files to help us with our work
-
-
-## Road map
-- [x] Monitor K8S nodes
-- [x] Collect data from nodes
-- [x] Visualize the data somehow
-- [x] Send notification
-- [x] Visualize the K8S pods and nodes in a graph
 
 
 ## Development Setup
