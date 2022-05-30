@@ -26,7 +26,6 @@ Requirements: WebStorm, NodeJS and npm
 1. Clone repo
 2. Open project with Webstorm
 3. Run npm install
-4. Run KubeWatch with existing run configuration
 
 
 ## Minikube Setup
