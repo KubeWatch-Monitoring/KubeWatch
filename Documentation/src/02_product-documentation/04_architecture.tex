@@ -12,8 +12,12 @@
 %     \end{itemize}
 % }
 
-Our application architecture is modelled using the C4 model combined with Clean Architecture. We decided to use two levels of the C4 model, because it gives a good overview how the different components of our application talk with each other and other systems. We replaced the remaining levels of the C4 model with Clean Architecture, because it is a better representation of how our source code dependencies are structured.
-Our application is built to use metrics which are scraped and stored by Prometheus from a Kubernetes cluster.
+Our application architecture is modelled using the C4 model combined with Clean Architecture.
+We decided to use two levels of the C4 model, because it gives a good overview how the different
+components of our application talk with each other and other systems.
+We replaced the remaining levels of the C4 model with a Clean Architecture,
+because it is a better representation of how our source code dependencies are structured.
+Kubewatch is built to use metrics which are scraped and stored from a Kubernetes cluster by Prometheus.
 The functional requirements FR1 to FR11 that are tracked on GitLab have been reviewed and can all be satisfied with this architecture.
 The non-functional requirements NFR-2, NFR-3, NFR-4, are possible to satisfy with the technologies shown in the section Clean Architecture.
 The application will be built inside a container to satisfy NFR-5.
@@ -21,7 +25,11 @@ The application will be built inside a container to satisfy NFR-5.
 \section{Roles}
 The role of the architect is split up. We work according to the architecture agent model, where we have two architects.
 Jan is responsible for Kubernetes, Prometheus, CI/CD, i.e. the architecture at large
-and Pascal is responsible for the architecture of our web application, which libraries are used and how we connect the different components, i.e. the "architecture in detail". We decided to use the model with two main architects, because the project can be easily split into two parts the Web application itself and interfacing systems. So there is one person from each part to discuss the interfaces between the two parts to get the perfect architecture over all.
+and Pascal is responsible for the architecture of our web application, which libraries are used and how we connect the different components, i.e. the architecture in detail.
+We decided to use the model with two main architects, because the project can be easily split into two areas,
+namely the web application itself and operating the interfacing systems.
+Also, these two parts require different knowledge and experience which we can best cover with two people.
+So there is one expert from each of the two areas to achieve an optimal architecture over all.
 
 \section{System Architecture according to C4 model}
 \begin{figure}[H]
@@ -31,6 +39,7 @@ and Pascal is responsible for the architecture of our web application, which lib
   \label{fig:system-context-diagram}
 \end{figure}
 
+% TODO Maybe change this image because it looks like we're using client side rendering, which we're not. The KubeWatch Backend API should probably just be called Kubewatch and there isn´t really a separation between Kubewatch and the Frontend.
 \begin{figure}[H]
   \centering
   \includegraphics[height=8cm]{resources/Container_diagram.png}
@@ -40,29 +49,26 @@ and Pascal is responsible for the architecture of our web application, which lib
 
 \pagebreak
 \section{CI/CD Pipeline Architecture}
-At each push from our project to the gitlab environment, the CI/CD pipeline runs and starts different jobs, depending on the changed files.
-
+After every commit to GitLab, the CI/CD pipeline runs and starts multiple jobs, depending on the files that changed.
 Our pipeline consists of three stages: \textit{build, test, deploy}. Each of these stages is described in more detail in the following section.
 
 \subsection{Pipeline Stages}
-\textbf{Build:} This stage is used to build the documentation pdf file. It is also used to build the docker image which is used to publish our application container image in the gitlab container registry which is needed by the deployment stage to deploy our application to the cluster.
+\textbf{Build:} This stage is used to build the docker image which is used to publish our application container image
+in the GitLab container registry which is later needed by the deployment stage.
+This stage aso generates the PDF of the documentation.
 
+\noindent
+\textbf{Test:} This stage is used to test our application.
+We automated as many tests as possible to minimize the effort needed for testing.
+In combination with our merge request workflow we can assure that the tests will always be executed
+before a feature is merged onto the main branch.
 
-\textbf{Test:} This stage is used to test our application. We automated as many tests as possible to minimize the effort on the team needed for testing. The advantage of this, is that tests can not be get forgotten. We can perform all \textit{Unit Tests} and \textit{Integration Tests} within this test stage of the ci/cd pipeline.
+\noindent
+\textbf{Deploy:} In our last pipeline stage, we deploy the newest version of our application
+to the production Kubernetes cluster located inside the INS network,
+to be able to test and view the current main version of the application in a real environment.
+Instructions on how to access the production environment can be found in the README\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/README.md}}.
 
-
-\textbf{Deploy:} In our last pipeline stage, we deploy the newest version of our application to the Kubernetes cluster located inside the INS network, to be able to present the current main version of the application.
-
-% TODO should we keep the accessing deployed applciation section? maybe move/copy it to the readme?
-\subsection{Accessing Deployed Application}
-To access current main version of KubeWatch, you need to be connected to the INS network via VPN.
-Navigate to \href{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/environments}{Deployments / Environments} in Gitlab section and click \textit{Open} to access the current main version of KubeWatch.
-
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{resources/web-application-INS.png}
-..\label{fig:deployment-environment}
-\end{figure}
 
 \section{Web App Clean Architecture}
 \begin{figure}[H]
@@ -90,23 +96,24 @@ Navigate to \href{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-
       And the implementations of the model store interfaces are stored
       in the \textit{/stores} directory. \bigskip \\
     \textbf{Framework \& Drivers:} &
-      These are the major frameworks and dependencies powering our application. \\
+      These are the major frameworks, dependencies and external services powering our application. \\
   \end{tabular*}
   \caption{Clean-Architecture layers explained}
   \label{tab:clean-architecture-layers-explained}
 \end{table}
 
 \subsection{Scaling}
+State that must outlive a page refresh or session reset, must be persisted using a model store.
+This allows the application in combination with our \hyperref[section:non-functional-requirements]{NFR Section} to be horizontally scaleable.
 
-State that should persist through a web page refresh, should be stored using a interface adapter for persistence. This allows the application in combination with our \hyperref[section:non-functional-requirements]{NFR Section} to be horizontally scaleable.
-
-\section{Wireframe}
-% TODO change the follwing sentence
-To visualise the application draft we decide to use a wireframe, because it makes a lot of sense with the web application \textit{KubeWatch} we programme in this project. So for a detailed overview, we can just click through the wireframe to get an impression.
-The complete wireframe can be found as a PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}} and HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}} in the appendix directory.
-The HTML page is interactive.
+\section{Wireframes}
+The wireframes served as a draft for the frontend of the application and can be found in the appendix directory as a
+PDF\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.pdf}}
+or an HTML page\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/wireframe_kubewatch.drawio.html}}.
+The HTML version is interactive but has to be downloaded and locally opened in the browser.
 
 \section{Class Diagram}
-The current class diagram can be easily generated with \textit{Webstorm} and is placed in the appendix folder\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/class_diagram_from_webstorm.png}}.
-For this select the relevant folders with the mouse.
-Right-click on it and select \textit{Diagrams} \textrightarrow \textit{Show Diagram}.
+The current class diagram can be automatically generated with \textit{Webstorm} and can be found in the appendix
+folder\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/blob/main/Documentation/appendix/class_diagram_from_webstorm.png}}.
+To generate a class diagram in Webstorn, first select the folder that should be inlcuded with the mouse.
+Then right-click on them and select \textit{Diagrams} \textrightarrow \textit{Show Diagram}.

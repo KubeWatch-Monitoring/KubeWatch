@@ -17,6 +17,7 @@ and be able to use it easily.
 - Pascal Lehmann
 - Petra Heeb
 
+
 ## Directories
 - src: this folder contains the entire application
 - Documentation: this folder contains the documentation
@@ -77,6 +78,14 @@ minikube start
 minikube stop
 systemctl stop docker.service
 ```
+
+
+## Accessing the production environment
+To access current release of KubeWatch on the main branch, you need to be connected to the INS network via VPN.
+Then navigate to the
+[Deployments / Environments](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/environments)
+section on GitLab and click `Open` on the `production` environment.
+![Screenshot GitLab environments](Documentation/src/resources/web-application-INS.png)
 
 
 ## SonarQube Setup
