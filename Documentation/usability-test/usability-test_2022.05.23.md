@@ -18,20 +18,20 @@ documented in this chapter.
 -   It is confusing that the charts are shown in \"Bytes\" because it
     does not make a lot of sense to show these data in bytes.
 
--   In each chart ther is another button callen \"Collapse\" but when
-    you click the button and the chart is collapsed the name of the
+-   In each chart there is another button called \"Collapse\" but when
+    you click the button and the chart are collapsed the name of the
     button should change to \"Expand\".
 
 -   It will be a lot more manageable when there is another button on
     each chart to change the chart directly without a new creation of
     the chart.
 
--   There should be auto scaling for the values in the charts.
+-   There should be auto-scaling for the values in the charts.
 
 ### List all Pods
 
 -   When the database lost the connection there should somewhere be a
-    notification for, actually only a button appear but it will be
+    notification for, actually only a button appear, but it will be
     clearer if there is also a text (maybe in red).
 
 -   Often this view shows database unavailable (why?).
@@ -51,27 +51,27 @@ documented in this chapter.
 ### Notification Overview
 
 -   At the bottom of the notification table there is a line which is a
-    little bit confusing because at the top of the table is not a line
+    little confusing because at the top of the table is not a line
     too.
 
 ### Settings
 
 -   On this side there is often the world \"Settings\". Maybe we can
-    change the name a little bit, but it will not confuse that much.
+    change the name a little, but it will not confuse that much.
 
 ### Edit Dashboard
 
 -   The oldest and newest datapoint description is not that clear, so a
     user will not understand what he needs to enter in this two fields.
 
--   For better usability it will make sense to integreate the *Edit
+-   For better usability it will make sense to integrate the *Edit
     Dashboard* page in the *Dashboard* because when you like to edit a
     chart you search on the chart page (Dashboard) and not in the
     navigation bar for this option.
 
 ### General
 
--   Make a clear navigation bar to separate them a little bit form the
+-   Make a clear navigation bar to separate them a little from the
     content of the page.
 
 -   The page headers are not always in the same size.

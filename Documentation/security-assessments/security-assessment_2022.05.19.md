@@ -45,7 +45,7 @@ network.
 
 The other analysis with Nikto returns some bad points. Our application
 need some additional web headers to make it more secure. At the other
-hand there are some vulnerabilitiey which can possible end up in a
+hand there are some vulnerabilities which can possible end up in an
 insecure direct object reference (IDOR) attack. To prevent this attack
 we need to check that only routes are available which are needed and
 return an error if another URL is used.
@@ -84,7 +84,7 @@ application:
 
 -   `X-Content-Type-Options`
 
-The `anti-clickjacking X-Frame-Options` header prevents an clickjacking
+The `anti-clickjacking X-Frame-Options` header prevents a clickjacking
 attack on server-side which is described in more detail here: [OWASP -
 Clickjacking](https://owasp.org/www-community/attacks/Clickjacking).
 
@@ -96,8 +96,8 @@ The `X-Content-Type-Options` header to avoid MIME type sniffing and is
 described in more detail here: [w3cub -
 X-Content-Type-Options](https://docs.w3cub.com/http/headers/x-content-type-options).
 
-Additionally the routes `/admin` and `/Admin` should be deleted, because
-both of them are not needed and they can maybe used as vulnerability.
+Additionally, the routes `/admin` and `/Admin` should be deleted, because
+both of them are not needed, and they might be exploited.
 
 ### Tampering attack
 
