@@ -1,49 +1,40 @@
 \chapter{Test Concept}
 
-% TODO not happy with the Test follwing two sentences
-\section{Test Concept - Software}
-To develop software with good quality it needs to be tested.
-For this project, three different types of software tests are used, because it's important to test the software on different levels.
-
-\subsection{Unit Test}
+\section{Software}
+\subsection{Unit Tests}
 The Unit Tests are done using the \textit{mocha} and \textit{chai} framework. We use \textit{mocha} and \textit{chai}, because it's the only testing framework we are familiar with as it was used in the lectures of \textit{Web Engineering and Development 2} which most of us visited.
 
-\subsection{Integration Test}
+\subsection{Integration Tests}
 The Integration Tests are also done using the \textit{mocha} and \textit{chai} framework.
 \textit{chai} is extended using the \textit{chai-http} and \textit{chai-dom} framework.
 Using \textit{chai-http} HTTP request are simulated and \textit{chai-dom} is used to make assertion about the delivered HTML page.
 
 \subsection{Usability Test}
-The usability tests are done by some students from the CldOp Module.
+The usability tests are performed by students from the CldOp Module.
 They are familiar with prometheus monitoring of Kubernetes clusters and are therefore perfectly suited to judge the application on technical usability.
 During these tests they will be asked to click through the application
 and give feedback about anything they think is bad, good or could be improved.
-The usability tests are then summarised and stored in gitlab\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/tree/main/Documentation/usability-test}}.
+The usability tests summarised on GitLab\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/tree/main/Documentation/usability-test}}.
 
-% TODO maybe improve follwing paragraph
 \subsection{Integration into Workflow}
-Before pushing any changes to the git repository all Unit and Integrations tests must be run successfully.
-On the server side, the GitLab CI/CD pipeline verifies if all test are run successful using the same tests.
-Only if CI/CD pipeline test job is successful, can the merge request be merged into the master branch.
+We're using a merge request workflow, resulting in all changes first landing in a merge request.
+There, the GitLab CI/CD pipeline runs all tests and only allows the changes to be merged into the main branch if all tests are successful.
+There is a separate running configuration in WebStorm to run the tests locally.
 
-To run all tests in the IDE a run configuration is provided.
-
-
-% TODO verify that we DRY in follwing paragraph with section 2.2 Non-Functional Requirements
-\section{Test Concept - NFR}
-We test our non-functional requirements (NFR) either with \textit{SonarQube} or manually on a regular basis. Some of the NFRs that can be tested by \textit{SonarQube} are the test coverage (NFR-1), the software security (NFR-9) and the code maintainability (NFR-10).
+\section{NFR}
+We test our non-functional requirements (NFR) either with \textit{SonarQube} or manually on a regular basis.
+Some of the NFRs that can be tested by \textit{SonarQube} are the test coverage (NFR-1),
+the software security (NFR-9) and the code maintainability (NFR-10).
 
 The rest of the NFRs that can not be checked by \textit{SonarQube} are checked every sprint meeting by one of our team members.
 The process to verify each NFR is described in the \hyperref[section:non-functional-requirements]{NFR section}.
 
-\section{Test Concept - Security}
+\section{Security}
 The security test concept is based on the \href{https://owasp.org/www-project-top-ten/}{OWASP Top 10}.
 Following all the top ten security risks are listed and how we test them.
 
 \subsection{A01 - Brocken Access Control}
 After implementing the login it is important to test our application for broken access control, like the principle of least privilege, IDOR attack (modifying URL to get access without login), or login without an account (NoSQL injection).
-
-% TODO should we keep infos like the follwing sentence in the documentation inside the Test Concept security chapter? or is it maybe already shown in the security assessments/threat model
 We don't yet have a login, so it isn't important for us at the moment.
 
 \subsection{A02 - Cryptographic Failures}
