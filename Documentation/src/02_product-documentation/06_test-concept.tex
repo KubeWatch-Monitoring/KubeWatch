@@ -14,7 +14,7 @@ The usability tests are performed by students from the CldOp Module.
 They are familiar with prometheus monitoring of Kubernetes clusters and are therefore perfectly suited to judge the application on technical usability.
 During these tests they will be asked to click through the application
 and give feedback about anything they think is bad, good or could be improved.
-The usability tests summarised on GitLab\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/tree/main/Documentation/usability-test}}.
+The usability tests are summarised on GitLab\footnote{\url{https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/tree/main/Documentation/usability-test}}.
 
 \subsection{Integration into Workflow}
 We're using a merge request workflow, resulting in all changes first landing in a merge request.
@@ -26,6 +26,7 @@ We test our non-functional requirements (NFR) either with \textit{SonarQube} or 
 Some of the NFRs that can be tested by \textit{SonarQube} are the test coverage (NFR-1),
 the software security (NFR-9) and the code maintainability (NFR-10).
 
+\noindent
 The rest of the NFRs that can not be checked by \textit{SonarQube} are checked every sprint meeting by one of our team members.
 The process to verify each NFR is described in the \hyperref[section:non-functional-requirements]{NFR section}.
 
@@ -42,7 +43,6 @@ These failures encompass risks like storing private keys unencrypted, using brok
 
 \subsection{A03 - Injection}
 Another important security risk is the injection. Some of the most common injection attacks include (No)SQL Injections, XSS (Cross-site scripting), CSRF (Cross-site Request Forgery), and ORM (Object Relation Mapping).
-
 For the \textit{KubeWatch} project, we mitigate these risks mainly by applying input validation, be it using appropriate HTML forms (like 'text' or 'email) or handlebars which convert inputs to text automatically. On the deployment side, we could implement static security application testing in the CI/CD process where an ESLint plugin performs certain checks. There are other tools like dynamic security application testing available, however, this is not available in the free tier of GitLab.
 
 \subsection{A04 - Insecure Design}
@@ -50,7 +50,6 @@ To avoid this security risk we use \textit{Sonar Qube} to test libraries and imp
 
 \subsection{A05 - Security Misconfiguration}
 This security risk includes unnecessary features, incorrect error handling, default passwords, etc.
-
 To prevent this risk, we don't implement unnecessary features and review each implementation, if the feature is needed and correctly implemented.
 
 \subsection{A06 - Vulnerable and Outdated Components}
@@ -58,20 +57,16 @@ In this section, the security risk discusses the usage of outdated and vulnerabl
 
 \subsection{A07 - Identification and Authentication Failures}
 Risks in this section can be allowing default, weak, or well-known passwords, allowing brute force attacks, bad hashing algorithms etc.
-
 This security risk was not tested as we did not yet implement the authentication in our application.
 
 \subsection{A08 - Software and Data Integrity Failures}
 This risk describes insecure data integrity by software or CI/CD pipelines.
-
 To prevent this risk we use npm for library installation, because it is a trusted repository. We review each process that is newly implemented or changed, this helps us to find such integrity failures.
 
 \subsection{A09 - Security Logging and Monitoring Failures}
 In this part security risk, the logging and monitoring failures are described. This can be no logging, no alerts, unclear log messages etc.
-
 We did not yet implement logging, but when we implement the logging we need to monitor each login try (failed logins and successful logins). It is important to check the monitoring and logging cycle during the review of the code implementation and discuss this topic after the implementation in the next team meeting.
 
 \subsection{A10 - Server-Side Request Forgery}
 With SSRF, an attacker tries to manipulate a server in a way to get access to server-internal resources, like local networks or file storage.
-
 In the KubeWatch application there are only a few fields where a user can input data. Through input validation and not allowing URL input fields, this type of attack can largely be mitigated. URLs could for example be used to access local servers through localhost URLs.
