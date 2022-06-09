@@ -1,0 +1,9 @@
+{
+    "auths": {
+        "https://registry.gitlab.ost.ch:45023":{
+            "username":"k8s",
+            "password":"vXs8_HH3pAxbQELKfozz",
+            "auth":"azhzOnZYczhfSEgzcEF4YlFFTEtmb3p6"
+    	}
+    }
+}
