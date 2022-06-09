@@ -26,9 +26,6 @@
 
 \mainmatter
 \pagenumbering{arabic}
-\part{Management Summary}
-\input{01_management-summary/management-summary}
-
 
 \part{Product Documentation}
 \input{02_product-documentation/01_vision}
@@ -39,19 +36,6 @@
 \input{02_product-documentation/06_test-concept}
 \input{02_product-documentation/07_threat-model}
 
-\part{Project Documentation}
-% Note: The project proposal needs to be included in the following way (i.e. using `\input` and not `\include`, and with the `\chapter` declaration outside the input{}-tag), since the proposal can also be generated as a stand-alone document.
-\chapter{Initial Project Proposal}
-\input{03_project-documentation/01_project-proposal}
-\input{03_project-documentation/02_project-plan}
-\input{03_project-documentation/03_risk-management}
-\input{03_project-documentation/04_time-tracking-report}
-\input{03_project-documentation/05_personal-reports}
-\input{03_project-documentation/06_meeting-minutes}
-\input{03_project-documentation/07_guidelines}
-\input{03_project-documentation/08_k8_cluster_gitlab-ost_connection}
-\input{03_project-documentation/10_local_dev_environment}
-\input{03_project-documentation/09_prometheus}
 \addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{alpha}
 \bibliography{bibliography}
