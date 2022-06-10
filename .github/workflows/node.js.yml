@@ -32,6 +32,9 @@ jobs:
       uses: irongut/CodeCoverageSummary@v1.2.0
       with:
         filename: src/coverage/cobertura-coverage.xml
+        badge: true
+        format: markdown
+        output: both
 
     
     
