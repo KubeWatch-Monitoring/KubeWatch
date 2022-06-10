@@ -1,6 +1,5 @@
 # KubeWatch
-[![pipeline status](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/badges/main/pipeline.svg)](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/commits/main)
-[![coverage report](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/badges/main/coverage.svg)](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/commits/main)
+[![pipeline status](https://github.com/KubeWatch-Monitoring/KubeWatch/actions/workflows/node.js.yml/badge.svg)](https://github.com/KubeWatch-Monitoring/KubeWatch/actions/workflows/node.js.yml)
 
 KubeWatch is a web application that can be used to monitor and visualize a Kubernetes cluster.
 Additionally, notifications are triggered if a pod goes down, which are displayed on the website
