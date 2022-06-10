@@ -28,5 +28,10 @@ jobs:
     - run: npm run build --if-present
     - run: npm test
     - run: npm run coverage | awk '/Coverage summary/{x=NR+4;next}(NR<=x){s+=$3}END{print "Code coverage :",s/4}'
+    - name: Code Coverage Summary
+      uses: irongut/CodeCoverageSummary@v1.2.0
+      with:
+        filename: src/coverage/cobertura-coverage.xml
+
     
     
