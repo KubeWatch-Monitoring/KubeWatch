@@ -32,8 +32,8 @@ Prerequisites:
 
 Run the following commands:
 ```bash
-git clone https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch.git
-cd kubewatch
+https://github.com/KubeWatch-Monitoring/KubeWatch.git
+cd KubeWatch
 kubectl apply -f src/kubernetes-manifests/Database
 kubectl apply -f src/kubernetes-manifests/prometheus
 kubectl apply -f deployment/kubernetes-manifests
@@ -77,14 +77,6 @@ minikube start
 minikube stop
 systemctl stop docker.service
 ```
-
-
-## Accessing the production environment
-To access current release of KubeWatch on the main branch, you need to be connected to the INS network via VPN.
-Then navigate to the
-[Deployments / Environments](https://gitlab.ost.ch/SEProj/2022-FS/g03-kubewatch/kubewatch/-/environments)
-section on GitLab and click `Open` on the `production` environment.
-![Screenshot GitLab environments](Documentation/src/resources/web-application-INS.png)
 
 
 ## SonarQube Setup
@@ -136,20 +128,3 @@ To use the server again use the following command to restart the docker containe
 ```
 docker restart sonarqube
 ```
-
-
-## Time Tracking Setup
-Requirements:  NodeJS, npm, python3
-1. Open terminal
-2. cd ~
-3. npm install gitlab-time-tracker
-4. Add ~/node_modules/.bin/ to PATH
-5. Generate a [personal access token](https://gitlab.ost.ch/-/profile/personal_access_tokens) with the `api` scope selected. Make sure to save it somewhere, it will only be displayed once.
-6. Run `gtt config` and enter the following information:
-```
-url: https://gitlab.ost.ch/api/v4/
-token: <insert your personal access token here>
-```
-7. Navigate to the `/Documentation` directory
-8. make time_tracking_report
-9. Navigate to `/Documentation/time_tracking`, here you can find the `report.pdf`
